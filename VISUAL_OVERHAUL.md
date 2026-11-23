@@ -35,7 +35,7 @@ Started 2026-11-23 in response to the owner's review: the gameplay prototype wor
 
 ## Phase 2: assets acquired
 
-The full machine-readable list with every file URL is `Assets/ThirdParty/polyhaven_manifest.json`. Re-download with `Tools/assets/fetch_polyhaven.py`.
+The full machine-readable lists with every file URL are `Assets/ThirdParty/polyhaven_manifest.json` and `Assets/ThirdParty/character_manifest.json`. Re-download with `Tools/assets/fetch_polyhaven.py` and `Tools/blender/character/fetch_assets.py`. Required attributions are in `CREDITS.md` and on the game's title screen.
 
 | Asset | Type | Source | Licence | Used for |
 |---|---|---|---|---|
@@ -54,6 +54,9 @@ The full machine-readable list with every file URL is `Assets/ThirdParty/polyhav
 | outdoor_table_chair_set_01 | Model | Poly Haven | CC0 | Café table set |
 | planter_box_01, utility_box_01, water_manhole_cover, street_lamp_01 | Models | Poly Haven | CC0 | Street dressing |
 | Kungsgatan map extract | Geodata | OpenStreetMap | ODbL 1.0 | Footprints, storeys, road widths, bridges |
+| Human base mesh, rig, skins, eyes, hair, system clothes | Character base | MakeHuman / MPFB2 | CC0 | Doudou and the pedestrians |
+| Hooded jacket (Elvaerwyn), jeans and shoes (punkduck), cardigans and trousers (Mindfront) | Clothing | MakeHuman community packs | CC BY (attribution in CREDITS.md) | Doudou's hoodie, jeans and sneakers; pedestrian outfits. All modified. |
+| Idle, walk, run and gesture motion | Animation | three.js r160 example character (Mixamo-origin data) | three.js MIT; Mixamo royalty-free in projects | Retargeted onto every character |
 | Stockholm facade kit (22 modules) | Modelled here in Blender | This project | Project-owned | All hero-street facades |
 
 Downloaded but not yet used: brick_wall_006, cobblestone_floor_08, grey_roof_01, street_lamp_02.
@@ -84,7 +87,24 @@ Current counts: 2,734 facade bays, 97,219 kit instances.
 
 ## Phase 4: player character
 
-In progress. A rigged MakeHuman-based Doudou (lavender hoodie, jeans, white sneakers) with retargeted locomotion clips is being built in headless Blender. **Until that lands, the character in the game is still the procedural stand-in**, and this phase is not done.
+**Done in the browser build and verified in rendered frames of the running game.** Not done: turn-in-place clips, a facial rig, and the story NPCs (see below).
+
+- **Doudou.** A rigged human built in headless Blender (`Tools/blender/build_character.py`) on the MakeHuman base: 1.82 m, lavender OctOpus hoodie (#9B87B8) with chest logo and pocket, washed-blue jeans, white sneakers. 52-joint skeleton, 49,202 triangles, textures up to 1024 px, 3.5 MB.
+- **Animation.** Seven clips at 30 fps, all looping cleanly in place: Idle, Walk, Run, Talk, Interact, Agree, HeadShake. Idle, Walk, Run, Agree and HeadShake are retargeted motion capture; Talk and Interact are hand-keyed.
+- **In the game.** The character is driven by a small state machine with cross-fades: Idle below 0.15 m/s, Walk up to 2.4 m/s, Run above that, with playback speed matched to ground speed. Talk plays while Doudou speaks in dialogue, and Interact plays when the player uses something. Turning is a smoothed heading change with a lean into the turn.
+- **Camera.** Closer over-the-shoulder framing (3.9 m, offset 0.55 m), and the camera now pulls in instead of passing through walls.
+- **Pedestrians.** Four rigged variants (a man in his 50s, a woman around 30, a woman in her 60s, a man in his 20s) at about 30,000 triangles each, with clothing tints for variety. 30 walk the streets; those beyond 150 m are not drawn or animated.
+
+**Shortfalls, stated plainly:**
+- There are no turn-in-place clips; the turn is procedural.
+- The face is a generic MakeHuman face with a neutral expression, not a likeness of the reference art, and it has no facial rig, so lips do not move in dialogue.
+- The hoodie reads slightly puffy and has no ribbed cuffs. The hair is a textured shell, not strands.
+- Talk and Interact are serviceable keys, not motion capture, and the fingers do not articulate.
+- One pedestrian's trouser leg clips her long coat on forward swings; another's shoe dips about 2 cm into the ground while walking.
+- The pedestrians wear jackets, cardigans and knitwear, because no winter coat or hat assets with a usable licence were found.
+- **Story NPCs (Noor, Sami and the others) are still the old procedural figures.** Dedicated rigged versions are being built with the same pipeline.
+
+Blender QA renders of every character are in `docs/character_renders/`.
 
 ## Phase 5: lighting
 
@@ -94,7 +114,11 @@ In progress. A rigged MakeHuman-based Doudou (lavender hoodie, jeans, white snea
 - Per-window interior lighting: about a third of windows are lit, in varied warm and cool tones.
 - Pooled street-lamp lights, emissive shop interiors and signs, bloom, ACES tone mapping.
 
-Not done yet: ambient occlusion, screen-space reflections on wet asphalt, volumetric fog.
+- Ambient occlusion computed from the depth buffer (12 samples within about 0.6 m), skipped on lit windows and lamps.
+- A soft fill light on the camera side of the player, standing in for bounce light, so the face reads in shade and at night.
+- A High/Low graphics switch in the top bar. Low turns off sun shadows and ambient occlusion and draws pedestrians only within 70 m. If the first seconds of play run below about 24 fps and the player has not chosen, the game drops to Low by itself.
+
+Not done yet: screen-space reflections on wet asphalt, volumetric fog.
 
 ## Phase 6: evidence
 
@@ -104,6 +128,7 @@ Before/after pairs from the same camera, in `docs/visual_overhaul/`:
 - `B_kungsgatan_day_before_after.jpg`
 - `C_kungsgatan_night_before_after.jpg`
 - `D_shopfront_dusk_before_after.jpg`
+- `E_doudou_dusk_before_after.jpg`, `F_doudou_day_before_after.jpg`, `G_doudou_night_before_after.jpg`: the same three street cameras with the player and pedestrians in frame, old figures against rigged characters.
 
 Facade kit QA renders (Blender Cycles) were inspected during the build.
 
@@ -111,27 +136,29 @@ Facade kit QA renders (Blender Cycles) were inspected during the build.
 
 | Metric | Value |
 |---|---|
-| Draw calls per frame at the hero street | 553 |
-| Triangles per frame, including the shadow pass | ~3.7 million |
-| Page load | ~9 s |
-| Frame time in software WebGL | ~2.7 s (not representative of any GPU) |
+| Draw calls per frame at the hero street | 524 |
+| Triangles per frame, including the shadow pass and characters | ~3.75 million |
+| Page load | ~14 s (the five character models add about 18 MB) |
+| Frame time in software WebGL | 1.2–3.1 s depending on machine load (not representative of any GPU) |
 
-**GPU frame rate has not been measured.** 3.7 million triangles is fine for a discrete GPU and likely too heavy for integrated graphics. A quality switch (no shadow pass, fewer detail parts) is the first optimisation to add.
+**GPU frame rate has not been measured.** 3.75 million triangles is fine for a discrete GPU and likely too heavy for integrated graphics, which is what the Low setting and its automatic fallback are for. The fallback logic has not been exercised on real hardware.
 
 ## Honest status
 
-The street is a clear step up, with real architecture, materials and street furniture on real geography. It is not GTA-quality:
+The street now has real architecture, materials and street furniture on real geography, with a rigged, animated player and pedestrians. It is a clear step up from the prototype. It is not GTA-quality:
 
-- The character is unfinished and the cars are blockouts.
+- The cars are still blockouts. Modelled replacements are in progress.
+- The story NPCs are still procedural figures. Rigged replacements are in progress.
+- The character has no facial animation and no turn-in-place clips.
 - The facade kit is one modeller-day of work rather than a commercial kit.
-- There is no ambient occlusion or reflections.
+- There are no reflections on wet asphalt, no bicycles, no winter trees and no bus shelters.
 - Nothing has run on a GPU.
 - Only this one area is rebuilt; the rest of the city is still the stylized blockout.
 
 ## Next steps, in order
 
-1. Finish and integrate the rigged character; replace pedestrians with animated variants.
-2. Cars: obtain licensed vehicle models (the Unreal workstation can pull them from Fab), or model a proper sedan in Blender.
-3. Ambient occlusion, wet-road reflections, a quality switch, and GPU profiling on real hardware.
+1. Integrate the modelled cars and bicycle, and the rigged story NPCs, when their builds finish.
+2. GPU profiling on real hardware; tune the Low setting from measurements.
+3. Wet-road reflections; winter trees and bus shelters.
 4. Extend the same pipeline to Stureplan, then Gamla Stan (new kit style: narrow 1700s fronts).
-5. Port the kit and placement to Unreal (the FBX kit is already exported to `Stockholm/Content/Import/FacadeKit`).
+5. Port the kit, characters and placement to Unreal (the FBX kit is already exported to `Stockholm/Content/Import/FacadeKit`).

@@ -30,6 +30,8 @@ PACKS = {  # directory name -> url
     'shoes02_ccby': f'{BASE}/shoes02/shoes02_ccby.zip',
     'shoes03_ccby': f'{BASE}/shoes03/shoes03_ccby.zip',
     'gloves01_cc0': f'{BASE}/gloves01/gloves01_cc0.zip',
+    'suits01_cc0': f'{BASE}/suits01/suits01_cc0.zip',          # story NPCs
+    'hair01_cc0': f'{BASE}/hair01/hair01_cc0.zip',
 }
 XBOT = 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/models/gltf/Xbot.glb'
 EXT_API = 'https://extensions.blender.org/api/v1/extensions/'

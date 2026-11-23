@@ -45,6 +45,19 @@ def patch_glb(path, alpha_modes):
             m['alphaMode'] = 'BLEND'
         elif mode == 'OPAQUE':
             m.pop('alphaMode', None); m.pop('alphaCutoff', None)
+    # clips: keep rotations for every joint but translation only on the root joint (Hips) and no scale tracks,
+    # so clips stay proportion-independent and can be shared / cross-faded freely in three.js
+    names = [n.get('name') for n in js['nodes']]
+    for a in js.get('animations', []):
+        keep = [c for c in a['channels'] if c['target']['path'] == 'rotation' or
+                (c['target']['path'] == 'translation' and names[c['target']['node']] == 'Hips')]
+        used = sorted({c['sampler'] for c in keep}); remap = {o: i for i, o in enumerate(used)}
+        a['samplers'] = [a['samplers'][i] for i in used]
+        for c in keep:
+            c['sampler'] = remap[c['sampler']]
+        a['channels'] = keep
+    if 'extensionsUsed' in js and not js['extensionsUsed']:
+        del js['extensionsUsed']
     js.setdefault('asset', {})['copyright'] = 'STOCKHOLM character build - see Assets/ThirdParty/character_manifest.json'
     out = json.dumps(js, separators=(',', ':')).encode('utf-8')
     out += b' ' * ((4 - len(out) % 4) % 4)

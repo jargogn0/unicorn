@@ -193,6 +193,7 @@ button:focus-visible { outline: 2px solid var(--warm); outline-offset: 2px; }
   <button id="btn-phone" type="button">Phone · Tab</button>
   <button id="btn-map" type="button">Founder Map · M</button>
   <button id="btn-sound" type="button">Sound on</button>
+  <button id="btn-gfx" type="button">Graphics: High</button>
 </div>
 <div class="hud panel" id="prompt" hidden></div>
 <div class="hud" id="toasts" aria-live="polite"></div>
@@ -254,7 +255,8 @@ button:focus-visible { outline: 2px solid var(--warm); outline-offset: 2px; }
     <div id="title-notes">
       <div class="panel"><h4>Controls</h4>WASD move · Mouse look (click to lock) · Shift sprint · E interact · F enter or leave car · Tab phone · M Founder Map · 1-4 choose · Q decisions · F5 save</div>
       <div class="panel"><h4>Browser preview</h4>A playable slice of the STOCKHOLM project running the real Chapter 1 missions and dialogue. The full game is built in Unreal Engine 5. This preview is not.</div>
-      <div class="panel"><h4>About the city</h4>The islands, bridges and landmarks are hand-placed, stylized approximations of central Stockholm, not survey data. The businesses and characters are fictional. Founder Map entries come from sourced research (Nov 2026).</div>
+      <div class="panel"><h4>About the city</h4>Kungsgatan is built from OpenStreetMap data. The rest of the city is a hand-placed, stylized approximation of central Stockholm. The businesses and characters are fictional. Founder Map entries come from sourced research (Nov 2026).</div>
+      <div class="panel"><h4>Credits</h4>Map data © OpenStreetMap contributors (ODbL). Materials, skies and props: Poly Haven (CC0). Characters: MakeHuman / MPFB (CC0), with clothing by Elvaerwyn, punkduck and Mindfront (CC BY), modified. Motion retargeted from the three.js example character.</div>
     </div>
     <div id="loading">Loading data…</div>
   </div>
@@ -285,6 +287,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
 
 const $ = (id) => document.getElementById(id);
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
@@ -675,7 +678,10 @@ const gltf = new GLTFLoader();
 // Models are published base64-wrapped in JSON (the host serves .json but not .glb) and parsed from memory.
 const loadGlbFull = async (url) => { try { const r = await fetch(url + '.json'); if (!r.ok) return null; const { b64 } = await r.json(); const bin = atob(b64); const buf = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i); return await new Promise((res) => gltf.parse(buf.buffer, '', (g) => res(g), () => res(null))); } catch { return null; } };
 const loadGlb = async (url) => (await loadGlbFull(url))?.scene ?? null;
-const [STUDIO_GLB, SEDAN_GLB] = await Promise.all([loadGlb('INT_Founder_Studio_Blockout.glb'), loadGlb('VEH_Scandinavian_Sedan_Blockout.glb')]);
+// Rigged characters (MakeHuman base, built by Tools/blender/build_character.py). DATA.characters lists the ones that exist.
+const CHAR = {};
+const [STUDIO_GLB, SEDAN_GLB] = await Promise.all([loadGlb('INT_Founder_Studio_Blockout.glb'), loadGlb('VEH_Scandinavian_Sedan_Blockout.glb'),
+  ...(DATA.characters || []).map(async (n) => { const g = await loadGlbFull(`assets/characters/${n}.glb`); if (g && g.animations.length) CHAR[n] = g; })]);
 function zUpFix(obj) { obj.rotation.x = -Math.PI / 2; const holder = new THREE.Group(); holder.add(obj); return holder; }
 const sim = new Sim(DATA);
 const LAYOUT = DATA.layout;
@@ -719,10 +725,28 @@ const PR = renderer.getPixelRatio();
 const sceneRT = new THREE.WebGLRenderTarget(innerWidth * PR, innerHeight * PR, { type: THREE.HalfFloatType });
 sceneRT.depthTexture = new THREE.DepthTexture(innerWidth * PR, innerHeight * PR); sceneRT.depthTexture.type = THREE.UnsignedIntType;
 const InkShader = {
-  uniforms: { tScene: { value: null }, tDepth: { value: null }, resolution: { value: new THREE.Vector2() }, near: { value: 0.2 }, far: { value: 6000 }, ink: { value: new THREE.Color(0x0d0b12) }, strength: { value: 0.9 }, saturation: { value: 1.18 }, thickness: { value: 1.0 } },
+  uniforms: { tScene: { value: null }, tDepth: { value: null }, resolution: { value: new THREE.Vector2() }, near: { value: 0.2 }, far: { value: 6000 }, ink: { value: new THREE.Color(0x0d0b12) }, strength: { value: 0.9 }, saturation: { value: 1.18 }, thickness: { value: 1.0 }, aoStrength: { value: 1.0 }, proj: { value: new THREE.Vector2(1, 1) } },
   vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
-  fragmentShader: `uniform sampler2D tScene; uniform sampler2D tDepth; uniform vec2 resolution; uniform float near; uniform float far; uniform vec3 ink; uniform float strength; uniform float saturation; uniform float thickness; varying vec2 vUv;
+  fragmentShader: `uniform sampler2D tScene; uniform sampler2D tDepth; uniform vec2 resolution; uniform float near; uniform float far; uniform vec3 ink; uniform float strength; uniform float saturation; uniform float thickness; uniform float aoStrength; uniform vec2 proj; varying vec2 vUv;
     float lin(vec2 uv){ float d = texture2D(tDepth, uv).x; float z = d * 2.0 - 1.0; return (2.0 * near * far) / (far + near - z * (far - near)); }
+    // Ambient occlusion from the depth buffer alone: view-space positions are rebuilt from depth, the normal comes from
+    // their screen-space derivatives, and 12 spiral samples within ~0.6 m measure how much nearby geometry rises above the surface.
+    vec3 vpos(vec2 uv, float z){ return vec3((uv * 2.0 - 1.0) * proj * z, -z); }
+    float ambientOcclusion(vec2 uv, float c){
+      if (aoStrength <= 0.0 || c > 110.0) return 1.0;
+      vec3 p = vpos(uv, c); vec3 n = normalize(cross(dFdx(p), dFdy(p)));
+      float rad = 0.6 / (c * proj.y) * 0.5; rad = min(rad, 0.08);
+      float a0 = fract(52.9829189 * fract(dot(gl_FragCoord.xy, vec2(0.06711056, 0.00583715)))) * 6.2831853;
+      float occ = 0.0;
+      for (int i = 0; i < 12; i++) {
+        float t = (float(i) + 0.5) / 12.0; float a = a0 + float(i) * 2.3999632;
+        vec2 o = vec2(cos(a) * resolution.y / resolution.x, sin(a)) * sqrt(t) * rad;
+        vec2 q = uv + o; vec3 s = vpos(q, lin(q)); vec3 v = s - p; float d2 = dot(v, v);
+        occ += max(dot(n, v) / sqrt(d2 + 1e-5) - 0.15, 0.0) / (1.0 + d2 * 4.0);
+      }
+      float ao = clamp(1.0 - occ / 12.0 * 2.6 * aoStrength, 0.0, 1.0);
+      return mix(ao, 1.0, smoothstep(60.0, 110.0, c));
+    }
     void main(){
       vec2 px = thickness / resolution;
       float c = lin(vUv);
@@ -735,6 +759,7 @@ const InkShader = {
       edge *= 1.0 - smoothstep(180.0, 900.0, c);
       vec4 col = texture2D(tScene, vUv);
       float l = dot(col.rgb, vec3(0.2126, 0.7152, 0.0722));
+      col.rgb *= mix(ambientOcclusion(vUv, c), 1.0, smoothstep(0.5, 1.6, l)); // lit windows, lamps and signs are not occluded
       col.rgb = max(mix(vec3(l), col.rgb, saturation), 0.0);
       col.rgb = mix(col.rgb, ink, edge * strength);
       gl_FragColor = col;
@@ -749,7 +774,13 @@ composer.addPass(inkPass);
 const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 0.38, 0.5, 0.9);
 composer.addPass(bloom);
 composer.addPass(new OutputPass());
-function renderFrame() { renderer.setRenderTarget(sceneRT); renderer.render(scene, camera); renderer.setRenderTarget(null); composer.render(); }
+// Graphics quality. High: sun shadows, ambient occlusion, pedestrians out to 150 m. Low: none of the first two, pedestrians to 70 m.
+// The choice is remembered; if nothing was chosen and the first seconds of play run slowly, the game drops to Low by itself.
+const gfx = { level: 'high', chosen: false, n: 0, acc: 0, last: 0 };
+try { const v = localStorage.getItem('stockholm.gfx'); if (v === 'high' || v === 'low') { gfx.level = v; gfx.chosen = true; } } catch { /* storage unavailable */ }
+function applyGfx() { inkPass.uniforms.aoStrength.value = gfx.level === 'high' ? 1 : 0; const b = document.getElementById('btn-gfx'); if (b) b.textContent = `Graphics: ${gfx.level === 'high' ? 'High' : 'Low'}`; }
+function setGfx(level, byUser) { gfx.level = level; if (byUser) { gfx.chosen = true; try { localStorage.setItem('stockholm.gfx', level); } catch { /* storage unavailable */ } } applyGfx(); }
+function renderFrame() { inkPass.uniforms.proj.value.set(Math.tan(camera.fov * Math.PI / 360) * camera.aspect, Math.tan(camera.fov * Math.PI / 360)); renderer.setRenderTarget(sceneRT); renderer.render(scene, camera); renderer.setRenderTarget(null); composer.render(); }
 // 3-band cel ramp shared by all stylized materials.
 const TOON_RAMP = (() => { const t = new THREE.DataTexture(new Uint8Array([120, 120, 120, 255, 190, 190, 190, 255, 255, 255, 255, 255]), 3, 1, THREE.RGBAFormat); t.minFilter = t.magFilter = THREE.NearestFilter; t.needsUpdate = true; return t; })();
 function toon(params) { if (!INK) return new THREE.MeshStandardMaterial({ roughness: 0.85, metalness: 0, ...params }); const p = { ...params }; delete p.roughness; delete p.metalness; delete p.side; return new THREE.MeshToonMaterial({ gradientMap: TOON_RAMP, ...p }); }
@@ -1227,6 +1258,7 @@ for (const s of segs) {
   poles.castShadow = true; scene.add(poles, heads, pools);
   lmMats.lampHeads = heads.material; lmMats.lampPools = poolMat;
 }
+const charFill = new THREE.PointLight(0xffe6cc, 0, 7, 1.6); scene.add(charFill);
 const lampLights = []; for (let i = 0; i < (IS_TOUCH ? 10 : 20); i++) { const p = new THREE.PointLight(0xffc27a, 0, 28, 1.7); scene.add(p); lampLights.push(p); }
 
 // Trees in Kungsträdgården and Mariatorget, with winter fairy lights
@@ -1604,6 +1636,52 @@ class Person {
   }
   place(x, y, yaw) { this.root.position.set(x, surfaceAt(x, y), -y); this.root.rotation.y = yaw; }
 }
+// A rigged, skinned character driven by animation clips (Idle, Walk, Run, Talk, Interact, Agree, HeadShake).
+// Same interface as Person, so the game code does not care which one it holds.
+const CLOTH_RE = /_(suit|coat|sweater|cardigan|pants|scarf|hat|hoodie|jacket|parka|jeans)$/;
+class RigPerson {
+  constructor(kind, opts = {}) {
+    const src = CHAR[kind]; this.kind = kind;
+    const g = this.root = new THREE.Group(); const m = this.model = SkeletonUtils.clone(src.scene);
+    m.rotation.y = Math.PI; m.scale.setScalar(opts.scale ?? 1);
+    m.traverse((o) => {
+      if (!o.isMesh) return; o.castShadow = true; if (opts.noCull) o.frustumCulled = false; o.material.envMapIntensity = 1.5;
+      const tint = opts.tint && opts.tint[(o.material.name.match(CLOTH_RE) || [])[1]];
+      if (tint) { o.material = o.material.clone(); o.material.color.multiply(new THREE.Color(tint)); }
+    });
+    g.add(m); scene.add(g);
+    this.mixer = new THREE.AnimationMixer(m); this.act = {};
+    for (const c of src.animations) this.act[c.name] = this.mixer.clipAction(c);
+    for (const n of ['Interact', 'Agree', 'HeadShake']) if (this.act[n]) { this.act[n].setLoop(THREE.LoopOnce, 1); this.act[n].clampWhenFinished = true; }
+    this.cur = null; this.state = ''; this.talk = 0; this.once = null; this.onceT = 0; this.lean = 0; this.lastYaw = null;
+    this.walkRef = opts.walkRef ?? 1.45; this.runRef = opts.runRef ?? 4.4;
+    this.play('Idle', 0); this.mixer.update(Math.random() * 2);
+  }
+  play(name, fade = 0.25) {
+    const a = this.act[name]; if (!a || this.cur === a) return a || this.cur;
+    a.reset(); a.enabled = true; a.setEffectiveTimeScale(1); a.setEffectiveWeight(1);
+    if (this.cur && fade > 0) a.crossFadeFrom(this.cur, fade, false); else if (this.cur) this.cur.stop();
+    a.play(); this.cur = a; this.state = name; return a;
+  }
+  gesture(name) { const a = this.act[name]; if (!a) return; this.once = name; this.onceT = a.getClip().duration; this.cur = this.cur === a ? null : this.cur; this.play(name, 0.15); }
+  animate(dt, speed) {
+    if (this.once) { this.onceT -= dt; if (this.onceT <= 0.15 || speed > 0.4) this.once = null; }
+    if (this.talk > 0) this.talk -= dt;
+    const want = this.once || (speed > 2.4 ? 'Run' : speed > 0.15 ? 'Walk' : (this.talk > 0 ? 'Talk' : 'Idle'));
+    const a = this.play(want, want === 'Run' || this.state === 'Run' ? 0.2 : 0.28);
+    if (want === 'Walk') a.timeScale = clamp(speed / this.walkRef, 0.6, 1.7); else if (want === 'Run') a.timeScale = clamp(speed / this.runRef, 0.75, 1.5);
+    // Lean into turns while moving.
+    const yaw = this.root.rotation.y;
+    if (this.lastYaw !== null && dt > 0) { let d = yaw - this.lastYaw; while (d > Math.PI) d -= Math.PI * 2; while (d < -Math.PI) d += Math.PI * 2; this.lean = lerp(this.lean, clamp(-d / dt * 0.035 * Math.min(1, speed / 4), -0.2, 0.2), 1 - Math.exp(-dt * 8)); this.model.rotation.z = this.lean; }
+    this.lastYaw = yaw;
+    this.mixer.update(dt);
+  }
+  place(x, y, yaw) { this.root.position.set(x, surfaceAt(x, y), -y); this.root.rotation.y = yaw; }
+}
+const PED_KINDS = Object.keys(CHAR).filter((k) => k.startsWith('pedestrian_'));
+const PED_TINTS = [null, { coat: 0x9aa4b8, suit: 0x8f97a6, sweater: 0xb9a48c, cardigan: 0xa9b6c4, scarf: 0x8fb0a0 }, { coat: 0xc9a98c, suit: 0xb7a08a, sweater: 0x8fa3bd, cardigan: 0xd0b7a6, pants: 0xa0a0a8, hat: 0x9fb6d0 }, { coat: 0x7f8894, suit: 0x6f7c8c, sweater: 0xc7b3a0, cardigan: 0xb8c7b0, scarf: 0xd9c08a, hat: 0xd08f7a }];
+let pedSeq = 0;
+function makePedestrian() { if (!PED_KINDS.length) return new Person(); const i = pedSeq++; return new RigPerson(PED_KINDS[i % PED_KINDS.length], { scale: 0.96 + Math.random() * 0.07, tint: PED_TINTS[Math.floor(i / PED_KINDS.length) % PED_TINTS.length] }); }
 function makeCar(color, opts = {}) {
   const g = new THREE.Group(); const body = toon({ color });
   const lower = new THREE.Mesh(new THREE.BoxGeometry(1.85, 0.75, 4.7), body); lower.position.y = 0.65; g.add(lower);
@@ -1621,7 +1699,7 @@ function makeCar(color, opts = {}) {
 // ---- Player
 const player = { x: 0, y: 0, yaw: 0, vy: 0, h: 0, speed: 0, inCar: false, indoors: false, sprint: false };
 // Doudou BA, founder of OctOpus (owner's art pack: 182 cm, hoodie #9B87B8): lavender OctOpus hoodie, light-wash jeans, dark brown boots, backpack, headphones.
-const avatar = new Person({ hoodie: true, backpack: true, headphones: true, coat: 0x9b87b8, skin: 0x5a3824, beanie: false, shortHair: true, hairColor: 0x120c08, legs: 0x7d9cc4, shoes: 0x3a2416, scale: 1.04 });
+const avatar = CHAR.doudou ? new RigPerson('doudou', { noCull: true }) : new Person({ hoodie: true, backpack: true, headphones: true, coat: 0x9b87b8, skin: 0x5a3824, beanie: false, shortHair: true, hairColor: 0x120c08, legs: 0x7d9cc4, shoes: 0x3a2416, scale: 1.04 });
 // ---- Sami's Volvo
 const volvoSpot = (() => { const l = sim.L['sami_car_spot']; const rp = nearestRoadPoint(l.x, l.y, true); const nx = -Math.sin(rp.dir), ny = Math.cos(rp.dir); const side = ((l.x - rp.x) * nx + (l.y - rp.y) * ny) >= 0 ? 1 : -1; return { x: rp.x + nx * (rp.s.w / 2 - 1.3) * side, y: rp.y + ny * (rp.s.w / 2 - 1.3) * side, yaw: rp.dir }; })();
 const volvo = { ...makeCar(0x5c6a5a, { estate: true }), x: volvoSpot.x, y: volvoSpot.y, heading: volvoSpot.yaw, speed: 0, steer: 0, lat: 0 };
@@ -1689,12 +1767,12 @@ for (let i = 0; i < 18; i++) {
 }
 // ---- Pedestrians
 const walkers = [];
-for (let i = 0; i < 30; i++) { const ids = Object.keys(NODES); const a = ids[Math.floor(Math.random() * ids.length)]; const es = graph[a] || []; if (!es.length) continue; const p = new Person(); walkers.push({ p, a, b: es[Math.floor(Math.random() * es.length)].to, t: Math.random(), side: Math.random() < 0.5 ? 1 : -1, speed: 1.1 + Math.random() * 0.5, x: 0, y: 0 }); }
+for (let i = 0; i < 30; i++) { const ids = Object.keys(NODES); const a = ids[Math.floor(Math.random() * ids.length)]; const es = graph[a] || []; if (!es.length) continue; const p = makePedestrian(); walkers.push({ p, a, b: es[Math.floor(Math.random() * es.length)].to, t: Math.random(), side: Math.random() < 0.5 ? 1 : -1, speed: 1.1 + Math.random() * 0.5, x: 0, y: 0 }); }
 // ---- Story NPCs
 const npcActors = {};
 const NPC_LOOK = { noor: { coat: 0x9c5a3c, skin: 0xc68d68, hat: 0x3a2a20, scarf: 0xe2d2b4 }, sami: { coat: 0x3f5f86, skin: 0x5e3b29, hat: 0x1d2530 }, aditi: { coat: 0xc4914f, skin: 0xa86f4c, hat: 0x2a1f18, scarf: 0x8a3443 }, elin: { coat: 0x5b6470, skin: 0xf1c7a5, hat: 0xcdb08c }, mateo: { coat: 0x6f7f4c, skin: 0xd9a07a, hat: 0x2b2b2b }, helena: { coat: 0x8a8f96, skin: 0xe6b48f, hat: 0xd9d9d9 } };
 const NPC_HAIR = { noor: 0x1b1410, sami: 0x111111, aditi: 0x1b1410, elin: 0xd8c08a, mateo: 0x3a2617, helena: 0xbdbdbd };
-for (const id in NPC_LOOK) { const p = new Person({ ...NPC_LOOK[id], hairColor: NPC_HAIR[id], beanie: id === 'sami' || id === 'mateo', legs: 0x1a1d22, scale: id === 'sami' ? 1.06 : (id === 'aditi' ? 0.95 : 1) }); p.root.visible = false; npcActors[id] = { p, id, x: 0, y: 0, yaw: 0, at: '' }; }
+for (const id in NPC_LOOK) { const p = CHAR['npc_' + id] ? new RigPerson('npc_' + id) : new Person({ ...NPC_LOOK[id], hairColor: NPC_HAIR[id], beanie: id === 'sami' || id === 'mateo', legs: 0x1a1d22, scale: id === 'sami' ? 1.06 : (id === 'aditi' ? 0.95 : 1) }); p.root.visible = false; npcActors[id] = { p, id, x: 0, y: 0, yaw: 0, at: '' }; }
 function spotForLocation(locId, npcId) {
   const v = VENUES[locId]; if (v) { const base = npcId === 'mateo' || npcId === 'helena' ? v.table : v.counter; return { ...base, yaw: v.faceYaw }; }
   if (locId === 'sami_car_spot') return { x: volvo.x + Math.cos(volvo.heading + Math.PI / 2) * 1.6, y: volvo.y + Math.sin(volvo.heading + Math.PI / 2) * 1.6, yaw: 0 };
@@ -1787,7 +1865,7 @@ const particles = new THREE.Points(pGeo, pMat); particles.frustumCulled = false;
 // ============================================================================
 // Input
 // ============================================================================
-const keys = new Set(); let mouseDX = 0, mouseDY = 0; let camYaw = 0, camPitch = 0.28;
+const keys = new Set(); let mouseDX = 0, mouseDY = 0; let camYaw = 0, camPitch = 0.16;
 const touchMove = { x: 0, y: 0 };
 addEventListener('keydown', (e) => { if (e.repeat && !['KeyW', 'KeyA', 'KeyS', 'KeyD'].includes(e.code)) return; keys.add(e.code); onKey(e); });
 addEventListener('keyup', (e) => keys.delete(e.code));
@@ -2081,7 +2159,7 @@ function nearestInteractable() {
   list.sort((a, b) => a.d - b.d); return list[0] || null;
 }
 function objectiveIs(type, target) { const ob = currentObjective(); return !!ob && ob.o.type === type && (target == null || ob.o.target === target); }
-function interact() { if (uiBlocking()) return; const it = nearestInteractable(); if (it) { it.act(); blip(500); } }
+function interact() { if (uiBlocking()) return; const it = nearestInteractable(); if (it) { it.act(); blip(500); if (avatar.gesture && !player.inCar) avatar.gesture('Interact'); } }
 function sleepUntilMorning() { fadeTo(() => { const h = sim.hour(); let mins = (7.5 - h) * 60; if (mins <= 60) mins += 1440; sim.sleep(mins / 60); toast('Morning', `${sim.dateLabel()}, ${sim.timeLabel()}`); }, 900); }
 function toggleCar(force) {
   if (player.inCar) {
@@ -2128,6 +2206,7 @@ function initAudio() {
   } catch { audio = null; }
 }
 function blip(freq, vol = 0.05) { if (!audio || !soundOn) return; const o = audio.ctx.createOscillator(), g = audio.ctx.createGain(); o.frequency.value = freq; g.gain.value = vol; g.gain.exponentialRampToValueAtTime(0.0001, audio.ctx.currentTime + 0.18); o.connect(g).connect(audio.ctx.destination); o.start(); o.stop(audio.ctx.currentTime + 0.2); }
+$('btn-gfx').onclick = () => setGfx(gfx.level === 'high' ? 'low' : 'high', true); applyGfx();
 $('btn-sound').onclick = () => { soundOn = !soundOn; $('btn-sound').textContent = soundOn ? 'Sound on' : 'Sound off'; if (audio) audio.ctx[soundOn ? 'resume' : 'suspend'](); };
 
 // ============================================================================
@@ -2278,7 +2357,7 @@ function updateWalkers(dt) {
     const e = (graph[w.a] || []).find((q) => q.to === w.b); const off = e ? (DRIVABLE(e.cls) ? CLASS_W[e.cls] / 2 + 1.6 : 1.2) : 1.5;
     let x = lerp(A[0], B[0], w.t) + Math.cos(dir + Math.PI / 2) * off * w.side, y = lerp(A[1], B[1], w.t) + Math.sin(dir + Math.PI / 2) * off * w.side;
     const c = collide(x, y, 0.35); if (c) { x = c.x; y = c.y; }
-    w.x = x; w.y = y; w.p.root.position.set(x, surfaceAt(x, y), -y); w.p.root.rotation.y = dir - Math.PI / 2; w.p.animate(dt, w.speed);
+    w.x = x; w.y = y; const near = Math.hypot(x - camera.position.x, -y - camera.position.z) < (gfx.level === 'high' ? 150 : 70); w.p.root.visible = near; w.p.root.position.set(x, surfaceAt(x, y), -y); w.p.root.rotation.y = dir - Math.PI / 2; if (near) w.p.animate(dt, w.speed);
     if (Math.hypot(x - player.x, y - player.y) > 300 && !player.indoors) { const near = ids.filter((id) => { const d = Math.hypot(NODES[id][0] - player.x, NODES[id][1] - player.y); return d > 60 && d < 220 && (graph[id] || []).length; }); if (near.length) { w.a = near[Math.floor(Math.random() * near.length)]; w.b = graph[w.a][0].to; w.t = Math.random(); } }
   }
 }
@@ -2293,7 +2372,7 @@ function updateAtmosphere(dt) {
   sunLight.position.copy(focus).addScaledVector(sunVec, 400); sunLight.target.position.copy(focus);
   sunLight.intensity = Math.max(0, el > -2 ? lerp(0.3, 4.6, smooth(-2, 14, el)) * lerp(1, 0.5, w.cloud) : 0);
   sunLight.color.setHSL(0.08, 0.8, lerp(0.55, 0.85, smooth(0, 25, el)));
-  sunLight.castShadow = el > 0;
+  sunLight.castShadow = el > 0 && gfx.level === 'high';
   moonLight.position.copy(focus).add(new THREE.Vector3(-150, 300, 120)); moonLight.target.position.copy(focus); moonLight.intensity = night * 0.35;
   hemi.intensity = lerp(0.45, 1.25, day) * lerp(1, 1.15, w.cloud);
   hemi.color.setHSL(lerp(0.62, 0.58, day), lerp(0.45, 0.25, day), lerp(0.35, 0.72, day));
@@ -2306,6 +2385,8 @@ function updateAtmosphere(dt) {
   if (hero.ready) { const M = hero.mats; M.glass.emissiveIntensity = lit * 0.95; M.interiors.forEach((m) => m.color.setScalar(lerp(0.5, 1.5, lit))); M.signs.forEach((m) => (m.emissiveIntensity = lerp(0.12, 1.5, lit))); M.lens.color.setRGB(lerp(0.3, 1, lit), lerp(0.28, 0.88, lit), lerp(0.25, 0.7, lit)); M.bulbs.color.setRGB(lerp(0.35, 1, lit), lerp(0.3, 0.78, lit), lerp(0.2, 0.46, lit)); M.lamp_glow.color.setRGB(lerp(0.4, 1, lit), lerp(0.35, 0.85, lit), lerp(0.3, 0.62, lit)); M.shop_floor.emissiveIntensity = lerp(0.3, 1.2, lit); M.shop_side.emissiveIntensity = lerp(0.25, 1.0, lit); }
   venueLights.forEach((l) => { l.intensity = 40 * (player.indoors ? 0 : 1); });
   headlight.intensity = player.inCar ? lerp(0, 700, lit) : 0;
+  // Soft fill on the camera side of the player, standing in for bounce light off snow and shop windows, so the face reads in shade and at night.
+  if (!player.inCar && !player.indoors) { const ax = avatar.root.position; tmpV.set(camera.position.x - ax.x, 0, camera.position.z - ax.z).normalize(); charFill.position.set(ax.x + tmpV.x * 1.7, ax.y + 1.95, ax.z + tmpV.z * 1.7); charFill.intensity = lerp(2.5, 7, lit); } else charFill.intensity = 0;
   // pooled point lights at the nearest street lamps
   if (!player.indoors && lit > 0.05) { const near = lamps.map((L) => [L, (L.x - player.x) ** 2 + (L.y - player.y) ** 2]).sort((a, b) => a[1] - b[1]).slice(0, lampLights.length); lampLights.forEach((p, i) => { const L = near[i]?.[0]; if (!L) { p.intensity = 0; return; } p.position.set(L.x, L.h + 6.4, -L.y); p.intensity = 260 * lit; }); }
   else lampLights.forEach((p) => (p.intensity = 0));
@@ -2329,7 +2410,7 @@ function updateCamera(dt) {
   if (player.inCar) {
     const want = Math.PI / 2 - volvo.heading; let d = want - camYaw; while (d > Math.PI) d -= Math.PI * 2; while (d < -Math.PI) d += Math.PI * 2; if (Math.abs(volvo.speed) > 2) camYaw += d * (1 - Math.exp(-dt * 2.5));
     target = new THREE.Vector3(volvo.x, surfaceAt(volvo.x, volvo.y) + 1.6, -volvo.y); dist = 8.5; height = 1.2;
-  } else { target = new THREE.Vector3(player.x, heightAt(player.x, player.y) + 1.55, -player.y); dist = player.indoors ? 2.6 : 4.6; height = 0.25; }
+  } else { const sh = player.indoors ? 0.25 : 0.55; /* over-the-shoulder offset */ target = new THREE.Vector3(player.x + Math.cos(camYaw) * sh, heightAt(player.x, player.y) + 1.5, -player.y + Math.sin(camYaw) * sh); dist = player.indoors ? 2.6 : 3.9; height = 0.2; }
   // dialogue framing: over-the-shoulder two-shot
   if (sim.dlg && state.talkNpc && npcActors[state.talkNpc]?.p.root.visible) {
     const a = npcActors[state.talkNpc]; const mid = new THREE.Vector3((player.x + a.x) / 2, heightAt(a.x, a.y) + 1.55, -(player.y + a.y) / 2);
@@ -2339,6 +2420,10 @@ function updateCamera(dt) {
   }
   const cp = Math.cos(camPitch), sp = Math.sin(camPitch);
   tmpV.set(target.x - Math.sin(camYaw) * cp * dist, target.y + sp * dist + height, target.z + Math.cos(camYaw) * cp * dist);
+  if (!player.indoors && !player.inCar) { // keep the camera out of walls: pull it in to the last clear point on the way out from the player
+    let clear = 1; for (let i = 1; i <= 8; i++) { const t = i / 8; if (collide(lerp(target.x, tmpV.x, t), -lerp(target.z, tmpV.z, t), 0.3)) { clear = Math.max(0.18, (i - 1) / 8); break; } }
+    if (clear < 1) tmpV.set(lerp(target.x, tmpV.x, clear), lerp(target.y, tmpV.y, clear), lerp(target.z, tmpV.z, clear));
+  }
   if (!player.indoors) { const gh = heightAt(tmpV.x, -tmpV.z) + 0.5; if (tmpV.y < gh) tmpV.y = gh; }
   else { tmpV.x = clamp(tmpV.x, ROOM.x - 2.8, ROOM.x + 2.8); tmpV.z = clamp(tmpV.z, -(ROOM.y + 2.3), -(ROOM.y - 2.3)); tmpV.y = clamp(tmpV.y, 0.6, 2.6); }
   camera.position.lerp(tmpV, 1 - Math.exp(-dt * (player.inCar ? 6 : 12))); camera.lookAt(target);
@@ -2364,6 +2449,8 @@ function tick() {
   const dt = Math.min(0.05, clock.getDelta());
   if (state.mode === 'title') { updateTitleCamera(dt); simAcc += dt; updateAtmosphere(dt); updateTraffic(dt); updateWalkers(dt); renderFrame(); return; }
   if (state.cine) { updateCinematic(dt); updateAtmosphere(dt); renderFrame(); return; }
+  // Measure real frame time over the first seconds of play; drop to Low once if it is slow and the player has not chosen.
+  { const now = performance.now(); if (gfx.last && !gfx.chosen && gfx.level === 'high' && !navigator.webdriver) { gfx.n++; if (gfx.n > 60) gfx.acc += now - gfx.last; if (gfx.n === 180) { if (gfx.acc / 120 > 42) { setGfx('low', false); toast('Graphics', 'Set to Low for smoother play. Use the Graphics button to change it.'); } gfx.chosen = true; } } gfx.last = now; }
   // game time: 1 real second = 1 game minute, paused in conversations, decisions and the Founder Map
   if (!sim.dlg && !state.mapOpen && !(state.decision && !$('decision').hidden && !state.decision.timed)) sim.advance(dt);
   updatePlayer(dt); updateTriggers(); updateNpcs(dt); updateTraffic(dt); updateWalkers(dt); updateAtmosphere(dt); updateCamera(dt);
@@ -2387,6 +2474,6 @@ updateEnvironment();
 // Fixed-camera capture for before/after comparisons: __stockholm.shot({x,y,h,tx,ty,th,minutes}) (local metres).
 let shotCam = null;
 function shot(o) { shotCam = o; if (o && o.minutes != null) sim.minutes = o.minutes; }
-window.__stockholm = { sim, state, player, volvo, teleport, interact, toggleCar, startTalk, beginPlay, skipCinematic, shot, renderer, hero };
+window.__stockholm = { sim, state, player, volvo, teleport, interact, toggleCar, startTalk, beginPlay, skipCinematic, shot, renderer, hero, avatar, walkers, npcActors, characters: Object.keys(CHAR) };
 tick();
 </script>

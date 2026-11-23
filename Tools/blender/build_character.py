@@ -7,7 +7,7 @@
     python3 Tools/blender/build_character.py --verify        # also run verify.py (measure + Cycles renders)
 
 Needs the `bpy` Python module (Blender >= 4.2; developed on 5.3, headless, CPU only), numpy and Pillow.
-Outputs: WebPreview/assets/characters/<name>.glb  (+ renders in docs_character_renders/ with --verify)
+Outputs: WebPreview/assets/characters/<name>.glb  (+ renders in docs/character_renders/ with --verify)
 Pipeline stages live in Tools/blender/character/:  assemble -> finalize(+garments) -> animate(retarget) -> export.
 """
 import sys, os, json, subprocess
@@ -51,7 +51,9 @@ def main(argv):
         for n in names:
             cmd = [sys.executable, os.path.join(HERE, 'character', 'verify.py'),
                    os.path.join(C.OUT_DIR, n + '.glb'), C.RENDER_DIR, n]
-            if n != 'doudou':
+            if n.startswith('npc_'):
+                cmd.append('--minimal')          # turnaround + walk strip only
+            elif n != 'doudou':
                 cmd.append('--quick')
             subprocess.run(cmd, check=True)
 

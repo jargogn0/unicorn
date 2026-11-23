@@ -12,6 +12,7 @@ An open-world, third-person founder game set in a recognisable Stockholm, built 
 | [TECHNICAL_ARCHITECTURE.md](TECHNICAL_ARCHITECTURE.md) | Modules, simulation core, world pipeline, performance plan |
 | [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) | Milestones A–E, remaining work, team, risks |
 | [VISUAL_OVERHAUL.md](VISUAL_OVERHAUL.md) | Visual audit, licensed assets acquired, the rebuilt Kungsgatan, before/after evidence, gaps |
+| [CREDITS.md](CREDITS.md) | Third-party assets, licences and required attributions |
 | [ART_PIPELINE.md](ART_PIPELINE.md) | The four-step art pipeline (concept → Blender → rigging → Unreal) with per-step contracts |
 
 ## Layout
@@ -32,4 +33,4 @@ cmake -S Tests -B build && cmake --build build && ./build/sim_tests
 
 Build the game (UE 5.5 and a GPU): see "Next build commands" in BUILD_STATUS.md.
 
-Map data © OpenStreetMap contributors (ODbL 1.0). Characters, businesses and venues are fictional.
+Map data © OpenStreetMap contributors (ODbL 1.0). Other credits are in CREDITS.md. Characters, businesses and venues are fictional.

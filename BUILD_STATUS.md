@@ -81,9 +81,9 @@ Verified in headless Chromium with software WebGL: no console errors, the openin
 
 Limits:
 
-- The city is **hand-placed and stylized**, not OSM.
-- Characters and buildings are procedural primitives.
-- It ran at about 1 fps in software rendering; GPU frame rate has not been measured.
+- Outside Kungsgatan the city is **hand-placed and stylized**, not OSM, and its buildings are procedural boxes.
+- Story NPCs and cars are still procedural or blockout models.
+- It ran at under 1 fps in software rendering; GPU frame rate has not been measured.
 
 It is a preview for playtesting the story and systems. **It is not the game and does not represent the target visual quality.**
 
@@ -92,16 +92,17 @@ It is a preview for playtesting the story and systems. **It is not the game and 
 See **VISUAL_OVERHAUL.md** for the audit, licences, evidence and gaps. In short:
 
 - **Verified in the browser build:** Kungsgatan (Norrmalm) rebuilt from real OpenStreetMap footprints with a Blender-modelled facade kit, Poly Haven CC0 scanned materials, HDRI lighting and 248 street props. Before/after frames are in `docs/visual_overhaul/`.
-- **In progress:** a rigged, animated Doudou. The in-game character is still the stand-in.
-- **Not done:** realistic cars, ambient occlusion and reflections, any measurement on a real GPU.
+- **Verified in the browser build:** a rigged, animated Doudou (lavender OctOpus hoodie, jeans, white sneakers; idle, walk, run, talk and interact) and four rigged pedestrian variants, built in Blender from MakeHuman CC0/CC BY assets. Depth-based ambient occlusion and a High/Low graphics switch.
+- **In progress:** rigged story NPCs (they are still procedural figures), and modelled cars and a bicycle (cars are still blockouts).
+- **Not done:** turn-in-place and facial animation, wet-road reflections, any measurement on a real GPU.
 - **Art direction:** the owner's packs (`ArtReference/`, `Stockholm/Content/Import/StarterPack`) are filed and described in ART_PIPELINE.md. The protagonist is Doudou BA, founder of OctOpus (`Content/Data/Story/player.json`).
 
 ## Quality bar status (honest)
 
 | Target | Status |
 |---|---|
-| GTA-class characters | **Not started.** Needs MetaHuman (or a licensed character set) plus a motion-capture animation set inside UE5. |
-| GTA-class city | **Not started.** Needs UE5 plus licensed modular facade kits / City Sample tech plus real OSM/Lantmäteriet data plus artists. The current geometry is blockout. |
+| GTA-class characters | **Not reached.** The browser build has MakeHuman-based rigged characters with retargeted motion capture. GTA-class needs MetaHuman (or a licensed character set), facial animation and a full motion-capture set inside UE5. |
+| GTA-class city | **Not reached.** One street (Kungsgatan) is rebuilt from OSM with a modelled facade kit and scanned materials. GTA-class needs UE5, licensed kits or City Sample tech, wider real data and artists. Everything outside that street is blockout. |
 | Lumen/Nanite visuals | Configured in `.ini`, never rendered. |
 | Performance | Not profiled. |
 

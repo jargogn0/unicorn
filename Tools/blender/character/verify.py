@@ -1,6 +1,7 @@
 """Verification: load an exported GLB into a fresh scene, measure it, and render check images (Cycles CPU).
 
-Usage: python3 verify.py <file.glb> <out_dir> [prefix] [--quick]
+Usage: python3 verify.py <file.glb> <out_dir> [prefix] [--quick | --minimal] [--norender]
+(--quick: turnaround + walk + run sheets; --minimal: turnaround + walk only; sheets are saved as JPEG)
 """
 import sys, os, json, math
 import bpy
@@ -84,7 +85,17 @@ def measure(path):
     return arm, meshes, info
 
 
-def renders(arm, meshes, out_dir, prefix, quick=False, height=1.82):
+def _to_jpeg(png, max_w=1200, quality=80):
+    """QA sheets are stored as small JPEGs (docs/character_renders)."""
+    from PIL import Image
+    im = Image.open(png).convert('RGB')
+    if im.width > max_w:
+        im = im.resize((max_w, round(im.height * max_w / im.width)), Image.LANCZOS)
+    im.save(os.path.splitext(png)[0] + '.jpg', quality=quality, optimize=True)
+    os.remove(png)
+
+
+def renders(arm, meshes, out_dir, prefix, quick=False, height=1.82, minimal=False):
     os.makedirs(out_dir, exist_ok=True)
     # glTF importer leaves materials' alpha settings; make hair/brows cut-outs render sensibly in Cycles
     RU.setup_render((560, 860), 24 if quick else 40)
@@ -94,8 +105,9 @@ def renders(arm, meshes, out_dir, prefix, quick=False, height=1.82):
     for i, (az, lab) in enumerate([(0, 'front'), (90, 'side'), (180, 'back')] + ([] if quick else [(40, 'threequarter')])):
         p = os.path.join(out_dir, f'{prefix}_rest_{lab}.png'); RU.shot(p, az, target=tgt, dist=5.0, lens=70); ps.append(p)
     RU.montage(ps, os.path.join(out_dir, f'{prefix}_turnaround.png'))
+    _to_jpeg(os.path.join(out_dir, f'{prefix}_turnaround.png'))
     for p in ps: os.remove(p)
-    sheets = [('Walk', [0, 10, 20]), ('Run', [0, 7, 14])]
+    sheets = [('Walk', [0, 10, 20])] + ([] if minimal else [('Run', [0, 7, 14])])
     if not quick:
         sheets += [('Idle', [0, 38]), ('Talk', [30, 60, 110]), ('Interact', [10, 18, 30])]
     names = {a.name for a in bpy.data.actions}
@@ -107,6 +119,7 @@ def renders(arm, meshes, out_dir, prefix, quick=False, height=1.82):
             p = os.path.join(out_dir, f'{prefix}_{clip}_{f:03d}.png')
             RU.shot(p, 38, target=tgt, dist=4.7, lens=60); ps.append(p)
         RU.montage(ps, os.path.join(out_dir, f'{prefix}_{clip.lower()}.png'))
+        _to_jpeg(os.path.join(out_dir, f'{prefix}_{clip.lower()}.png'))
         for p in ps: os.remove(p)
     if not quick:
         set_clip(arm, 'Idle' if 'Idle' in names else None, 0)
@@ -116,6 +129,7 @@ def renders(arm, meshes, out_dir, prefix, quick=False, height=1.82):
             p = os.path.join(out_dir, f'{prefix}_face_{lab}.png')
             RU.shot(p, az, target=(0, 0, height * 0.915), dist=1.55, lens=85, elev_deg=2); ps.append(p)
         RU.montage(ps, os.path.join(out_dir, f'{prefix}_face.png'))
+        _to_jpeg(os.path.join(out_dir, f'{prefix}_face.png'))
         for p in ps: os.remove(p)
 
 
@@ -128,4 +142,5 @@ if __name__ == '__main__':
     with open(os.path.join(out_dir, prefix + '_verify.json'), 'w') as f:
         json.dump(info, f, indent=1)
     if '--norender' not in sys.argv:
-        renders(arm, meshes, out_dir, prefix, quick='--quick' in sys.argv, height=info['bbox_max'][2])
+        renders(arm, meshes, out_dir, prefix, quick=('--quick' in sys.argv or '--minimal' in sys.argv),
+                minimal='--minimal' in sys.argv, height=info['bbox_max'][2])

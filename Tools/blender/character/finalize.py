@@ -16,7 +16,7 @@ def roles():
 def build_materials(cfg):
     R = roles(); name = cfg['name']; recipes = cfg.get('mat', {})
     for role, o in R.items():
-        if o.get('stk_custom_mat'):
+        if o.get('stk_custom_mat') or o.get('stk_mat_from'):
             continue
         rc = dict(recipes.get(role, {}))
         mh = MT.parse_mhmat(o.get('stk_mhmat', ''))
@@ -54,6 +54,10 @@ def build_materials(cfg):
                              normal_strength=rc.get('normal_strength', 1.0), alpha=alpha,
                              double_sided=rc.get('double_sided', role not in ('body', 'eyes')))
         MT.assign(o, m)
+    for role, o in R.items():                  # pieces split off a fused garment keep its material
+        src = R.get(o.get('stk_mat_from', ''))
+        if src is not None and src.data.materials:
+            MT.assign(o, src.data.materials[0])
 
 
 def finalize(cfg, in_blend=None, out_blend=None):
@@ -97,6 +101,10 @@ def finalize(cfg, in_blend=None, out_blend=None):
     order = cfg.get('layers', [])          # outermost first, e.g. ['hoodie','jeans','shoes','tee']
     cloth = [R[r] for r in order if r in R]
     prot = M.group_weights(body, [b.name for b in rig.data.bones if b.name.startswith(PROTECT_BONES_PREFIX)]) > 0.3
+    for o in R.values():                      # garments may ask to keep the skin around an opening
+        if 'stk_protect' in o:
+            xh, zlo = o['stk_protect']; bc = M.coords(body)
+            prot |= (np.abs(bc[:, 0]) < xh) & (bc[:, 2] > zlo)
     if cloth:
         n = M.cull_hidden(body, cloth, protect=prot, max_dist=cfg.get('cull_dist', 0.12))
         print('culled body faces', n, 'left', len(body.data.polygons))

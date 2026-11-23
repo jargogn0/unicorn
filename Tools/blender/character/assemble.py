@@ -39,8 +39,8 @@ def assemble(cfg, save_path=None):
         o.name = 'stk_' + role
         return o
 
-    eyes = add('eyes', cfg.get('eyes', 'sys/eyes/low-poly/low-poly.mhclo'), 'Eyes')
-    eyes['stk_mhmat'] = C.asset(cfg.get('eye_mat', 'sys/eyes/materials/brown.mhmat'))
+    eyes = add('eyes', cfg.get('eyes', 'makehuman_system_assets_cc0/eyes/low-poly/low-poly.mhclo'), 'Eyes')
+    eyes['stk_mhmat'] = C.asset(cfg.get('eye_mat', 'makehuman_system_assets_cc0/eyes/materials/brown.mhmat'))
     if cfg.get('eyebrows'):
         add('eyebrows', cfg['eyebrows'], 'Eyebrows')
     if cfg.get('eyelashes'):

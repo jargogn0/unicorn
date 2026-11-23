@@ -18,6 +18,9 @@ out = {
     "districts": load("World/districts.json")["districts"],
     "ecosystem": {"researched_on": eco.get("researched_on"), "entries": eco["entries"]},
     "layout": json.loads((ROOT / "WebPreview" / "layout.json").read_text(encoding="utf-8")),
+    # Rigged characters the page loads: only those whose re-import check (Tools/blender/character/verify.py) has been written.
+    "characters": sorted(p.stem for p in (ROOT / "WebPreview" / "assets" / "characters").glob("*.glb")
+                         if (ROOT / "docs" / "character_renders" / f"{p.stem}_verify.json").exists()),
 }
 dst = ROOT / "WebPreview" / "data.json"
 dst.write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")

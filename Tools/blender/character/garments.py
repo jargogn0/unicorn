@@ -156,7 +156,8 @@ def scalp_shell(cfg, R, ref, rig, hc, role):
 def hoodie_pullover(cfg, R, ref, rig):
     """Turn the zip 'hooded sweat jacket' into an oversized pullover: zip closed up to the collarbone,
     bust flattened to the male chest, body loosened and hem lengthened to hip level."""
-    o = R['hoodie']; hp = cfg.get('hoodie', {})
+    hp = cfg.get('hoodie', {}); o = R[hp.get('role', 'hoodie')]
+    do_close = hp.get('close', True)          # False: keep it as an open zip jacket (only fit / loosen / lengthen)
     # drop the small zip-puller pieces (everything but the largest connected component)
     bm = bmesh.new(); bm.from_mesh(o.data); bm.verts.ensure_lookup_table()
     seen = set(); comps = []
@@ -200,21 +201,34 @@ def hoodie_pullover(cfg, R, ref, rig):
     open_z = zs[(gl + gr) > 0]
     z_v = open_z.min() if len(open_z) else z_close
     print('hoodie V bottom', round(float(z_v), 3), 'close to', round(float(z_close), 3), 'neck', round(z_neck, 3))
+    if do_close:
+        co = M.coords(o)
+        front = co[:, 1] < hp.get('front_y', 0.0)
+        wsum = np.zeros(len(co))
+        for sign, g in ((-1, gl), (1, gr)):
+            side = (co[:, 0] * sign >= 0) & front & (co[:, 2] > z_v - 0.04) & (co[:, 2] < z_close + 0.06)
+            hg = np.interp(co[:, 2], zs, np.minimum(g, 0.12))
+            blend = 1 - _smoothstep(z_close - 0.01, z_close + 0.05, co[:, 2])
+            d = np.maximum(np.abs(co[:, 0]) - hg, 0)
+            w = np.exp(-(d / hp.get('close_falloff', 0.06)) ** 2) * blend
+            shift = np.minimum(hg + 0.003, np.abs(co[:, 0]) + 0.003) * w
+            co[side, 0] -= sign * shift[side]
+            co[side, 1] -= sign * 0.0015 * w[side]            # tiny overlap so the seam is not coplanar
+            wsum = np.maximum(wsum, np.where(side, w, 0.0))
+        M.set_coords(o, co)
+        M.laplacian_smooth(o, np.clip(wsum * 6, 0, 1), iters=hp.get('close_smooth', 8), lam=0.5)
+        # seal the inner collar lining (its free boundary loop) against the skin so no gap opens behind the lapels
+        bm = bmesh.new(); bm.from_mesh(o.data); bm.verts.ensure_lookup_table()
+        rim = [v for v in bm.verts if v.is_boundary and abs(v.co.x) < 0.14 and z_v - 0.06 < v.co.z < z_neck + 0.03]
+        ring1 = {e.other_vert(v) for v in rim for e in v.link_edges} - set(rim)
+        btree2, bb2 = M.bvh_of(ref)
+        for vs, k in ((rim, 1.0), (ring1, 0.5)):
+            for v in vs:
+                loc, nor, _, dist = btree2.find_nearest(v.co)
+                if loc is not None and dist < 0.06:
+                    v.co = v.co.lerp(loc + nor * 0.0025, k)
+        bb2.free(); bm.to_mesh(o.data); bm.free(); o.data.update()
     co = M.coords(o)
-    front = co[:, 1] < hp.get('front_y', 0.0)
-    wsum = np.zeros(len(co))
-    for sign, g in ((-1, gl), (1, gr)):
-        side = (co[:, 0] * sign >= 0) & front & (co[:, 2] > z_v - 0.04) & (co[:, 2] < z_close + 0.06)
-        hg = np.interp(co[:, 2], zs, np.minimum(g, 0.12))
-        blend = 1 - _smoothstep(z_close - 0.01, z_close + 0.05, co[:, 2])
-        d = np.maximum(np.abs(co[:, 0]) - hg, 0)
-        w = np.exp(-(d / hp.get('close_falloff', 0.06)) ** 2) * blend
-        shift = np.minimum(hg + 0.003, np.abs(co[:, 0]) + 0.003) * w
-        co[side, 0] -= sign * shift[side]
-        co[side, 1] -= sign * 0.0015 * w[side]            # tiny overlap so the seam is not coplanar
-        wsum = np.maximum(wsum, np.where(side, w, 0.0))
-    M.set_coords(o, co)
-    M.laplacian_smooth(o, np.clip(wsum * 6, 0, 1), iters=hp.get('close_smooth', 8), lam=0.5)
 
     # torso mask (not sleeves / hood): by transferred weights of the garment itself
     wt = M.group_weights(o, [BP + n for n in ('Hips', 'Spine', 'Spine1', 'Spine2', 'LeftUpLeg', 'RightUpLeg')])
@@ -300,12 +314,14 @@ def hoodie_pullover(cfg, R, ref, rig):
     z_w = _bone(rig, 'Spine1').head_local.z
     hem_now = co[torso, 2].min()
     hem_to = _bone(rig, 'LeftUpLeg').head_local.z - hp.get('hem_below_hip', 0.05)
+    if hp.get('keep_hem'):
+        hem_to = hem_now
     k = max(1.0, (z_w - hem_to) / (z_w - hem_now))
     low = co[:, 2] < z_w
     co[low & torso, 2] = z_w - (z_w - co[low & torso, 2]) * k
     M.set_coords(o, co)
     # the stretched hem must clear the trousers and the body
-    for inner in [R.get('jeans'), R.get('trousers'), ref]:
+    for inner in [R.get('jeans'), R.get('trousers'), R.get('pants'), ref]:
         if inner is not None:
             M.push_outside(o, inner, margin=hp.get('hem_clear', 0.012), reach=0.05, vmask=low & torso)
     M.push_outside(o, ref, margin=0.006, reach=0.05)
@@ -314,6 +330,8 @@ def hoodie_pullover(cfg, R, ref, rig):
     M.transfer_weights(ref, o, rig)
     M.smooth_weights(o, 2, 0.5)
     o['stk_zv'] = float(z_close)
+    if do_close:
+        o['stk_protect'] = [0.10, float(z_close) - 0.05]      # keep neck-root / sternum skin under the collar
     o['stk_hem'] = float(hem_to)
 
 
@@ -385,7 +403,7 @@ def chest_logo(cfg, R, ref, rig):
     o = R['hoodie']; hp = cfg.get('hoodie', {})
     tree, tb = M.bvh_of(o)
     size = hp.get('logo_size', 0.085)
-    zc = o.get('stk_zv', _bone(rig, 'Spine2').tail_local.z) - hp.get('logo_drop', 0.115)
+    zc = o.get('stk_zv', _bone(rig, 'Spine2').tail_local.z) - hp.get('logo_drop', 0.15)
     xc = hp.get('logo_x', 0.0)
     n = 9
     bm = bmesh.new(); uvl = bm.loops.layers.uv.new('UVMap'); grid = {}
@@ -412,7 +430,7 @@ def chest_logo(cfg, R, ref, rig):
     # smooth the decal so it does not inherit every wrinkle of the cloth
     M.laplacian_smooth(d, np.ones(len(d.data.vertices)), iters=2, lam=0.4)
     M.transfer_weights(o, d, rig)
-    lp = MT.save_tex(MT.octopus_logo(256, color=tuple(hp.get('logo_color', (104, 72, 160)))), cfg['name'] + '_logo', alpha=True)
+    lp = MT.save_tex(MT.octopus_logo(512, color=tuple(hp.get('logo_color', (104, 72, 160)))), cfg['name'] + '_logo', alpha=True)
     m = MT.make_material(cfg['name'] + '_logo', base=lp, roughness=0.8, alpha='MASK', double_sided=False)
     MT.assign(d, m); d['stk_custom_mat'] = True
     return d
@@ -544,3 +562,193 @@ def grey_hair(amount=0.8, value=1.25):
         a[..., :3] = a[..., :3] * (1 - amount) + g * amount
         return Image.fromarray(np.clip(a, 0, 255).astype(np.uint8), 'RGBA')
     return post
+
+
+def reweight(*role_names):
+    """Hook factory: replace a garment's interpolated skin weights by weights copied from the body surface."""
+    def hook(cfg, R, ref, rig):
+        for r in role_names:
+            if r in R:
+                M.transfer_weights(ref, R[r], rig)
+    return hook
+
+
+# ----------------------------------------------------------------------------- colour-region tools
+def _hsv(a):
+    """a: float RGB 0..1 (H,W,3) -> h,s,v arrays."""
+    mx = a.max(-1); mn = a.min(-1); d = mx - mn
+    r, g, b = a[..., 0], a[..., 1], a[..., 2]
+    h = np.zeros_like(mx)
+    m = d > 1e-6
+    hr = ((g - b) / np.where(m, d, 1)) % 6; hg = (b - r) / np.where(m, d, 1) + 2; hb = (r - g) / np.where(m, d, 1) + 4
+    h = np.where(mx == r, hr, np.where(mx == g, hg, hb)) / 6.0
+    h = np.where(m, h % 1.0, 0.0)
+    s = np.where(mx > 1e-6, d / np.maximum(mx, 1e-6), 0.0)
+    return h, s, mx
+
+
+SELECT = {
+    'blue': lambda h, s, v: (h > 0.50) & (h < 0.74) & (s > 0.22) & (v > 0.08),
+    'red': lambda h, s, v: ((h > 0.88) | (h < 0.06)) & (s > 0.30) & (v > 0.10),
+    'magenta': lambda h, s, v: (h > 0.74) & (h < 0.96) & (s > 0.22) & (v > 0.10),
+    'green_grey': lambda h, s, v: (h > 0.15) & (h < 0.50) & (s > 0.03) & (s < 0.55) & (v > 0.06),
+    'dark': lambda h, s, v: (v < 0.55) & (s < 0.45) & (v > 0.02),
+    'denim': lambda h, s, v: (h > 0.50) & (h < 0.74) & (s > 0.04) & (v > 0.08),      # incl. faded, pale-blue wear
+    'all': lambda h, s, v: v >= 0.0,
+}
+
+
+def recolor(*rules):
+    """Material post-process: each rule (selector, dark_rgb, light_rgb) remaps the luminance of the selected
+    texture region (by hue / saturation) onto a new colour ramp. Unselected pixels are untouched."""
+    def post(im, obj=None):
+        from PIL import Image, ImageFilter
+        src = im.convert('RGBA')
+        a = np.asarray(src, np.float32)[..., :3] / 255.0
+        h, s, v = _hsv(a)
+        lum = a @ np.array([0.299, 0.587, 0.114], np.float32)
+        out = a.copy()
+        for sel, dark, light in rules:
+            m = SELECT[sel](h, s, v)
+            if not m.any():
+                continue
+            lo, hi = np.percentile(lum[m], 3), np.percentile(lum[m], 97)
+            t = np.clip((lum - lo) / max(hi - lo, 1e-3), 0, 1)[..., None]
+            ramp = np.array(dark, np.float32) / 255 + (np.array(light, np.float32) - np.array(dark, np.float32)) / 255 * t
+            mf = np.asarray(Image.fromarray((m * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(0.8)), np.float32)[..., None] / 255
+            out = out * (1 - mf) + ramp * mf
+        res = Image.fromarray(np.clip(out * 255, 0, 255).astype(np.uint8), 'RGB')
+        if im.mode == 'RGBA':
+            res.putalpha(src.getchannel('A'))
+        return res
+    return post
+
+
+def split_by_color(role, classes, delete=()):
+    """Hook factory: split a fused multi-garment mesh (e.g. jacket + shirt + jeans in one MakeHuman 'suit')
+    into separate layered objects, classifying each connected piece by the texture colour under its faces.
+    classes: {new_role: (selector, min_area_share)}; pieces matching nothing stay in `role`."""
+    def hook(cfg, R, ref, rig):
+        from PIL import Image
+        o = R[role]
+        mh = MT.parse_mhmat(o.get('stk_mhmat', ''))
+        tex = Image.open(mh['diffuseTexture']).convert('RGB').resize((512, 512))
+        a = np.asarray(tex, np.float32) / 255.0
+        h, s, v = _hsv(a)
+        masks = {k: SELECT[sel](h, s, v) for k, (sel, _) in classes.items()}
+        bm = bmesh.new(); bm.from_mesh(o.data); bm.faces.ensure_lookup_table()
+        uvl = bm.loops.layers.uv.active
+        # connected components over faces
+        comp = {}; comps = []
+        for f in bm.faces:
+            if f in comp: continue
+            st = [f]; comp[f] = len(comps); cur = [f]
+            while st:
+                x = st.pop()
+                for e in x.edges:
+                    for g in e.link_faces:
+                        if g not in comp:
+                            comp[g] = len(comps); st.append(g); cur.append(g)
+            comps.append(cur)
+        fclass = {}
+        for ci, faces in enumerate(comps):
+            area = 0.0; share = {k: 0.0 for k in classes}
+            for f in faces:
+                u = sum((l[uvl].uv.x for l in f.loops)) / len(f.loops); w = sum((l[uvl].uv.y for l in f.loops)) / len(f.loops)
+                px = min(511, max(0, int(u % 1.0 * 512))); py = min(511, max(0, int((1 - w % 1.0) * 512)))
+                ar = f.calc_area(); area += ar
+                for k in classes:
+                    if masks[k][py, px]: share[k] += ar
+            best = None
+            for k, (_, thr) in classes.items():
+                if area > 0 and share[k] / area >= thr and (best is None or share[k] > share[best]):
+                    best = k
+            for f in faces:
+                fclass[f.index] = best
+            print('split', role, 'piece', ci, len(faces), 'faces ->', best or role, {k: round(share[k] / max(area, 1e-9), 2) for k in classes})
+        bm.free()
+        base_faces = len(o.data.polygons)
+        for k in classes:
+            idx = np.array([fclass.get(i) == k for i in range(base_faces)], bool)
+            if not idx.any() or k in delete:
+                continue
+            C.activate(o); bpy.ops.object.duplicate()
+            n = bpy.context.active_object; n.name = 'stk_' + k; n['stk_role'] = k; n['stk_mat_from'] = role
+            M.delete_faces(n, ~idx)
+        keep = np.array([fclass.get(i) is None for i in range(base_faces)], bool)
+        M.delete_faces(o, ~keep)
+    return hook
+
+
+def jacket_over_hoodie(jacket='jacket', hoodie='hoodie'):
+    """Hook factory: layer an open jacket over the pullover hoodie. The (dense) hoodie body is tucked just
+    beneath the (coarser) jacket surface; the hood - the part of the hoodie standing well clear of the body
+    behind the neck - is pulled out over the jacket's collar and back."""
+    def hook(cfg, R, ref, rig):
+        j = R[jacket]; hd = R[hoodie]
+        z_neck = _bone(rig, 'Neck').head_local.z; y_mid = _bone(rig, 'Spine2').head_local.y
+        hc = M.coords(hd)
+        tree, tb = M.bvh_of(ref)
+        dist = np.zeros(len(hc))
+        for i, p in enumerate(hc):
+            r = tree.find_nearest(Vector(p))
+            dist[i] = r[3] if r[0] is not None else 1.0
+        tb.free()
+        core = (dist > 0.055) & (hc[:, 2] > z_neck - 0.22) & (hc[:, 1] > y_mid)
+        ed = np.array([e.vertices[:] for e in hd.data.edges])
+        hood = core.copy(); hood[ed[:, 0]] |= core[ed[:, 1]]; hood[ed[:, 1]] |= core[ed[:, 0]]       # + one ring
+        # lift the hood back/up as a whole so it rests on the jacket instead of being flattened into it
+        lift = np.array(cfg.get('hood_lift', (0.0, 0.035, 0.012)))
+        hc[core] += lift; hc[hood & ~core] += lift * 0.5
+        M.set_coords(hd, hc)
+        # Under a jacket the hoodie is worn close to the body: clamp everything but the hood to a thin layer
+        # over the skin, then make sure the jacket clears it.
+        tree, tb = M.bvh_of(ref)
+        thin = cfg.get('under_layer', 0.007)
+        for i in np.nonzero(~hood)[0]:
+            p = Vector(hc[i]); loc, nor, _, d = tree.find_nearest(p)
+            if loc is None: continue
+            sd = (p - loc).dot(nor)
+            if sd > thin:
+                hc[i] = loc + nor * (thin + 0.08 * (sd - thin))
+        tb.free(); M.set_coords(hd, hc)
+        bmh = bmesh.new(); bmh.from_mesh(hd.data); bmh.verts.ensure_lookup_table()
+        bmesh.ops.delete(bmh, geom=[v for v in bmh.verts if hood[v.index]], context='VERTS')
+        tmp = bpy.data.meshes.new('tmp_body_hoodie'); bmh.to_mesh(tmp); bmh.free()
+        tobj = bpy.data.objects.new('tmp_body_hoodie', tmp); bpy.context.scene.collection.objects.link(tobj)
+        print('jacket cleared over hoodie', M.push_outside(j, tobj, margin=0.006, reach=0.04))
+        bpy.data.objects.remove(tobj, do_unlink=True)
+        # Keep only what can be seen of the hoodie: the hood, the strip showing in the jacket's open front, and
+        # whatever hangs below the jacket hem / beyond its cuffs ('seen' = a ray from the front reaches the
+        # vertex before any jacket surface). The rest is removed, so nothing can poke through when animated.
+        jt, jb = M.bvh_of(j)
+        n3 = np.array([v.normal[:] for v in hd.data.vertices])
+        seen = np.zeros(len(hc), bool)
+        for i in range(len(hc)):
+            x, y, z = hc[i]
+            hit = jt.ray_cast(Vector((x, -1.5, z)), Vector((0, 1, 0)), 4.0)
+            seen[i] = hit[0] is None or (hit[0].y > y - 0.002 and n3[i][1] < 0.35)
+        jb.free()
+        keep = seen | hood
+        for _ in range(2):                                   # extend a little under the lapels / hem
+            g = keep.copy(); g[ed[:, 0]] |= keep[ed[:, 1]]; g[ed[:, 1]] |= keep[ed[:, 0]]; keep = g
+        fm = np.array([not any(keep[v] for v in p.vertices) for p in hd.data.polygons], bool)
+        M.delete_faces(hd, fm)
+        print('hood verts', int(hood.sum()), 'seen', int(seen.sum()), 'hoodie faces removed', int(fm.sum()), 'left', len(hd.data.polygons))
+        M.transfer_weights(ref, hd, rig)
+    return hook
+
+
+def trim_fringe(cfg, R, ref, rig):
+    """Hair assets with a long side-swept fringe hide an eye: pull any hair hanging in front of the face up to
+    just above the brow line (the fringe becomes a short one)."""
+    if 'hair' not in R or 'eyes' not in R:
+        return
+    ec = M.coords(R['eyes']); o = R['hair']; co = M.coords(o)
+    z_lim = ec[:, 2].max() + cfg.get('fringe_above_eye', 0.022)
+    y_front = ec[:, 1].min()
+    half = np.abs(ec[:, 0]).max() + 0.02
+    m = (np.abs(co[:, 0]) < half) & (co[:, 1] < y_front + 0.035) & (co[:, 2] < z_lim)
+    co[m, 2] = z_lim - 0.08 * (z_lim - co[m, 2])
+    M.set_coords(o, co)
+    print('fringe verts lifted', int(m.sum()))

@@ -140,9 +140,7 @@ def make_material(name, base=None, color=(0.8, 0.8, 0.8), roughness=0.8, normal=
     bsdf.inputs['Roughness'].default_value = roughness
     bsdf.inputs['Metallic'].default_value = metallic
     bsdf.inputs['Base Color'].default_value = (*color, 1.0)
-    for s in ('Specular IOR Level',):
-        if s in bsdf.inputs:
-            bsdf.inputs[s].default_value = 0.35
+    # specular / IOR stay at glTF defaults so the export needs no material extensions
     if base:
         tex = nt.nodes.new('ShaderNodeTexImage'); tex.image = bpy.data.images.load(base, check_existing=True)
         tex.location = (-400, 300)

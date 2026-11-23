@@ -1,0 +1,523 @@
+{
+ "generated_by": "Tools/blender/build_character.py (asset list derived from Tools/blender/character/configs.py; licences read from each .mhclo/.mhmat header)",
+ "date": "2026-11-23",
+ "outputs": [
+  "WebPreview/assets/characters/doudou.glb",
+  "WebPreview/assets/characters/pedestrian_01.glb",
+  "WebPreview/assets/characters/pedestrian_02.glb",
+  "WebPreview/assets/characters/pedestrian_03.glb",
+  "WebPreview/assets/characters/pedestrian_04.glb"
+ ],
+ "licence_summary": "All inputs are CC0 or CC BY (attribution required - see \"attribution\"), plus Mixamo-origin animation data taken from the MIT-licensed three.js repository. No NC / unknown-licence assets are used.",
+ "attribution": [
+  "Clothing by Elvaerwyn (CC BY), punkduck (CC BY 3.0 / CC BY 4.0) and Mindfront (CC BY 4.0), from the MakeHuman community asset packs, https://files.makehumancommunity.org/asset_packs/ - modified (reshaped, recoloured, re-weighted).",
+  "Base human, skins, hair, eyes and system clothes: MakeHuman / MPFB2 (CC0).",
+  "Animations: retargeted from Xbot.glb in the three.js examples (Mixamo skeleton/animations)."
+ ],
+ "tools_and_base": [
+  {
+   "name": "MPFB2 (MakeHuman Plugin For Blender) 2.0.18",
+   "author": "MakeHuman team / Joel Palmius",
+   "source_url": "https://extensions.blender.org/add-ons/mpfb/",
+   "archive_sha256": "c075b3e9b94b8e5556a5f03f4653602d02ea306de08126e8f55ed6dee28a2dad",
+   "licence": "Code GPL-3.0-or-later (build tool only, not redistributed); bundled assets and all output CC0 1.0 per MPFB LICENSE.md sections C and D",
+   "used_for": "hm08 base mesh, macro/detail morph targets, \"mixamo\" rig definition (52 joints) and its skin weights, clothes fitting + weight interpolation; used in all five characters"
+  },
+  {
+   "name": "Xbot.glb (three.js r160 examples/models/gltf)",
+   "author": "mixamo.com character + animations, redistributed in mrdoob/three.js",
+   "source_url": "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/models/gltf/Xbot.glb",
+   "sha256": "002f8d269de68e5dce3d25195caf390d1aa359bbfaae3fcf4c8dc78ec36c3ba5",
+   "licence": "three.js repository: MIT. Animation data originates from Adobe Mixamo, which Adobe licenses royalty-free for use in personal and commercial projects (games, films); raw Mixamo files should not be redistributed standalone.",
+   "used_for": "Source motion only (no mesh/texture used): clips idle, walk, run, agree, headShake retargeted onto the MakeHuman rig -> Idle, Walk, Run, Agree, HeadShake; Idle is also the base layer of the hand-keyed Talk and Interact clips. All five GLBs."
+  }
+ ],
+ "asset_pack_archives": {
+  "makehuman_system_assets_cc0": {
+   "url": "https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+   "sha256": "b542127a8e25547c7c29c19f2d1d2adb9a664c80396ecd694095dbc8028a0107",
+   "bytes": 280737770
+  },
+  "shirts01_cc0": {
+   "url": "https://files.makehumancommunity.org/asset_packs/shirts01/shirts01_cc0.zip",
+   "sha256": "a5a723b0e84a109bb190fcfeac7f1de4138d875da3e30fe5b3340eac9f38bcd3",
+   "bytes": 24479483
+  },
+  "shirts02_ccby": {
+   "url": "https://files.makehumancommunity.org/asset_packs/shirts02/shirts02_ccby.zip",
+   "sha256": "d711ca9f73212de855257ac08422e1e0ccb802e5231315c2a360d0fcfea5033e",
+   "bytes": 175395076
+  },
+  "pants01_cc0": {
+   "url": "https://files.makehumancommunity.org/asset_packs/pants01/pants01_cc0.zip",
+   "sha256": "e4e0ec60db34f279be291a83cfd7b342a7c5cf09bb7676682a5f39f4f6ac4ad9",
+   "bytes": 21908723
+  },
+  "pants02_ccby": {
+   "url": "https://files.makehumancommunity.org/asset_packs/pants02/pants02_ccby.zip",
+   "sha256": "9dbcd65e03ab100977079b6960e91c334bed92e948aeda5423f11997a133904a",
+   "bytes": 131847848
+  },
+  "shoes01_cc0": {
+   "url": "https://files.makehumancommunity.org/asset_packs/shoes01/shoes01_cc0.zip",
+   "sha256": "ded3f70428505eabbf1f6d7b5f61196a7366ef20757103d276ad0ed336c35ada",
+   "bytes": 82953569
+  },
+  "shoes02_ccby": {
+   "url": "https://files.makehumancommunity.org/asset_packs/shoes02/shoes02_ccby.zip",
+   "sha256": "1b544d87dd8b3d3a9c8317e4f059be456491be979cbc9984fc53f403046f5061",
+   "bytes": 105745850
+  },
+  "shoes03_ccby": {
+   "url": "https://files.makehumancommunity.org/asset_packs/shoes03/shoes03_ccby.zip",
+   "sha256": "7818b43a520a90bb0286aaa1e137ddb9bbe59640c3edbdf4d9d849064ec2761b",
+   "bytes": 50300350
+  },
+  "gloves01_cc0": {
+   "url": "https://files.makehumancommunity.org/asset_packs/gloves01/gloves01_cc0.zip",
+   "sha256": "ecdaee1d02749d17352791d415cb622a883350cc8a4b90eda3725aef35d9afb2",
+   "bytes": 3192691
+  }
+ },
+ "third_party_assets": [
+  {
+   "name": "toigo_gloves_short",
+   "type": "MakeHuman clothing",
+   "file": "gloves01_cc0/clothes/toigo_gloves_short/toigo_gloves_short.mhclo",
+   "author": "MRT",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0",
+   "pack": "gloves01_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/gloves01/gloves01_cc0.zip",
+   "used_in": [
+    "pedestrian_01"
+   ]
+  },
+  {
+   "name": "male_casualsuit05",
+   "type": "MakeHuman clothing",
+   "file": "makehuman_system_assets_cc0/clothes/male_casualsuit05/male_casualsuit05.mhclo",
+   "author": "MakeHuman team (Data Collection AB, Joel Palmius, Jonas Hauquier)",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0 1.0",
+   "pack": "makehuman_system_assets_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+   "used_in": [
+    "pedestrian_01"
+   ]
+  },
+  {
+   "name": "shoes03",
+   "type": "MakeHuman clothing",
+   "file": "makehuman_system_assets_cc0/clothes/shoes03/shoes03.mhclo",
+   "author": "MakeHuman team (Data Collection AB, Joel Palmius, Jonas Hauquier)",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0 1.0",
+   "pack": "makehuman_system_assets_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+   "used_in": [
+    "pedestrian_04"
+   ]
+  },
+  {
+   "name": "eyebrow001",
+   "type": "MakeHuman eyebrows",
+   "file": "makehuman_system_assets_cc0/eyebrows/eyebrow001/eyebrow001.mhclo",
+   "author": "MakeHuman team (Data Collection AB, Joel Palmius, Jonas Hauquier)",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0 1.0",
+   "pack": "makehuman_system_assets_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+   "used_in": [
+    "doudou",
+    "pedestrian_01",
+    "pedestrian_02",
+    "pedestrian_03",
+    "pedestrian_04"
+   ]
+  },
+  {
+   "name": "eyelashes01",
+   "type": "MakeHuman eyelashes",
+   "file": "makehuman_system_assets_cc0/eyelashes/eyelashes01/eyelashes01.mhclo",
+   "author": "MakeHuman team (Data Collection AB, Joel Palmius, Jonas Hauquier)",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0 1.0",
+   "pack": "makehuman_system_assets_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+   "used_in": [
+    "doudou",
+    "pedestrian_01",
+    "pedestrian_02",
+    "pedestrian_03",
+    "pedestrian_04"
+   ]
+  },
+  {
+   "name": "eyes/low-poly",
+   "type": "MakeHuman eyes",
+   "file": "makehuman_system_assets_cc0/eyes/low-poly/low-poly.mhclo",
+   "author": "MakeHuman team (Data Collection AB, Joel Palmius, Jonas Hauquier)",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0 1.0",
+   "pack": "makehuman_system_assets_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+   "used_in": [
+    "doudou",
+    "pedestrian_01",
+    "pedestrian_02",
+    "pedestrian_03",
+    "pedestrian_04"
+   ]
+  },
+  {
+   "name": "eyes/blue",
+   "type": "MakeHuman eyes",
+   "file": "makehuman_system_assets_cc0/eyes/materials/blue.mhmat",
+   "author": "MakeHuman team (Data Collection AB, Joel Palmius, Jonas Hauquier)",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0 1.0",
+   "pack": "makehuman_system_assets_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+   "used_in": [
+    "pedestrian_01"
+   ]
+  },
+  {
+   "name": "eyes/brown",
+   "type": "MakeHuman eyes",
+   "file": "makehuman_system_assets_cc0/eyes/materials/brown.mhmat",
+   "author": "MakeHuman team (Data Collection AB, Joel Palmius, Jonas Hauquier)",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0 1.0",
+   "pack": "makehuman_system_assets_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+   "used_in": [
+    "doudou",
+    "pedestrian_02",
+    "pedestrian_04"
+   ]
+  },
+  {
+   "name": "eyes/grey",
+   "type": "MakeHuman eyes",
+   "file": "makehuman_system_assets_cc0/eyes/materials/grey.mhmat",
+   "author": "MakeHuman team (Data Collection AB, Joel Palmius, Jonas Hauquier)",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0 1.0",
+   "pack": "makehuman_system_assets_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+   "used_in": [
+    "pedestrian_03"
+   ]
+  },
+  {
+   "name": "afro01",
+   "type": "MakeHuman hair",
+   "file": "makehuman_system_assets_cc0/hair/afro01/afro01.mhclo",
+   "author": "MakeHuman team (Data Collection AB, Joel Palmius, Jonas Hauquier)",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0 1.0",
+   "pack": "makehuman_system_assets_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+   "used_in": [
+    "pedestrian_02"
+   ]
+  },
+  {
+   "name": "short02",
+   "type": "MakeHuman hair",
+   "file": "makehuman_system_assets_cc0/hair/short02/short02.mhclo",
+   "author": "MakeHuman team (Data Collection AB, Joel Palmius, Jonas Hauquier)",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0 1.0",
+   "pack": "makehuman_system_assets_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+   "used_in": [
+    "pedestrian_01",
+    "pedestrian_03"
+   ]
+  },
+  {
+   "name": "short04",
+   "type": "MakeHuman hair",
+   "file": "makehuman_system_assets_cc0/hair/short04/short04.mhclo",
+   "author": "MakeHuman team (Data Collection AB, Joel Palmius, Jonas Hauquier)",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0 1.0",
+   "pack": "makehuman_system_assets_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+   "used_in": [
+    "pedestrian_04"
+   ]
+  },
+  {
+   "name": "middleage_caucasian_male",
+   "type": "MakeHuman skin texture",
+   "file": "makehuman_system_assets_cc0/skins/middleage_caucasian_male/middleage_caucasian_male.mhmat",
+   "author": "MakeHuman team (Data Collection AB, Joel Palmius, Jonas Hauquier)",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0 1.0",
+   "pack": "makehuman_system_assets_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+   "used_in": [
+    "pedestrian_01"
+   ]
+  },
+  {
+   "name": "old_caucasian_female",
+   "type": "MakeHuman skin texture",
+   "file": "makehuman_system_assets_cc0/skins/old_caucasian_female/old_caucasian_female.mhmat",
+   "author": "MakeHuman team (Data Collection AB, Joel Palmius, Jonas Hauquier)",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0 1.0",
+   "pack": "makehuman_system_assets_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+   "used_in": [
+    "pedestrian_03"
+   ]
+  },
+  {
+   "name": "young_african_female",
+   "type": "MakeHuman skin texture",
+   "file": "makehuman_system_assets_cc0/skins/young_african_female/young_african_female.mhmat",
+   "author": "MakeHuman team (Data Collection AB, Joel Palmius, Jonas Hauquier)",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0 1.0",
+   "pack": "makehuman_system_assets_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+   "used_in": [
+    "pedestrian_02"
+   ]
+  },
+  {
+   "name": "young_african_male",
+   "type": "MakeHuman skin texture",
+   "file": "makehuman_system_assets_cc0/skins/young_african_male/young_african_male.mhmat",
+   "author": "MakeHuman team (Data Collection AB, Joel Palmius, Jonas Hauquier)",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0 1.0",
+   "pack": "makehuman_system_assets_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+   "used_in": [
+    "doudou"
+   ],
+   "where_used": "doudou: skin texture"
+  },
+  {
+   "name": "young_asian_male",
+   "type": "MakeHuman skin texture",
+   "file": "makehuman_system_assets_cc0/skins/young_asian_male/young_asian_male.mhmat",
+   "author": "MakeHuman team (Data Collection AB, Joel Palmius, Jonas Hauquier)",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0 1.0",
+   "pack": "makehuman_system_assets_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+   "used_in": [
+    "pedestrian_04"
+   ]
+  },
+  {
+   "name": "cortu_cargo_pants",
+   "type": "MakeHuman clothing",
+   "file": "pants01_cc0/clothes/cortu_cargo_pants/cortu_cargo_pants.mhclo",
+   "author": "Cortu Johnstone",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0 1.0",
+   "pack": "pants01_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/pants01/pants01_cc0.zip",
+   "used_in": [
+    "pedestrian_04"
+   ]
+  },
+  {
+   "name": "toigo_wool_pants",
+   "type": "MakeHuman clothing",
+   "file": "pants01_cc0/clothes/toigo_wool_pants/toigo_wool_pants.mhclo",
+   "author": "MRT",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0",
+   "pack": "pants01_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/pants01/pants01_cc0.zip",
+   "used_in": [
+    "pedestrian_02"
+   ]
+  },
+  {
+   "name": "mindfront_female_trousers_1",
+   "type": "MakeHuman clothing",
+   "file": "pants02_ccby/clothes/mindfront_female_trousers_1/mindfront_female_trousers_1.mhclo",
+   "author": "Mindfront (Sweden)",
+   "licence": "CC BY 4.0",
+   "licence_as_written_in_file": "CC BY 4.0",
+   "pack": "pants02_ccby",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/pants02/pants02_ccby.zip",
+   "used_in": [
+    "pedestrian_03"
+   ]
+  },
+  {
+   "name": "punkduck_male_classic_jeans",
+   "type": "MakeHuman clothing",
+   "file": "pants02_ccby/clothes/punkduck_male_classic_jeans/punkduck_male_classic_jeans.mhclo",
+   "author": "punkduck",
+   "licence": "CC BY 4.0",
+   "licence_as_written_in_file": "CC-BY 4.0",
+   "pack": "pants02_ccby",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/pants02/pants02_ccby.zip",
+   "used_in": [
+    "doudou"
+   ],
+   "where_used": "doudou: jeans mesh, recoloured texture, normal map"
+  },
+  {
+   "name": "toigo_fisherman_sweater",
+   "type": "MakeHuman clothing",
+   "file": "shirts01_cc0/clothes/toigo_fisherman_sweater/toigo_fisherman_sweater.mhclo",
+   "author": "MRT",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0",
+   "pack": "shirts01_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/shirts01/shirts01_cc0.zip",
+   "used_in": [
+    "pedestrian_02",
+    "pedestrian_04"
+   ]
+  },
+  {
+   "name": "elvs_hooded_sweat_jacket1",
+   "type": "MakeHuman clothing",
+   "file": "shirts02_ccby/clothes/elvs_hooded_sweat_jacket1/elvs_hooded_sweat_jacket1.mhclo",
+   "author": "Elvaerwyn",
+   "licence": "CC BY (header says \"CC_by\"; version not stated in the file - shipped in the shirts02_ccby pack)",
+   "licence_as_written_in_file": "CC_by",
+   "pack": "shirts02_ccby",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/shirts02/shirts02_ccby.zip",
+   "used_in": [
+    "doudou"
+   ],
+   "where_used": "doudou: hoodie base mesh + UVs (texture replaced)"
+  },
+  {
+   "name": "mindfront_cardigan_long_open_front",
+   "type": "MakeHuman clothing",
+   "file": "shirts02_ccby/clothes/mindfront_cardigan_long_open_front/mindfront_cardigan_long_open_front.mhclo",
+   "author": "Mindfront (Sweden)",
+   "licence": "CC BY 4.0",
+   "licence_as_written_in_file": "CC BY 4.0",
+   "pack": "shirts02_ccby",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/shirts02/shirts02_ccby.zip",
+   "used_in": [
+    "pedestrian_02"
+   ]
+  },
+  {
+   "name": "mindfront_lusekofta",
+   "type": "MakeHuman clothing",
+   "file": "shirts02_ccby/clothes/mindfront_lusekofta/mindfront_lusekofta.mhclo",
+   "author": "Mindfront (Sweden)",
+   "licence": "CC BY 4.0",
+   "licence_as_written_in_file": "CC BY 4.0",
+   "pack": "shirts02_ccby",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/shirts02/shirts02_ccby.zip",
+   "used_in": [
+    "pedestrian_03"
+   ]
+  },
+  {
+   "name": "toigo_ankle_boots_female",
+   "type": "MakeHuman clothing",
+   "file": "shoes01_cc0/clothes/toigo_ankle_boots_female/toigo_ankle_boots_female.mhclo",
+   "author": "MRT",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0",
+   "pack": "shoes01_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/shoes01/shoes01_cc0.zip",
+   "used_in": [
+    "pedestrian_02"
+   ]
+  },
+  {
+   "name": "toigo_ankle_boots_male",
+   "type": "MakeHuman clothing",
+   "file": "shoes01_cc0/clothes/toigo_ankle_boots_male/toigo_ankle_boots_male.mhclo",
+   "author": "MRT",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0",
+   "pack": "shoes01_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/shoes01/shoes01_cc0.zip",
+   "used_in": [
+    "pedestrian_01"
+   ]
+  },
+  {
+   "name": "punkduck_tennis_shoes",
+   "type": "MakeHuman clothing",
+   "file": "shoes02_ccby/clothes/punkduck_tennis_shoes/punkduck_tennis_shoes.mhclo",
+   "author": "punkduck",
+   "licence": "CC BY 3.0",
+   "licence_as_written_in_file": "CC  BY 3.0",
+   "pack": "shoes02_ccby",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/shoes02/shoes02_ccby.zip",
+   "used_in": [
+    "doudou"
+   ],
+   "where_used": "doudou: white sneakers mesh + textures"
+  },
+  {
+   "name": "punkduck_winter_boots",
+   "type": "MakeHuman clothing",
+   "file": "shoes03_ccby/clothes/punkduck_winter_boots/punkduck_winter_boots.mhclo",
+   "author": "punkduck",
+   "licence": "CC BY 3.0",
+   "licence_as_written_in_file": "CC BY 3.0",
+   "pack": "shoes03_ccby",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/shoes03/shoes03_ccby.zip",
+   "used_in": [
+    "pedestrian_03"
+   ]
+  }
+ ],
+ "authored_in_this_repo": [
+  {
+   "name": "Doudou hair cap (short tight curls)",
+   "how": "procedural shell grown from the scalp of the CC0 base mesh + generated curl normal/colour texture (garments.scalp_shell)",
+   "licence": "project-owned"
+  },
+  {
+   "name": "Hoodie conversion",
+   "how": "Elvaerwyn hooded sweat jacket (CC BY) reshaped: zip closed to collarbone, chest flattened, draped, hem lengthened; texture replaced by generated lavender #9B87B8 fleece",
+   "licence": "derivative of a CC BY asset - attribution required"
+  },
+  {
+   "name": "Kangaroo pocket, chest logo decal",
+   "how": "generated geometry projected on the hoodie; octopus mark drawn in code (materials.octopus_logo), not derived from any existing logo",
+   "licence": "project-owned"
+  },
+  {
+   "name": "Scarves, beanie (pedestrians)",
+   "how": "generated geometry + generated knit textures",
+   "licence": "project-owned"
+  },
+  {
+   "name": "Talk, Interact clips",
+   "how": "hand-keyed via analytic arm IK / keyed rotations in animate.py (Talk layered over retargeted Idle)",
+   "licence": "project-owned (base layer from Mixamo-origin idle)"
+  },
+  {
+   "name": "Washed-denim recolour, tints, grey hair",
+   "how": "texture post-processing of the listed assets",
+   "licence": "derivatives of the listed assets"
+  }
+ ],
+ "rejected": [
+  {
+   "name": "jujube_newsboy_cap (hats01_cc0 pack)",
+   "reason": "file header says \"license AGPL3\", author Unknown - not used"
+  },
+  {
+   "name": "elvs_jeans_straight_leg, afro01, cloche hat, bob01/bob02/short03 hair, various",
+   "reason": "evaluated in look-dev, not used in the final builds"
+  }
+ ]
+}
