@@ -2,23 +2,191 @@
   "kind": "locations",
   "note": "Gameplay locations. Businesses here are FICTIONAL venues placed on real streets; they do not represent real businesses at those addresses. Coordinates marked provenance 'approx' are hand-placed from general geographic knowledge and must be snapped to OpenStreetMap building footprints by Tools/geodata/snap_locations.py before Milestone C sign-off. Landmarks marked 'osm-verify' are real public places.",
   "locations": [
-    {"id": "apt_player", "name": "Your sublet room, Brännkyrkagatan", "district": "sodermalm", "kind": "apartment", "lat": 59.3184, "lon": 18.0598, "interior": true, "radius": 4, "provenance": "approx; fictional flat on a real street"},
-    {"id": "apt_player_street", "name": "Street outside your building", "district": "sodermalm", "kind": "street", "lat": 59.3182, "lon": 18.0601, "radius": 10, "provenance": "approx"},
-    {"id": "laptop_home", "name": "Your laptop", "district": "sodermalm", "kind": "object", "lat": 59.3184, "lon": 18.0598, "interior": true, "radius": 1.5, "provenance": "interior prop"},
-    {"id": "cafe_kollektivet", "name": "Kafé Kollektivet, Hornsgatan", "district": "sodermalm", "kind": "cafe", "lat": 59.3171, "lon": 18.0628, "interior": true, "radius": 8, "provenance": "approx; fictional café"},
-    {"id": "bakery_kanel", "name": "Kanel & Kod bakery, Västerlånggatan", "district": "gamla_stan", "kind": "cafe", "lat": 59.3243, "lon": 18.0699, "interior": true, "radius": 7, "provenance": "approx; fictional bakery"},
-    {"id": "office_malarbrod", "name": "Mälarbröd head office, Hantverkargatan", "district": "kungsholmen", "kind": "office", "lat": 59.3316, "lon": 18.0512, "interior": true, "radius": 10, "provenance": "approx; fictional company"},
-    {"id": "office_malarbrod_parking", "name": "Parking outside Mälarbröd", "district": "kungsholmen", "kind": "street", "lat": 59.3313, "lon": 18.0517, "radius": 14, "provenance": "approx"},
-    {"id": "breakfast_strommen", "name": "Founders' breakfast, Strömgatan café", "district": "norrmalm", "kind": "event_space", "lat": 59.3297, "lon": 18.0702, "interior": true, "radius": 10, "provenance": "approx; fictional recurring event"},
-    {"id": "sami_car_spot", "name": "Sami's parked Volvo", "district": "sodermalm", "kind": "street", "lat": 59.3180, "lon": 18.0606, "radius": 6, "provenance": "approx"},
-    {"id": "landmark_stortorget", "name": "Stortorget", "district": "gamla_stan", "kind": "landmark", "lat": 59.3251, "lon": 18.0707, "radius": 25, "provenance": "osm-verify"},
-    {"id": "landmark_slussen", "name": "Slussen", "district": "sodermalm", "kind": "landmark", "lat": 59.3196, "lon": 18.0717, "radius": 40, "provenance": "osm-verify"},
-    {"id": "landmark_riksbron", "name": "Riksbron", "district": "norrmalm", "kind": "landmark", "lat": 59.3289, "lon": 18.0680, "radius": 20, "provenance": "osm-verify"},
-    {"id": "landmark_sergels_torg", "name": "Sergels torg", "district": "norrmalm", "kind": "landmark", "lat": 59.3324, "lon": 18.0636, "radius": 40, "provenance": "osm-verify"},
-    {"id": "landmark_kungstradgarden", "name": "Kungsträdgården", "district": "norrmalm", "kind": "landmark", "lat": 59.3310, "lon": 18.0715, "radius": 60, "provenance": "osm-verify"},
-    {"id": "landmark_stadshuset", "name": "Stadshuset (City Hall)", "district": "kungsholmen", "kind": "landmark", "lat": 59.3275, "lon": 18.0543, "radius": 50, "provenance": "osm-verify"},
-    {"id": "landmark_riddarholmen", "name": "Riddarholmen quay", "district": "gamla_stan", "kind": "landmark", "lat": 59.3247, "lon": 18.0637, "radius": 40, "provenance": "osm-verify"},
-    {"id": "landmark_mariatorget", "name": "Mariatorget", "district": "sodermalm", "kind": "landmark", "lat": 59.3171, "lon": 18.0635, "radius": 40, "provenance": "osm-verify"},
-    {"id": "landmark_monteliusvagen", "name": "Monteliusvägen viewpoint", "district": "sodermalm", "kind": "landmark", "lat": 59.3197, "lon": 18.0626, "radius": 30, "provenance": "osm-verify; ambient activity: city view photo spot"}
+    {
+      "id": "apt_player",
+      "name": "Your sublet room, Brännkyrkagatan",
+      "district": "sodermalm",
+      "kind": "apartment",
+      "lat": 59.3184,
+      "lon": 18.0598,
+      "interior": true,
+      "radius": 4,
+      "provenance": "approx; fictional flat on a real street"
+    },
+    {
+      "id": "apt_player_street",
+      "name": "Street outside your building",
+      "district": "sodermalm",
+      "kind": "street",
+      "lat": 59.3182,
+      "lon": 18.0601,
+      "radius": 10,
+      "provenance": "approx"
+    },
+    {
+      "id": "laptop_home",
+      "name": "Your laptop",
+      "district": "sodermalm",
+      "kind": "object",
+      "lat": 59.3184,
+      "lon": 18.0598,
+      "interior": true,
+      "radius": 1.5,
+      "provenance": "interior prop"
+    },
+    {
+      "id": "cafe_kollektivet",
+      "name": "Kafé Kollektivet, Hornsgatan",
+      "district": "sodermalm",
+      "kind": "cafe",
+      "lat": 59.3171,
+      "lon": 18.0628,
+      "interior": true,
+      "radius": 8,
+      "provenance": "approx; fictional café"
+    },
+    {
+      "id": "bakery_kanel",
+      "name": "Kanel & Kod bakery, Västerlånggatan",
+      "district": "gamla_stan",
+      "kind": "cafe",
+      "lat": 59.3243,
+      "lon": 18.0699,
+      "interior": true,
+      "radius": 7,
+      "provenance": "approx; fictional bakery"
+    },
+    {
+      "id": "office_malarbrod",
+      "name": "Mälarbröd head office, Hantverkargatan",
+      "district": "kungsholmen",
+      "kind": "office",
+      "lat": 59.3316,
+      "lon": 18.0512,
+      "interior": true,
+      "radius": 10,
+      "provenance": "approx; fictional company"
+    },
+    {
+      "id": "office_malarbrod_parking",
+      "name": "Parking outside Mälarbröd",
+      "district": "kungsholmen",
+      "kind": "street",
+      "lat": 59.3313,
+      "lon": 18.0517,
+      "radius": 14,
+      "provenance": "approx"
+    },
+    {
+      "id": "breakfast_strommen",
+      "name": "Founders' breakfast, Strömgatan café",
+      "district": "norrmalm",
+      "kind": "event_space",
+      "lat": 59.3303,
+      "lon": 18.0702,
+      "interior": true,
+      "radius": 10,
+      "provenance": "approx; fictional recurring event"
+    },
+    {
+      "id": "sami_car_spot",
+      "name": "Sami's parked Volvo",
+      "district": "sodermalm",
+      "kind": "street",
+      "lat": 59.318,
+      "lon": 18.0606,
+      "radius": 6,
+      "provenance": "approx"
+    },
+    {
+      "id": "landmark_stortorget",
+      "name": "Stortorget",
+      "district": "gamla_stan",
+      "kind": "landmark",
+      "lat": 59.3251,
+      "lon": 18.0707,
+      "radius": 25,
+      "provenance": "osm-verify"
+    },
+    {
+      "id": "landmark_slussen",
+      "name": "Slussen",
+      "district": "sodermalm",
+      "kind": "landmark",
+      "lat": 59.3196,
+      "lon": 18.0717,
+      "radius": 40,
+      "provenance": "osm-verify"
+    },
+    {
+      "id": "landmark_riksbron",
+      "name": "Riksbron",
+      "district": "norrmalm",
+      "kind": "landmark",
+      "lat": 59.3289,
+      "lon": 18.068,
+      "radius": 20,
+      "provenance": "osm-verify"
+    },
+    {
+      "id": "landmark_sergels_torg",
+      "name": "Sergels torg",
+      "district": "norrmalm",
+      "kind": "landmark",
+      "lat": 59.3324,
+      "lon": 18.0636,
+      "radius": 40,
+      "provenance": "osm-verify"
+    },
+    {
+      "id": "landmark_kungstradgarden",
+      "name": "Kungsträdgården",
+      "district": "norrmalm",
+      "kind": "landmark",
+      "lat": 59.331,
+      "lon": 18.0715,
+      "radius": 60,
+      "provenance": "osm-verify"
+    },
+    {
+      "id": "landmark_stadshuset",
+      "name": "Stadshuset (City Hall)",
+      "district": "kungsholmen",
+      "kind": "landmark",
+      "lat": 59.3275,
+      "lon": 18.0543,
+      "radius": 50,
+      "provenance": "osm-verify"
+    },
+    {
+      "id": "landmark_riddarholmen",
+      "name": "Riddarholmen quay",
+      "district": "gamla_stan",
+      "kind": "landmark",
+      "lat": 59.3247,
+      "lon": 18.0637,
+      "radius": 40,
+      "provenance": "osm-verify"
+    },
+    {
+      "id": "landmark_mariatorget",
+      "name": "Mariatorget",
+      "district": "sodermalm",
+      "kind": "landmark",
+      "lat": 59.3171,
+      "lon": 18.0635,
+      "radius": 40,
+      "provenance": "osm-verify"
+    },
+    {
+      "id": "landmark_monteliusvagen",
+      "name": "Monteliusvägen viewpoint",
+      "district": "sodermalm",
+      "kind": "landmark",
+      "lat": 59.3197,
+      "lon": 18.0626,
+      "radius": 30,
+      "provenance": "osm-verify; ambient activity: city view photo spot"
+    }
   ]
 }

@@ -17,7 +17,7 @@ target_compile_options(stockholm_sim PRIVATE ${STRICT_FLAGS})
 add_executable(sim_tests sim_tests.cpp)
 target_link_libraries(sim_tests PRIVATE stockholm_sim)
 target_compile_options(sim_tests PRIVATE -Wall -Wextra -Werror -fno-exceptions -fno-rtti)
-target_compile_definitions(sim_tests PRIVATE STOCKHOLM_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../Stockholm/Content/Data")
+target_compile_definitions(sim_tests PRIVATE STOCKHOLM_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../Stockholm/Content/Data" STOCKHOLM_FIXTURE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/fixtures")
 
 add_executable(sim_playthrough playthrough.cpp)
 target_link_libraries(sim_playthrough PRIVATE stockholm_sim)

@@ -1,0 +1,10 @@
+{"version":0.6,"osm3s":{"timestamp_osm_base":"fixture"},"_stockholm":{"bbox":[59.3190,18.0700,59.3210,18.0740]},
+ "elements":[
+  {"type":"way","id":1,"nodes":[11,12,13],"geometry":[{"lat":59.3195,"lon":18.0705},{"lat":59.3200,"lon":18.0715},{"lat":59.3205,"lon":18.0725}],"tags":{"highway":"primary","name":"Fixture gatan","lanes":"2","maxspeed":"40"}},
+  {"type":"way","id":2,"nodes":[13,14],"geometry":[{"lat":59.3205,"lon":18.0725},{"lat":59.3208,"lon":18.0735}],"tags":{"highway":"secondary","bridge":"yes","oneway":"yes","name":"Fixture bron"}},
+  {"type":"way","id":3,"nodes":[12,15],"geometry":[{"lat":59.3200,"lon":18.0715},{"lat":59.3196,"lon":18.0730}],"tags":{"highway":"pedestrian","name":"Fixture gränd"}},
+  {"type":"way","id":20,"nodes":[1,2,3,4,1],"geometry":[{"lat":59.3201,"lon":18.0702},{"lat":59.3201,"lon":18.0708},{"lat":59.3204,"lon":18.0708},{"lat":59.3204,"lon":18.0702},{"lat":59.3201,"lon":18.0702}],"tags":{"building":"apartments","building:levels":"6","building:colour":"#c98c4e"}},
+  {"type":"way","id":21,"nodes":[5,6,7,8,5],"geometry":[{"lat":59.3192,"lon":18.0718},{"lat":59.3192,"lon":18.0724},{"lat":59.3194,"lon":18.0724},{"lat":59.3194,"lon":18.0718},{"lat":59.3192,"lon":18.0718}],"tags":{"building":"church","name":"Fixture kyrka","height":"42 m"}},
+  {"type":"way","id":30,"nodes":[9,10,16,17,9],"geometry":[{"lat":59.3206,"lon":18.0700},{"lat":59.3206,"lon":18.0740},{"lat":59.3210,"lon":18.0740},{"lat":59.3210,"lon":18.0700},{"lat":59.3206,"lon":18.0700}],"tags":{"natural":"water","name":"Fixture ström"}},
+  {"type":"node","id":40,"lat":59.3199,"lon":18.0711,"tags":{"amenity":"cafe","name":"Fixture café"}}
+ ]}

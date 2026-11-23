@@ -1,0 +1,39 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "5.5",
+	"Category": "",
+	"Description": "STOCKHOLM - open-world founder game",
+	"Modules": [
+		{
+			"Name": "StockholmSim",
+			"Type": "Runtime",
+			"LoadingPhase": "PreDefault"
+		},
+		{
+			"Name": "Stockholm",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine",
+				"CoreUObject"
+			]
+		}
+	],
+	"Plugins": [
+		{ "Name": "EnhancedInput", "Enabled": true },
+		{ "Name": "ChaosVehiclesPlugin", "Enabled": true },
+		{ "Name": "ProceduralMeshComponent", "Enabled": true },
+		{ "Name": "Niagara", "Enabled": true },
+		{ "Name": "PythonScriptPlugin", "Enabled": true },
+		{ "Name": "EditorScriptingUtilities", "Enabled": true },
+		{ "Name": "PCG", "Enabled": true },
+		{ "Name": "MassGameplay", "Enabled": true },
+		{ "Name": "ZoneGraph", "Enabled": true },
+		{ "Name": "WaterAdvanced", "Enabled": false },
+		{ "Name": "ModelingToolsEditorMode", "Enabled": true, "TargetAllowList": ["Editor"] }
+	],
+	"TargetPlatforms": [
+		"Windows",
+		"Linux"
+	]
+}

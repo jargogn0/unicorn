@@ -1,5 +1,6 @@
 // STOCKHOLM simulation-core tests. Built without exceptions/RTTI to mirror UE.
 // Run: cmake -S Tests -B build && cmake --build build && ./build/sim_tests
+#include "Sim/City.h"
 #include "Sim/Content.h"
 #include "Sim/FounderSim.h"
 #include "Sim/FounderState.h"
@@ -584,6 +585,36 @@ TEST(Save_LoadMidMission) {
     JsonValue bad = JsonValue::Parse(saved);
     bad.Set("version", 999);
     CHECK(!b.Load(bad, &err));
+}
+
+// ============================================================== OSM pipeline → CityModel
+
+TEST(City_LoadsProcessedOsm) {
+    CityModel city;
+    std::string err;
+    CHECK(city.LoadFromFile(STOCKHOLM_FIXTURE_DIR "/city_fixture.json", &err));
+    if (!err.empty()) std::printf("  city load error: %s\n", err.c_str());
+    CHECK(city.buildings.size() == 2);
+    CHECK(city.BuildingsWithSourcedHeight() == 2);
+    bool church = false;
+    for (const Building& b : city.buildings) {
+        CHECK(SignedArea(b.outer) > 0); // re-wound CCW
+        if (b.kind == "church") { church = true; CHECK(b.landmark); CHECK_NEAR(b.heightMetres, 42.0, 1e-6); }
+        else CHECK_NEAR(b.heightMetres, 6 * 3.2 + 1.3, 1e-6);
+    }
+    CHECK(church);
+    CHECK(city.roadLines.size() == 3);
+    CHECK(city.roads.NodeCount() == 5);
+    // The bridge is one-way: drivable only in its mapped direction, walkable both ways.
+    const uint32_t a = city.roads.NearestNode(GeoProjection().ToLocal(59.3205, 18.0725), TravelMode::Walk);
+    const uint32_t b = city.roads.NearestNode(GeoProjection().ToLocal(59.3208, 18.0735), TravelMode::Walk);
+    CHECK(city.roads.FindRoute(a, b, TravelMode::Drive).found);
+    CHECK(!city.roads.FindRoute(b, a, TravelMode::Drive).found);
+    CHECK(city.roads.FindRoute(b, a, TravelMode::Walk).found);
+    CHECK(city.IsWater(GeoProjection().ToLocal(59.3208, 18.0720)));
+    CHECK(!city.IsWater(GeoProjection().ToLocal(59.3198, 18.0712)));
+    // Extruding every footprint yields closed, non-empty meshes.
+    for (const Building& bd : city.buildings) CHECK(!ExtrudeFootprint(bd.outer, 0.0, bd.heightMetres).indices.empty());
 }
 
 int main() {

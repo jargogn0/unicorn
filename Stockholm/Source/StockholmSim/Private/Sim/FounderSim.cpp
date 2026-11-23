@@ -79,7 +79,7 @@ void FounderSim::BeginNewGame() {
             discovered_.insert(kv.first);
         }
     }
-    Emit(SimEventType::WorldEvent, "cinematic:opening");
+    // The opening cinematic is triggered by m00's on_start data, not hard-coded here.
     RefreshMissionAvailability();
     UpdateChapter();
 }
