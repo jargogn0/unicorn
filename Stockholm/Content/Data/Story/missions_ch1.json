@@ -12,6 +12,12 @@
       "prerequisites": null,
       "on_start": [
         {
+          "company_name": "OctOpus"
+        },
+        {
+          "product_name": "OctOpus Forecast"
+        },
+        {
           "world_event": "cinematic:opening",
           "text": "Snow falling outside. A phone lights up."
         },
@@ -45,7 +51,7 @@
           "on_complete": [
             {
               "world_event": "cinematic:laptop_closeup",
-              "text": "The unfinished product. A login screen and a scheduling grid that half works."
+              "text": "The unfinished product: OctOpus Forecast. A login screen and a forecasting dashboard that half works."
             }
           ],
           "next": "@complete"

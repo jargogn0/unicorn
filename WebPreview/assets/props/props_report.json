@@ -1,0 +1,83 @@
+{
+ "bench": {
+  "size_xyz_m": [
+   1.84,
+   0.63,
+   0.96
+  ],
+  "triangles": 9816,
+  "kb": 478
+ },
+ "trash_can": {
+  "size_xyz_m": [
+   0.61,
+   0.56,
+   0.99
+  ],
+  "triangles": 5596,
+  "kb": 279
+ },
+ "chalkboard": {
+  "size_xyz_m": [
+   0.92,
+   0.76,
+   1.51
+  ],
+  "triangles": 2372,
+  "kb": 232
+ },
+ "cafe_table_set": {
+  "size_xyz_m": [
+   0.78,
+   1.83,
+   0.86
+  ],
+  "triangles": 9828,
+  "kb": 642
+ },
+ "planter": {
+  "size_xyz_m": [
+   0.91,
+   0.41,
+   0.42
+  ],
+  "triangles": 8094,
+  "kb": 358
+ },
+ "utility_box": {
+  "size_xyz_m": [
+   0.52,
+   0.43,
+   1.12
+  ],
+  "triangles": 4404,
+  "kb": 235
+ },
+ "manhole_cover": {
+  "size_xyz_m": [
+   0.69,
+   0.69,
+   0.07
+  ],
+  "triangles": 6301,
+  "kb": 308
+ },
+ "street_lamp_post": {
+  "size_xyz_m": [
+   0.7,
+   0.39,
+   3.87
+  ],
+  "triangles": 30610,
+  "kb": 1050
+ },
+ "street_lantern": {
+  "size_xyz_m": [
+   0.39,
+   0.81,
+   1.68
+  ],
+  "triangles": 20338,
+  "kb": 835
+ }
+}

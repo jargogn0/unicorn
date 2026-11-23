@@ -1,0 +1,882 @@
+{
+  "source": "Poly Haven",
+  "licence": "CC0 1.0 Universal (public domain dedication)",
+  "licence_url": "https://polyhaven.com/license",
+  "assets": [
+    {
+      "id": "painted_plaster_wall",
+      "type": "texture",
+      "name": "Painted Plaster Wall",
+      "authors": [
+        "Amal Kumar"
+      ],
+      "page": "https://polyhaven.com/a/painted_plaster_wall",
+      "files": [
+        {
+          "map": "Diffuse",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/painted_plaster_wall/painted_plaster_wall_diff_1k.jpg",
+          "bytes": 686726,
+          "path": "Assets/ThirdParty/polyhaven/textures/painted_plaster_wall/painted_plaster_wall_diff_1k.jpg"
+        },
+        {
+          "map": "nor_gl",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/painted_plaster_wall/painted_plaster_wall_nor_gl_1k.jpg",
+          "bytes": 900461,
+          "path": "Assets/ThirdParty/polyhaven/textures/painted_plaster_wall/painted_plaster_wall_nor_gl_1k.jpg"
+        },
+        {
+          "map": "arm",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/painted_plaster_wall/painted_plaster_wall_arm_1k.jpg",
+          "bytes": 511105,
+          "path": "Assets/ThirdParty/polyhaven/textures/painted_plaster_wall/painted_plaster_wall_arm_1k.jpg"
+        },
+        {
+          "map": "Rough",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/painted_plaster_wall/painted_plaster_wall_rough_1k.jpg",
+          "bytes": 354762,
+          "path": "Assets/ThirdParty/polyhaven/textures/painted_plaster_wall/painted_plaster_wall_rough_1k.jpg"
+        }
+      ]
+    },
+    {
+      "id": "white_plaster_02",
+      "type": "texture",
+      "name": "White Plaster 02",
+      "authors": [
+        "Rob Tuytel"
+      ],
+      "page": "https://polyhaven.com/a/white_plaster_02",
+      "files": [
+        {
+          "map": "Diffuse",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_plaster_02/white_plaster_02_diff_1k.jpg",
+          "bytes": 527219,
+          "path": "Assets/ThirdParty/polyhaven/textures/white_plaster_02/white_plaster_02_diff_1k.jpg"
+        },
+        {
+          "map": "nor_gl",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_plaster_02/white_plaster_02_nor_gl_1k.jpg",
+          "bytes": 652310,
+          "path": "Assets/ThirdParty/polyhaven/textures/white_plaster_02/white_plaster_02_nor_gl_1k.jpg"
+        },
+        {
+          "map": "arm",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_plaster_02/white_plaster_02_arm_1k.jpg",
+          "bytes": 191017,
+          "path": "Assets/ThirdParty/polyhaven/textures/white_plaster_02/white_plaster_02_arm_1k.jpg"
+        },
+        {
+          "map": "Rough",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_plaster_02/white_plaster_02_rough_1k.jpg",
+          "bytes": 295900,
+          "path": "Assets/ThirdParty/polyhaven/textures/white_plaster_02/white_plaster_02_rough_1k.jpg"
+        }
+      ]
+    },
+    {
+      "id": "brick_wall_10",
+      "type": "texture",
+      "name": "Brick Wall 10",
+      "authors": [
+        "Dimitrios Savva"
+      ],
+      "page": "https://polyhaven.com/a/brick_wall_10",
+      "files": [
+        {
+          "map": "Diffuse",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/brick_wall_10/brick_wall_10_diff_1k.jpg",
+          "bytes": 772402,
+          "path": "Assets/ThirdParty/polyhaven/textures/brick_wall_10/brick_wall_10_diff_1k.jpg"
+        },
+        {
+          "map": "nor_gl",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/brick_wall_10/brick_wall_10_nor_gl_1k.jpg",
+          "bytes": 910631,
+          "path": "Assets/ThirdParty/polyhaven/textures/brick_wall_10/brick_wall_10_nor_gl_1k.jpg"
+        },
+        {
+          "map": "arm",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/brick_wall_10/brick_wall_10_arm_1k.jpg",
+          "bytes": 631880,
+          "path": "Assets/ThirdParty/polyhaven/textures/brick_wall_10/brick_wall_10_arm_1k.jpg"
+        },
+        {
+          "map": "Rough",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/brick_wall_10/brick_wall_10_rough_1k.jpg",
+          "bytes": 362343,
+          "path": "Assets/ThirdParty/polyhaven/textures/brick_wall_10/brick_wall_10_rough_1k.jpg"
+        }
+      ]
+    },
+    {
+      "id": "brick_wall_006",
+      "type": "texture",
+      "name": "Brick Wall 006",
+      "authors": [
+        "Jan Burghardt"
+      ],
+      "page": "https://polyhaven.com/a/brick_wall_006",
+      "files": [
+        {
+          "map": "Diffuse",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/brick_wall_006/brick_wall_006_diff_1k.jpg",
+          "bytes": 1107155,
+          "path": "Assets/ThirdParty/polyhaven/textures/brick_wall_006/brick_wall_006_diff_1k.jpg"
+        },
+        {
+          "map": "nor_gl",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/brick_wall_006/brick_wall_006_nor_gl_1k.jpg",
+          "bytes": 1052217,
+          "path": "Assets/ThirdParty/polyhaven/textures/brick_wall_006/brick_wall_006_nor_gl_1k.jpg"
+        },
+        {
+          "map": "arm",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/brick_wall_006/brick_wall_006_arm_1k.jpg",
+          "bytes": 726245,
+          "path": "Assets/ThirdParty/polyhaven/textures/brick_wall_006/brick_wall_006_arm_1k.jpg"
+        },
+        {
+          "map": "Rough",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/brick_wall_006/brick_wall_006_rough_1k.jpg",
+          "bytes": 441815,
+          "path": "Assets/ThirdParty/polyhaven/textures/brick_wall_006/brick_wall_006_rough_1k.jpg"
+        }
+      ]
+    },
+    {
+      "id": "granite_wall",
+      "type": "texture",
+      "name": "Granite Wall",
+      "authors": [
+        "Dimitrios Savva"
+      ],
+      "page": "https://polyhaven.com/a/granite_wall",
+      "files": [
+        {
+          "map": "Diffuse",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/granite_wall/granite_wall_diff_1k.jpg",
+          "bytes": 957272,
+          "path": "Assets/ThirdParty/polyhaven/textures/granite_wall/granite_wall_diff_1k.jpg"
+        },
+        {
+          "map": "nor_gl",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/granite_wall/granite_wall_nor_gl_1k.jpg",
+          "bytes": 1145994,
+          "path": "Assets/ThirdParty/polyhaven/textures/granite_wall/granite_wall_nor_gl_1k.jpg"
+        },
+        {
+          "map": "arm",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/granite_wall/granite_wall_arm_1k.jpg",
+          "bytes": 578164,
+          "path": "Assets/ThirdParty/polyhaven/textures/granite_wall/granite_wall_arm_1k.jpg"
+        },
+        {
+          "map": "Rough",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/granite_wall/granite_wall_rough_1k.jpg",
+          "bytes": 380892,
+          "path": "Assets/ThirdParty/polyhaven/textures/granite_wall/granite_wall_rough_1k.jpg"
+        }
+      ]
+    },
+    {
+      "id": "asphalt_02",
+      "type": "texture",
+      "name": "Asphalt 02",
+      "authors": [
+        "Rob Tuytel"
+      ],
+      "page": "https://polyhaven.com/a/asphalt_02",
+      "files": [
+        {
+          "map": "Diffuse",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/asphalt_02/asphalt_02_diff_1k.jpg",
+          "bytes": 731707,
+          "path": "Assets/ThirdParty/polyhaven/textures/asphalt_02/asphalt_02_diff_1k.jpg"
+        },
+        {
+          "map": "nor_gl",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/asphalt_02/asphalt_02_nor_gl_1k.jpg",
+          "bytes": 1240122,
+          "path": "Assets/ThirdParty/polyhaven/textures/asphalt_02/asphalt_02_nor_gl_1k.jpg"
+        },
+        {
+          "map": "arm",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/asphalt_02/asphalt_02_arm_1k.jpg",
+          "bytes": 296770,
+          "path": "Assets/ThirdParty/polyhaven/textures/asphalt_02/asphalt_02_arm_1k.jpg"
+        },
+        {
+          "map": "Rough",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/asphalt_02/asphalt_02_rough_1k.jpg",
+          "bytes": 544032,
+          "path": "Assets/ThirdParty/polyhaven/textures/asphalt_02/asphalt_02_rough_1k.jpg"
+        }
+      ]
+    },
+    {
+      "id": "asphalt_snow",
+      "type": "texture",
+      "name": "Asphalt Snow",
+      "authors": [
+        "eye-candy.xyz"
+      ],
+      "page": "https://polyhaven.com/a/asphalt_snow",
+      "files": [
+        {
+          "map": "Diffuse",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/asphalt_snow/asphalt_snow_diff_1k.jpg",
+          "bytes": 1310523,
+          "path": "Assets/ThirdParty/polyhaven/textures/asphalt_snow/asphalt_snow_diff_1k.jpg"
+        },
+        {
+          "map": "nor_gl",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/asphalt_snow/asphalt_snow_nor_gl_1k.jpg",
+          "bytes": 1324225,
+          "path": "Assets/ThirdParty/polyhaven/textures/asphalt_snow/asphalt_snow_nor_gl_1k.jpg"
+        },
+        {
+          "map": "arm",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/asphalt_snow/asphalt_snow_arm_1k.jpg",
+          "bytes": 734955,
+          "path": "Assets/ThirdParty/polyhaven/textures/asphalt_snow/asphalt_snow_arm_1k.jpg"
+        },
+        {
+          "map": "Rough",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/asphalt_snow/asphalt_snow_rough_1k.jpg",
+          "bytes": 608056,
+          "path": "Assets/ThirdParty/polyhaven/textures/asphalt_snow/asphalt_snow_rough_1k.jpg"
+        }
+      ]
+    },
+    {
+      "id": "concrete_pavement",
+      "type": "texture",
+      "name": "Concrete Pavement",
+      "authors": [
+        "Charlotte Baglioni"
+      ],
+      "page": "https://polyhaven.com/a/concrete_pavement",
+      "files": [
+        {
+          "map": "Diffuse",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/concrete_pavement/concrete_pavement_diff_1k.jpg",
+          "bytes": 926197,
+          "path": "Assets/ThirdParty/polyhaven/textures/concrete_pavement/concrete_pavement_diff_1k.jpg"
+        },
+        {
+          "map": "nor_gl",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/concrete_pavement/concrete_pavement_nor_gl_1k.jpg",
+          "bytes": 1184345,
+          "path": "Assets/ThirdParty/polyhaven/textures/concrete_pavement/concrete_pavement_nor_gl_1k.jpg"
+        },
+        {
+          "map": "arm",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/concrete_pavement/concrete_pavement_arm_1k.jpg",
+          "bytes": 802384,
+          "path": "Assets/ThirdParty/polyhaven/textures/concrete_pavement/concrete_pavement_arm_1k.jpg"
+        },
+        {
+          "map": "Rough",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/concrete_pavement/concrete_pavement_rough_1k.jpg",
+          "bytes": 475799,
+          "path": "Assets/ThirdParty/polyhaven/textures/concrete_pavement/concrete_pavement_rough_1k.jpg"
+        }
+      ]
+    },
+    {
+      "id": "cobblestone_floor_08",
+      "type": "texture",
+      "name": "Cobblestone Floor 08",
+      "authors": [
+        "Rob Tuytel"
+      ],
+      "page": "https://polyhaven.com/a/cobblestone_floor_08",
+      "files": [
+        {
+          "map": "Diffuse",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/cobblestone_floor_08/cobblestone_floor_08_diff_1k.jpg",
+          "bytes": 585727,
+          "path": "Assets/ThirdParty/polyhaven/textures/cobblestone_floor_08/cobblestone_floor_08_diff_1k.jpg"
+        },
+        {
+          "map": "nor_gl",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/cobblestone_floor_08/cobblestone_floor_08_nor_gl_1k.jpg",
+          "bytes": 1002410,
+          "path": "Assets/ThirdParty/polyhaven/textures/cobblestone_floor_08/cobblestone_floor_08_nor_gl_1k.jpg"
+        },
+        {
+          "map": "arm",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/cobblestone_floor_08/cobblestone_floor_08_arm_1k.jpg",
+          "bytes": 198270,
+          "path": "Assets/ThirdParty/polyhaven/textures/cobblestone_floor_08/cobblestone_floor_08_arm_1k.jpg"
+        },
+        {
+          "map": "Rough",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/cobblestone_floor_08/cobblestone_floor_08_rough_1k.jpg",
+          "bytes": 408718,
+          "path": "Assets/ThirdParty/polyhaven/textures/cobblestone_floor_08/cobblestone_floor_08_rough_1k.jpg"
+        }
+      ]
+    },
+    {
+      "id": "snow_02",
+      "type": "texture",
+      "name": "Snow 02",
+      "authors": [
+        "Rob Tuytel"
+      ],
+      "page": "https://polyhaven.com/a/snow_02",
+      "files": [
+        {
+          "map": "Diffuse",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/snow_02/snow_02_diff_1k.jpg",
+          "bytes": 325497,
+          "path": "Assets/ThirdParty/polyhaven/textures/snow_02/snow_02_diff_1k.jpg"
+        },
+        {
+          "map": "nor_gl",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/snow_02/snow_02_nor_gl_1k.jpg",
+          "bytes": 1081858,
+          "path": "Assets/ThirdParty/polyhaven/textures/snow_02/snow_02_nor_gl_1k.jpg"
+        },
+        {
+          "map": "arm",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/snow_02/snow_02_arm_1k.jpg",
+          "bytes": 88100,
+          "path": "Assets/ThirdParty/polyhaven/textures/snow_02/snow_02_arm_1k.jpg"
+        },
+        {
+          "map": "Rough",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/snow_02/snow_02_rough_1k.jpg",
+          "bytes": 146089,
+          "path": "Assets/ThirdParty/polyhaven/textures/snow_02/snow_02_rough_1k.jpg"
+        }
+      ]
+    },
+    {
+      "id": "box_profile_metal_sheet",
+      "type": "texture",
+      "name": "Box Profile Metal Sheet",
+      "authors": [
+        "Amal Kumar"
+      ],
+      "page": "https://polyhaven.com/a/box_profile_metal_sheet",
+      "files": [
+        {
+          "map": "Diffuse",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/box_profile_metal_sheet/box_profile_metal_sheet_diff_1k.jpg",
+          "bytes": 346711,
+          "path": "Assets/ThirdParty/polyhaven/textures/box_profile_metal_sheet/box_profile_metal_sheet_diff_1k.jpg"
+        },
+        {
+          "map": "nor_gl",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/box_profile_metal_sheet/box_profile_metal_sheet_nor_gl_1k.jpg",
+          "bytes": 550993,
+          "path": "Assets/ThirdParty/polyhaven/textures/box_profile_metal_sheet/box_profile_metal_sheet_nor_gl_1k.jpg"
+        },
+        {
+          "map": "arm",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/box_profile_metal_sheet/box_profile_metal_sheet_arm_1k.jpg",
+          "bytes": 667506,
+          "path": "Assets/ThirdParty/polyhaven/textures/box_profile_metal_sheet/box_profile_metal_sheet_arm_1k.jpg"
+        },
+        {
+          "map": "Rough",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/box_profile_metal_sheet/box_profile_metal_sheet_rough_1k.jpg",
+          "bytes": 598232,
+          "path": "Assets/ThirdParty/polyhaven/textures/box_profile_metal_sheet/box_profile_metal_sheet_rough_1k.jpg"
+        }
+      ]
+    },
+    {
+      "id": "grey_roof_01",
+      "type": "texture",
+      "name": "Grey Roof 01",
+      "authors": [
+        "Rob Tuytel"
+      ],
+      "page": "https://polyhaven.com/a/grey_roof_01",
+      "files": [
+        {
+          "map": "Diffuse",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/grey_roof_01/grey_roof_01_diff_1k.jpg",
+          "bytes": 419760,
+          "path": "Assets/ThirdParty/polyhaven/textures/grey_roof_01/grey_roof_01_diff_1k.jpg"
+        },
+        {
+          "map": "nor_gl",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/grey_roof_01/grey_roof_01_nor_gl_1k.jpg",
+          "bytes": 623013,
+          "path": "Assets/ThirdParty/polyhaven/textures/grey_roof_01/grey_roof_01_nor_gl_1k.jpg"
+        },
+        {
+          "map": "arm",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/grey_roof_01/grey_roof_01_arm_1k.jpg",
+          "bytes": 243234,
+          "path": "Assets/ThirdParty/polyhaven/textures/grey_roof_01/grey_roof_01_arm_1k.jpg"
+        },
+        {
+          "map": "Rough",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/grey_roof_01/grey_roof_01_rough_1k.jpg",
+          "bytes": 404455,
+          "path": "Assets/ThirdParty/polyhaven/textures/grey_roof_01/grey_roof_01_rough_1k.jpg"
+        }
+      ]
+    },
+    {
+      "id": "winter_evening",
+      "type": "hdri",
+      "name": "Winter Evening",
+      "authors": [
+        "Sergej Majboroda"
+      ],
+      "page": "https://polyhaven.com/a/winter_evening",
+      "files": [
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/winter_evening_1k.hdr",
+          "bytes": 1507642,
+          "path": "Assets/ThirdParty/polyhaven/hdris/winter_evening_1k.hdr"
+        }
+      ]
+    },
+    {
+      "id": "snowy_park_01",
+      "type": "hdri",
+      "name": "Snowy Park 01",
+      "authors": [
+        "Oliksiy Yakovlyev"
+      ],
+      "page": "https://polyhaven.com/a/snowy_park_01",
+      "files": [
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/snowy_park_01_1k.hdr",
+          "bytes": 1211017,
+          "path": "Assets/ThirdParty/polyhaven/hdris/snowy_park_01_1k.hdr"
+        }
+      ]
+    },
+    {
+      "id": "street_lamp_01",
+      "type": "model",
+      "name": "Street Lamp 01",
+      "authors": [
+        "Josh Dean"
+      ],
+      "page": "https://polyhaven.com/a/street_lamp_01",
+      "polycount": 30610,
+      "files": [
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/street_lamp_01/street_lamp_01_1k.gltf",
+          "bytes": 6419,
+          "path": "Assets/ThirdParty/polyhaven/models/street_lamp_01/street_lamp_01_1k.gltf"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/street_lamp_01/street_lamp_01_arm_1k.jpg",
+          "bytes": 664324,
+          "path": "Assets/ThirdParty/polyhaven/models/street_lamp_01/textures/street_lamp_01_arm_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/street_lamp_01/street_lamp_01_diff_1k.jpg",
+          "bytes": 307889,
+          "path": "Assets/ThirdParty/polyhaven/models/street_lamp_01/textures/street_lamp_01_diff_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/street_lamp_01/street_lamp_01_nor_gl_1k.jpg",
+          "bytes": 438623,
+          "path": "Assets/ThirdParty/polyhaven/models/street_lamp_01/textures/street_lamp_01_nor_gl_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/street_lamp_01/street_lamp_01.bin",
+          "bytes": 748908,
+          "path": "Assets/ThirdParty/polyhaven/models/street_lamp_01/street_lamp_01.bin"
+        }
+      ]
+    },
+    {
+      "id": "street_lamp_02",
+      "type": "model",
+      "name": "Street Lamp 02",
+      "authors": [
+        "Josh Dean"
+      ],
+      "page": "https://polyhaven.com/a/street_lamp_02",
+      "polycount": 20338,
+      "files": [
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/street_lamp_02/street_lamp_02_1k.gltf",
+          "bytes": 6429,
+          "path": "Assets/ThirdParty/polyhaven/models/street_lamp_02/street_lamp_02_1k.gltf"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/street_lamp_02/street_lamp_02_diff_1k.jpg",
+          "bytes": 303714,
+          "path": "Assets/ThirdParty/polyhaven/models/street_lamp_02/textures/street_lamp_02_diff_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/street_lamp_02/street_lamp_02_arm_1k.jpg",
+          "bytes": 657710,
+          "path": "Assets/ThirdParty/polyhaven/models/street_lamp_02/textures/street_lamp_02_arm_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/street_lamp_02/street_lamp_02.bin",
+          "bytes": 530092,
+          "path": "Assets/ThirdParty/polyhaven/models/street_lamp_02/street_lamp_02.bin"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/street_lamp_02/street_lamp_02_nor_gl_1k.jpg",
+          "bytes": 372301,
+          "path": "Assets/ThirdParty/polyhaven/models/street_lamp_02/textures/street_lamp_02_nor_gl_1k.jpg"
+        }
+      ]
+    },
+    {
+      "id": "modular_street_seating",
+      "type": "model",
+      "name": "Modular Street Seating",
+      "authors": [
+        "Stuart Attenborrow"
+      ],
+      "page": "https://polyhaven.com/a/modular_street_seating",
+      "polycount": 25156,
+      "files": [
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/modular_street_seating/modular_street_seating_1k.gltf",
+          "bytes": 29629,
+          "path": "Assets/ThirdParty/polyhaven/models/modular_street_seating/modular_street_seating_1k.gltf"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modular_street_seating/modular_street_seating_supports_diff_1k.jpg",
+          "bytes": 721380,
+          "path": "Assets/ThirdParty/polyhaven/models/modular_street_seating/textures/modular_street_seating_supports_diff_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modular_street_seating/modular_street_seating_armrests_nor_gl_1k.jpg",
+          "bytes": 324073,
+          "path": "Assets/ThirdParty/polyhaven/models/modular_street_seating/textures/modular_street_seating_armrests_nor_gl_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modular_street_seating/modular_street_seating_timber_arm_1k.jpg",
+          "bytes": 762344,
+          "path": "Assets/ThirdParty/polyhaven/models/modular_street_seating/textures/modular_street_seating_timber_arm_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modular_street_seating/modular_street_seating_supports_nor_gl_1k.jpg",
+          "bytes": 477177,
+          "path": "Assets/ThirdParty/polyhaven/models/modular_street_seating/textures/modular_street_seating_supports_nor_gl_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modular_street_seating/modular_street_seating_timber_diff_1k.jpg",
+          "bytes": 596026,
+          "path": "Assets/ThirdParty/polyhaven/models/modular_street_seating/textures/modular_street_seating_timber_diff_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modular_street_seating/modular_street_seating_connectors_nor_gl_1k.jpg",
+          "bytes": 398150,
+          "path": "Assets/ThirdParty/polyhaven/models/modular_street_seating/textures/modular_street_seating_connectors_nor_gl_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modular_street_seating/modular_street_seating_armrests_diff_1k.jpg",
+          "bytes": 612860,
+          "path": "Assets/ThirdParty/polyhaven/models/modular_street_seating/textures/modular_street_seating_armrests_diff_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modular_street_seating/modular_street_seating_supports_arm_1k.jpg",
+          "bytes": 734095,
+          "path": "Assets/ThirdParty/polyhaven/models/modular_street_seating/textures/modular_street_seating_supports_arm_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modular_street_seating/modular_street_seating_connectors_diff_1k.jpg",
+          "bytes": 212785,
+          "path": "Assets/ThirdParty/polyhaven/models/modular_street_seating/textures/modular_street_seating_connectors_diff_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modular_street_seating/modular_street_seating_armrests_arm_1k.jpg",
+          "bytes": 622643,
+          "path": "Assets/ThirdParty/polyhaven/models/modular_street_seating/textures/modular_street_seating_armrests_arm_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modular_street_seating/modular_street_seating_timber_nor_gl_1k.jpg",
+          "bytes": 557669,
+          "path": "Assets/ThirdParty/polyhaven/models/modular_street_seating/textures/modular_street_seating_timber_nor_gl_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modular_street_seating/modular_street_seating_connectors_arm_1k.jpg",
+          "bytes": 591917,
+          "path": "Assets/ThirdParty/polyhaven/models/modular_street_seating/textures/modular_street_seating_connectors_arm_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/modular_street_seating/modular_street_seating.bin",
+          "bytes": 977224,
+          "path": "Assets/ThirdParty/polyhaven/models/modular_street_seating/modular_street_seating.bin"
+        }
+      ]
+    },
+    {
+      "id": "metal_trash_can",
+      "type": "model",
+      "name": "Metal Trash Can",
+      "authors": [
+        "GurJas Studios"
+      ],
+      "page": "https://polyhaven.com/a/metal_trash_can",
+      "polycount": 13960,
+      "files": [
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/metal_trash_can/metal_trash_can_1k.gltf",
+          "bytes": 15481,
+          "path": "Assets/ThirdParty/polyhaven/models/metal_trash_can/metal_trash_can_1k.gltf"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/metal_trash_can/metal_trash_can_diff_1k.jpg",
+          "bytes": 551939,
+          "path": "Assets/ThirdParty/polyhaven/models/metal_trash_can/textures/metal_trash_can_diff_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/metal_trash_can/metal_trash_can_rust_diff_1k.jpg",
+          "bytes": 768161,
+          "path": "Assets/ThirdParty/polyhaven/models/metal_trash_can/textures/metal_trash_can_rust_diff_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/metal_trash_can/metal_trash_can_arm_1k.jpg",
+          "bytes": 731776,
+          "path": "Assets/ThirdParty/polyhaven/models/metal_trash_can/textures/metal_trash_can_arm_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/metal_trash_can/metal_trash_can_rust_nor_gl_1k.jpg",
+          "bytes": 1085844,
+          "path": "Assets/ThirdParty/polyhaven/models/metal_trash_can/textures/metal_trash_can_rust_nor_gl_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/metal_trash_can/metal_trash_can_nor_gl_1k.jpg",
+          "bytes": 842945,
+          "path": "Assets/ThirdParty/polyhaven/models/metal_trash_can/textures/metal_trash_can_nor_gl_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/metal_trash_can/metal_trash_can.bin",
+          "bytes": 378288,
+          "path": "Assets/ThirdParty/polyhaven/models/metal_trash_can/metal_trash_can.bin"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/metal_trash_can/metal_trash_can_rust_arm_1k.jpg",
+          "bytes": 620549,
+          "path": "Assets/ThirdParty/polyhaven/models/metal_trash_can/textures/metal_trash_can_rust_arm_1k.jpg"
+        }
+      ]
+    },
+    {
+      "id": "standing_chalkboard_01",
+      "type": "model",
+      "name": "Standing Chalkboard 01",
+      "authors": [
+        "ParzivalCG"
+      ],
+      "page": "https://polyhaven.com/a/standing_chalkboard_01",
+      "polycount": 2372,
+      "files": [
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/standing_chalkboard_01/standing_chalkboard_01_1k.gltf",
+          "bytes": 5145,
+          "path": "Assets/ThirdParty/polyhaven/models/standing_chalkboard_01/standing_chalkboard_01_1k.gltf"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/standing_chalkboard_01/standing_chalkboard_01.bin",
+          "bytes": 100120,
+          "path": "Assets/ThirdParty/polyhaven/models/standing_chalkboard_01/standing_chalkboard_01.bin"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/standing_chalkboard_01/standing_chalkboard_01_frame_nor_gl_1k.jpg",
+          "bytes": 503632,
+          "path": "Assets/ThirdParty/polyhaven/models/standing_chalkboard_01/textures/standing_chalkboard_01_frame_nor_gl_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/standing_chalkboard_01/standing_chalkboard_01_board_arm_1k.jpg",
+          "bytes": 491057,
+          "path": "Assets/ThirdParty/polyhaven/models/standing_chalkboard_01/textures/standing_chalkboard_01_board_arm_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/standing_chalkboard_01/standing_chalkboard_01_board_diff_1k.jpg",
+          "bytes": 142727,
+          "path": "Assets/ThirdParty/polyhaven/models/standing_chalkboard_01/textures/standing_chalkboard_01_board_diff_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/standing_chalkboard_01/standing_chalkboard_01_frame_arm_1k.jpg",
+          "bytes": 671800,
+          "path": "Assets/ThirdParty/polyhaven/models/standing_chalkboard_01/textures/standing_chalkboard_01_frame_arm_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/standing_chalkboard_01/standing_chalkboard_01_board_nor_gl_1k.jpg",
+          "bytes": 164130,
+          "path": "Assets/ThirdParty/polyhaven/models/standing_chalkboard_01/textures/standing_chalkboard_01_board_nor_gl_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/standing_chalkboard_01/standing_chalkboard_01_frame_diff_1k.jpg",
+          "bytes": 538645,
+          "path": "Assets/ThirdParty/polyhaven/models/standing_chalkboard_01/textures/standing_chalkboard_01_frame_diff_1k.jpg"
+        }
+      ]
+    },
+    {
+      "id": "outdoor_table_chair_set_01",
+      "type": "model",
+      "name": "Outdoor Table Chair Set 01",
+      "authors": [
+        "James Ray Cock"
+      ],
+      "page": "https://polyhaven.com/a/outdoor_table_chair_set_01",
+      "polycount": 9828,
+      "files": [
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/outdoor_table_chair_set_01/outdoor_table_chair_set_01_1k.gltf",
+          "bytes": 6826,
+          "path": "Assets/ThirdParty/polyhaven/models/outdoor_table_chair_set_01/outdoor_table_chair_set_01_1k.gltf"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/outdoor_table_chair_set_01/outdoor_table_chair_set_01_table_nor_gl_1k.jpg",
+          "bytes": 43095,
+          "path": "Assets/ThirdParty/polyhaven/models/outdoor_table_chair_set_01/textures/outdoor_table_chair_set_01_table_nor_gl_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/outdoor_table_chair_set_01/outdoor_table_chair_set_01_chair_arm_1k.jpg",
+          "bytes": 179920,
+          "path": "Assets/ThirdParty/polyhaven/models/outdoor_table_chair_set_01/textures/outdoor_table_chair_set_01_chair_arm_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/outdoor_table_chair_set_01/outdoor_table_chair_set_01_table_arm_1k.jpg",
+          "bytes": 201642,
+          "path": "Assets/ThirdParty/polyhaven/models/outdoor_table_chair_set_01/textures/outdoor_table_chair_set_01_table_arm_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/outdoor_table_chair_set_01/outdoor_table_chair_set_01_table_diff_1k.jpg",
+          "bytes": 151897,
+          "path": "Assets/ThirdParty/polyhaven/models/outdoor_table_chair_set_01/textures/outdoor_table_chair_set_01_table_diff_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/outdoor_table_chair_set_01/outdoor_table_chair_set_01.bin",
+          "bytes": 456856,
+          "path": "Assets/ThirdParty/polyhaven/models/outdoor_table_chair_set_01/outdoor_table_chair_set_01.bin"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/outdoor_table_chair_set_01/outdoor_table_chair_set_01_chair_nor_gl_1k.jpg",
+          "bytes": 46772,
+          "path": "Assets/ThirdParty/polyhaven/models/outdoor_table_chair_set_01/textures/outdoor_table_chair_set_01_chair_nor_gl_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/outdoor_table_chair_set_01/outdoor_table_chair_set_01_chair_diff_1k.jpg",
+          "bytes": 155372,
+          "path": "Assets/ThirdParty/polyhaven/models/outdoor_table_chair_set_01/textures/outdoor_table_chair_set_01_chair_diff_1k.jpg"
+        }
+      ]
+    },
+    {
+      "id": "planter_box_01",
+      "type": "model",
+      "name": "Planter Box 01",
+      "authors": [
+        "James Ray Cock"
+      ],
+      "page": "https://polyhaven.com/a/planter_box_01",
+      "polycount": 8094,
+      "files": [
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/planter_box_01/planter_box_01_1k.gltf",
+          "bytes": 2787,
+          "path": "Assets/ThirdParty/polyhaven/models/planter_box_01/planter_box_01_1k.gltf"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/planter_box_01/planter_box_01_nor_gl_1k.jpg",
+          "bytes": 707323,
+          "path": "Assets/ThirdParty/polyhaven/models/planter_box_01/textures/planter_box_01_nor_gl_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/planter_box_01/planter_box_01_arm_1k.jpg",
+          "bytes": 745610,
+          "path": "Assets/ThirdParty/polyhaven/models/planter_box_01/textures/planter_box_01_arm_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/planter_box_01/planter_box_01.bin",
+          "bytes": 250580,
+          "path": "Assets/ThirdParty/polyhaven/models/planter_box_01/planter_box_01.bin"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/planter_box_01/planter_box_01_diff_1k.jpg",
+          "bytes": 633117,
+          "path": "Assets/ThirdParty/polyhaven/models/planter_box_01/textures/planter_box_01_diff_1k.jpg"
+        }
+      ]
+    },
+    {
+      "id": "utility_box_01",
+      "type": "model",
+      "name": "Utility Box 01",
+      "authors": [
+        "James Ray Cock"
+      ],
+      "page": "https://polyhaven.com/a/utility_box_01",
+      "polycount": 4404,
+      "files": [
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/utility_box_01/utility_box_01_1k.gltf",
+          "bytes": 2766,
+          "path": "Assets/ThirdParty/polyhaven/models/utility_box_01/utility_box_01_1k.gltf"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/utility_box_01/utility_box_01_diff_1k.jpg",
+          "bytes": 558681,
+          "path": "Assets/ThirdParty/polyhaven/models/utility_box_01/textures/utility_box_01_diff_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/utility_box_01/utility_box_01_nor_gl_1k.jpg",
+          "bytes": 557001,
+          "path": "Assets/ThirdParty/polyhaven/models/utility_box_01/textures/utility_box_01_nor_gl_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/utility_box_01/utility_box_01_arm_1k.jpg",
+          "bytes": 716061,
+          "path": "Assets/ThirdParty/polyhaven/models/utility_box_01/textures/utility_box_01_arm_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/utility_box_01/utility_box_01.bin",
+          "bytes": 142552,
+          "path": "Assets/ThirdParty/polyhaven/models/utility_box_01/utility_box_01.bin"
+        }
+      ]
+    },
+    {
+      "id": "water_manhole_cover",
+      "type": "model",
+      "name": "Water Manhole Cover",
+      "authors": [
+        "Raunox"
+      ],
+      "page": "https://polyhaven.com/a/water_manhole_cover",
+      "polycount": 6301,
+      "files": [
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/water_manhole_cover/water_manhole_cover_1k.gltf",
+          "bytes": 4253,
+          "path": "Assets/ThirdParty/polyhaven/models/water_manhole_cover/water_manhole_cover_1k.gltf"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/water_manhole_cover/water_manhole_cover_arm_1k.jpg",
+          "bytes": 669586,
+          "path": "Assets/ThirdParty/polyhaven/models/water_manhole_cover/textures/water_manhole_cover_arm_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/water_manhole_cover/water_manhole_cover_nor_gl_1k.jpg",
+          "bytes": 1008913,
+          "path": "Assets/ThirdParty/polyhaven/models/water_manhole_cover/textures/water_manhole_cover_nor_gl_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/water_manhole_cover/water_manhole_cover_diff_1k.jpg",
+          "bytes": 448420,
+          "path": "Assets/ThirdParty/polyhaven/models/water_manhole_cover/textures/water_manhole_cover_diff_1k.jpg"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/water_manhole_cover/water_manhole_cover.bin",
+          "bytes": 202320,
+          "path": "Assets/ThirdParty/polyhaven/models/water_manhole_cover/water_manhole_cover.bin"
+        }
+      ]
+    }
+  ]
+}

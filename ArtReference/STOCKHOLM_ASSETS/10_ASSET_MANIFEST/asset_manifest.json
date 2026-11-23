@@ -1,0 +1,128 @@
+{
+  "project": "STOCKHOLM \u2014 Founder City VI (GTA-Style AAA Open-World Vertical Slice)",
+  "art_direction": "Grand Theft Auto VI illustrated loading-screen / stylized AAA realism hybrid: bold ink outlines, cel-shaded shadows, vibrant sunset/neon contrast, grounded Stockholm & San Francisco urban architecture.",
+  "engine_target": "Unreal Engine 5.4+ (Lumen + Nanite + Post-Process Cel/Outline Shader)",
+  "total_packaged_images": 6,
+  "assets": [
+    {
+      "id": "STK_ART_KEY_VISUAL_FOUNDER_GTA_001",
+      "filename": "00_ART_DIRECTION/STK_ART_KEY_VISUAL_FOUNDER_GTA_001.png",
+      "category": "Key Art & Style Bible Reference",
+      "location": "Global Title / Loading Screen",
+      "scale_dimensions": "896x1195 Key Art",
+      "camera_view": "Full-body character hero shot with Grand Theft Auto VI illustrated aesthetic",
+      "character_identity": "Doudou BA (The Founder)",
+      "material_texture_details": "Bold black ink linework, cel-shaded highlights, vibrant sunset rim lighting, lavender OctOpus hoodie, blue denim, brown boots",
+      "asset_type": "Concept Art / Style Bible Reference (2D Image)",
+      "image_to_3d_steps": "Use as primary shader/cel-shading post-process material target in Unreal Engine 5.",
+      "license_provenance": "Generated for STOCKHOLM / Founder City VI production pack."
+    },
+    {
+      "id": "STK_CHAR_FOUNDER_TURNAROUND_001",
+      "filename": "02_CHARACTERS/STK_CHAR_FOUNDER_TURNAROUND_001.png",
+      "category": "Character Turnaround Reference",
+      "location": "All Stockholm & San Francisco Districts",
+      "scale_dimensions": "182 cm height, neutral A-pose (1376x768)",
+      "camera_view": "Orthographic Front, 3/4, Left, Right, and Back turnaround on neutral grey",
+      "character_identity": "Doudou BA (The Founder)",
+      "material_texture_details": "Lavender OctOpus hoodie, straight-leg blue jeans, white sneakers; apply GTA ink-outline + cel-shade material in UE5",
+      "asset_type": "Model Reference Sheet (2D Image)",
+      "image_to_3d_steps": "1. Align orthographic views in Blender. 2. Block out base body & clothing mesh at 1.82m scale. 3. Apply stylized GTA cel-shaded diffuse textures & ink outlines. 4. Rig to UE5 Manny/Quinn skeleton.",
+      "license_provenance": "Generated for STOCKHOLM / Founder City VI production pack."
+    },
+    {
+      "id": "STK_CHAR_FOUNDER_DETAIL_002",
+      "filename": "02_CHARACTERS/STK_CHAR_FOUNDER_DETAIL_002.png",
+      "category": "Character Facial & Material Detail Reference",
+      "location": "All Stockholm & San Francisco Districts",
+      "scale_dimensions": "1376x768 Detail Sheet",
+      "camera_view": "Close-up Front & 3/4 facial portraits + macro fabric swatches",
+      "character_identity": "Doudou BA (The Founder)",
+      "material_texture_details": "Heavy cotton fleece hoodie, washed indigo denim, matte leather footwear",
+      "asset_type": "Model & Material Reference Sheet (2D Image)",
+      "image_to_3d_steps": "1. Use close-up headshots to sculpt/fit custom MetaHuman or stylized GTA head mesh. 2. Map fabric swatches to UE5 stylized material instances.",
+      "license_provenance": "Generated for STOCKHOLM / Founder City VI production pack."
+    },
+    {
+      "id": "STK_CITY_NORRMALM_SERGELS_DAY_001",
+      "filename": "01_CITY_STOCKHOLM/STK_CITY_NORRMALM_SERGELS_DAY_001.png",
+      "category": "City Environment Concept Art",
+      "location": "District 01 \u2014 Norrmalm & Sergels Torg",
+      "scale_dimensions": "District block ~450 m x 350 m (1376x768)",
+      "camera_view": "Wide establishing shot overlooking Plattan & Kulturhuset",
+      "character_identity": "N/A",
+      "material_texture_details": "Triangular black/white Plattan tiles, Kulturhuset glass facade, blue SL buses, Stockholm streetlamps",
+      "asset_type": "Concept Art / Level Lighting Reference (2D Image)",
+      "image_to_3d_steps": "1. Greybox Sergels Torg sunken plaza and Kulturhuset in UE5. 2. Apply GTA post-process Sobel outline + vibrant sunset color grading.",
+      "license_provenance": "Generated for STOCKHOLM / Founder City VI production pack."
+    },
+    {
+      "id": "STK_CITY_STUREPLAN_EVENING_002",
+      "filename": "01_CITY_STOCKHOLM/STK_CITY_STUREPLAN_EVENING_002.png",
+      "category": "City Driving View Concept Art",
+      "location": "District 01 Gateway \u2014 Stureplan, \u00d6stermalm",
+      "scale_dimensions": "Roundabout intersection ~120 m diameter (1376x768)",
+      "camera_view": "Road-level hood/chase driving camera approaching Svampen on wet winter evening",
+      "character_identity": "N/A",
+      "material_texture_details": "19th-century ochre/cream stone facades, Svampen landmark canopy, wet reflective asphalt, blue SL buses",
+      "asset_type": "Concept Art / Driving Camera Reference (2D Image)",
+      "image_to_3d_steps": "1. Build Stureplan roundabout road splines & Svampen hero mesh. 2. Configure wet asphalt roughness masks & warm neon/window reflections.",
+      "license_provenance": "Generated for STOCKHOLM / Founder City VI production pack."
+    },
+    {
+      "id": "STK_BLD_NORRMALM_BLOCK_OVERVIEW_003",
+      "filename": "04_BUILDINGS/STK_BLD_NORRMALM_BLOCK_OVERVIEW_003.png",
+      "category": "Playable District Blockout & Modular Facade Overview",
+      "location": "Hamngatan \u2013 Norrmalmstorg \u2013 Biblioteksgatan Loop",
+      "scale_dimensions": "Playable block ~220 m x 160 m (1376x768)",
+      "camera_view": "Elevated 45-degree isometric architectural blockout overview",
+      "character_identity": "N/A",
+      "material_texture_details": "Modular 4m x 4m Nordic stone/plaster facades, copper/zinc pitched roofs, Swedish road markings & bike lanes",
+      "asset_type": "Level Blockout & Architectural Reference (2D Image)",
+      "image_to_3d_steps": "1. Greybox building footprints at 1:1 metric scale in UE5. 2. Assemble modular wall/window kits with Nanite enabled.",
+      "license_provenance": "Generated for STOCKHOLM / Founder City VI production pack."
+    }
+  ],
+  "additional_generated_sheets_in_chat": [
+    {
+      "id": "STK_CHAR_FOUNDER_TURNAROUND_GTA_001",
+      "description": "GTA-illustrated Doudou BA 5-view A-pose turnaround"
+    },
+    {
+      "id": "STK_CHAR_ANGEL_INVESTOR_GTA_002",
+      "description": "GTA-illustrated Swedish Angel Investor 4-view turnaround"
+    },
+    {
+      "id": "STK_VEH_SCANDINAVIAN_SEDAN_GTA_001",
+      "description": "GTA-illustrated Modern Scandinavian Executive Sedan multi-view + dashboard"
+    },
+    {
+      "id": "STK_CITY_NORRMALM_SERGELS_GTA_001",
+      "description": "GTA-illustrated Norrmalm & Sergels Torg golden-hour establishing view"
+    },
+    {
+      "id": "STK_SF_GOLDEN_GATE_UNLOCK_GTA_001",
+      "description": "GTA-illustrated San Francisco chapter unlock street & Golden Gate vista"
+    },
+    {
+      "id": "STK_INT_STARTER_APARTMENT_GTA_001",
+      "description": "GTA-illustrated Modest Stockholm founder studio apartment interior"
+    },
+    {
+      "id": "STK_INT_STARTUP_CAFE_GTA_002",
+      "description": "GTA-illustrated \u00d6stermalm startup specialty caf\u00e9 interior"
+    },
+    {
+      "id": "STK_INT_VC_BOARDROOM_GTA_003",
+      "description": "GTA-illustrated Stockholm Venture Capital glass boardroom interior"
+    },
+    {
+      "id": "STK_PROP_URBAN_AND_TECH_KIT_GTA_001",
+      "description": "GTA-illustrated Stockholm street furniture & founder tech props sheet"
+    },
+    {
+      "id": "STK_CIN_STORYBOARD_ACT1_GTA_001",
+      "description": "GTA-illustrated 4-panel Act I gameplay cinematic storyboard"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "STK_District_Prototype": {
+    "meshes": 208,
+    "size_xyz_m": [
+      180.0,
+      140.0,
+      28.01
+    ],
+    "min_z_m": -0.31
+  },
+  "VEH_Scandinavian_Sedan_Blockout": {
+    "meshes": 12,
+    "size_xyz_m": [
+      4.815,
+      2.11,
+      1.345
+    ],
+    "min_z_m": 0.02
+  },
+  "INT_Founder_Studio_Blockout": {
+    "meshes": 16,
+    "size_xyz_m": [
+      6.41,
+      5.01,
+      2.82
+    ],
+    "min_z_m": -0.12
+  }
+}

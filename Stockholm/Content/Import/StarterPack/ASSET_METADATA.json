@@ -1,0 +1,20 @@
+{
+  "source_zip": "STOCKHOLM_GTA_ASSETS_PACK.zip",
+  "coordinate_system": "Y-up glTF (trimesh exports coordinate positions as authored; dimensions in meters). Confirm UE5 import axis orientation and scale.",
+  "status": "procedural blockout (not real-world-accurate, not photorealistic, not animated)",
+  "geometry": [
+    {
+      "file": "STK_District_Prototype.glb",
+      "purpose": "fictional urban blockout only",
+      "georeferenced": false
+    },
+    {
+      "file": "VEH_Scandinavian_Sedan_Blockout.glb",
+      "purpose": "static sedan body + component meshes; requires Chaos vehicle blueprint / wheel rig"
+    },
+    {
+      "file": "INT_Founder_Studio_Blockout.glb",
+      "purpose": "6.4m x 5m interior staging"
+    }
+  ]
+}

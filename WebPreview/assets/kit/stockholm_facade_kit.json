@@ -1,0 +1,561 @@
+{
+ "grid": {
+  "panel_width_m": 4.0,
+  "floor_height_m": 3.5,
+  "ground_height_m": 4.5
+ },
+ "modules": {
+  "win_plain": {
+   "width": 4.0,
+   "height": 3.5,
+   "parts": [
+    {
+     "material": "wall",
+     "triangles": 16
+    },
+    {
+     "material": "frame",
+     "triangles": 28
+    },
+    {
+     "material": "glass",
+     "triangles": 2
+    },
+    {
+     "material": "trim",
+     "triangles": 14
+    },
+    {
+     "material": "snow",
+     "triangles": 6
+    }
+   ]
+  },
+  "win_surround": {
+   "width": 4.0,
+   "height": 3.5,
+   "parts": [
+    {
+     "material": "wall",
+     "triangles": 16
+    },
+    {
+     "material": "frame",
+     "triangles": 28
+    },
+    {
+     "material": "glass",
+     "triangles": 2
+    },
+    {
+     "material": "trim",
+     "triangles": 68
+    },
+    {
+     "material": "snow",
+     "triangles": 12
+    }
+   ]
+  },
+  "win_pair": {
+   "width": 4.0,
+   "height": 3.5,
+   "parts": [
+    {
+     "material": "wall",
+     "triangles": 30
+    },
+    {
+     "material": "frame",
+     "triangles": 56
+    },
+    {
+     "material": "glass",
+     "triangles": 4
+    },
+    {
+     "material": "trim",
+     "triangles": 28
+    },
+    {
+     "material": "snow",
+     "triangles": 12
+    }
+   ]
+  },
+  "win_balcony": {
+   "width": 4.0,
+   "height": 3.5,
+   "parts": [
+    {
+     "material": "wall",
+     "triangles": 16
+    },
+    {
+     "material": "frame",
+     "triangles": 32
+    },
+    {
+     "material": "glass",
+     "triangles": 2
+    },
+    {
+     "material": "trim",
+     "triangles": 58
+    },
+    {
+     "material": "metal",
+     "triangles": 240
+    },
+    {
+     "material": "snow",
+     "triangles": 6
+    }
+   ]
+  },
+  "win_brick": {
+   "width": 4.0,
+   "height": 3.5,
+   "parts": [
+    {
+     "material": "brick",
+     "triangles": 16
+    },
+    {
+     "material": "frame_dark",
+     "triangles": 34
+    },
+    {
+     "material": "glass",
+     "triangles": 2
+    },
+    {
+     "material": "stone",
+     "triangles": 32
+    },
+    {
+     "material": "snow",
+     "triangles": 6
+    }
+   ]
+  },
+  "win_brick_pair": {
+   "width": 4.0,
+   "height": 3.5,
+   "parts": [
+    {
+     "material": "brick",
+     "triangles": 30
+    },
+    {
+     "material": "frame",
+     "triangles": 56
+    },
+    {
+     "material": "glass",
+     "triangles": 4
+    },
+    {
+     "material": "trim",
+     "triangles": 28
+    },
+    {
+     "material": "snow",
+     "triangles": 12
+    }
+   ]
+  },
+  "win_modern": {
+   "width": 4.0,
+   "height": 3.5,
+   "parts": [
+    {
+     "material": "wall",
+     "triangles": 16
+    },
+    {
+     "material": "frame_dark",
+     "triangles": 32
+    },
+    {
+     "material": "glass",
+     "triangles": 2
+    },
+    {
+     "material": "metal",
+     "triangles": 14
+    },
+    {
+     "material": "snow",
+     "triangles": 6
+    }
+   ]
+  },
+  "win_tower": {
+   "width": 4.0,
+   "height": 3.5,
+   "parts": [
+    {
+     "material": "stone",
+     "triangles": 18
+    },
+    {
+     "material": "wall",
+     "triangles": 30
+    },
+    {
+     "material": "frame_dark",
+     "triangles": 56
+    },
+    {
+     "material": "glass",
+     "triangles": 4
+    }
+   ]
+  },
+  "blank": {
+   "width": 4.0,
+   "height": 3.5,
+   "parts": [
+    {
+     "material": "wall",
+     "triangles": 2
+    }
+   ]
+  },
+  "blank_brick": {
+   "width": 4.0,
+   "height": 3.5,
+   "parts": [
+    {
+     "material": "brick",
+     "triangles": 2
+    }
+   ]
+  },
+  "shop_glass": {
+   "width": 4.0,
+   "height": 4.5,
+   "parts": [
+    {
+     "material": "stone",
+     "triangles": 16
+    },
+    {
+     "material": "frame_dark",
+     "triangles": 34
+    },
+    {
+     "material": "shop_glass",
+     "triangles": 2
+    },
+    {
+     "material": "shop_interior",
+     "triangles": 2
+    },
+    {
+     "material": "shop_floor",
+     "triangles": 2
+    },
+    {
+     "material": "shop_side",
+     "triangles": 6
+    },
+    {
+     "material": "sign",
+     "triangles": 2
+    },
+    {
+     "material": "trim",
+     "triangles": 18
+    },
+    {
+     "material": "snow",
+     "triangles": 6
+    },
+    {
+     "material": "wall",
+     "triangles": 2
+    }
+   ]
+  },
+  "shop_glass_plaster": {
+   "width": 4.0,
+   "height": 4.5,
+   "parts": [
+    {
+     "material": "wall",
+     "triangles": 14
+    },
+    {
+     "material": "stone",
+     "triangles": 4
+    },
+    {
+     "material": "frame_dark",
+     "triangles": 34
+    },
+    {
+     "material": "shop_glass",
+     "triangles": 2
+    },
+    {
+     "material": "shop_interior",
+     "triangles": 2
+    },
+    {
+     "material": "shop_floor",
+     "triangles": 2
+    },
+    {
+     "material": "shop_side",
+     "triangles": 6
+    },
+    {
+     "material": "sign",
+     "triangles": 2
+    },
+    {
+     "material": "trim",
+     "triangles": 18
+    },
+    {
+     "material": "snow",
+     "triangles": 6
+    }
+   ]
+  },
+  "shop_door": {
+   "width": 4.0,
+   "height": 4.5,
+   "parts": [
+    {
+     "material": "stone",
+     "triangles": 22
+    },
+    {
+     "material": "frame_dark",
+     "triangles": 46
+    },
+    {
+     "material": "shop_glass",
+     "triangles": 6
+    },
+    {
+     "material": "metal",
+     "triangles": 8
+    },
+    {
+     "material": "shop_interior",
+     "triangles": 2
+    },
+    {
+     "material": "sign",
+     "triangles": 2
+    },
+    {
+     "material": "trim",
+     "triangles": 18
+    },
+    {
+     "material": "snow",
+     "triangles": 6
+    },
+    {
+     "material": "wall",
+     "triangles": 2
+    }
+   ]
+  },
+  "portal": {
+   "width": 4.0,
+   "height": 4.5,
+   "parts": [
+    {
+     "material": "stone",
+     "triangles": 18
+    },
+    {
+     "material": "trim",
+     "triangles": 52
+    },
+    {
+     "material": "snow",
+     "triangles": 6
+    },
+    {
+     "material": "door_wood",
+     "triangles": 72
+    },
+    {
+     "material": "glass",
+     "triangles": 2
+    },
+    {
+     "material": "metal",
+     "triangles": 26
+    },
+    {
+     "material": "lamp_glow",
+     "triangles": 12
+    },
+    {
+     "material": "wall",
+     "triangles": 2
+    }
+   ]
+  },
+  "ground_brick": {
+   "width": 4.0,
+   "height": 4.5,
+   "parts": [
+    {
+     "material": "brick",
+     "triangles": 8
+    },
+    {
+     "material": "stone",
+     "triangles": 32
+    },
+    {
+     "material": "frame_dark",
+     "triangles": 18
+    },
+    {
+     "material": "shop_glass",
+     "triangles": 2
+    },
+    {
+     "material": "shop_interior",
+     "triangles": 2
+    },
+    {
+     "material": "shop_floor",
+     "triangles": 2
+    },
+    {
+     "material": "sign",
+     "triangles": 10
+    }
+   ]
+  },
+  "cornice": {
+   "width": 4.0,
+   "height": 0.9,
+   "parts": [
+    {
+     "material": "trim",
+     "triangles": 98
+    },
+    {
+     "material": "snow",
+     "triangles": 6
+    }
+   ]
+  },
+  "band": {
+   "width": 4.0,
+   "height": 0.3,
+   "parts": [
+    {
+     "material": "trim",
+     "triangles": 8
+    },
+    {
+     "material": "snow",
+     "triangles": 6
+    }
+   ]
+  },
+  "parapet": {
+   "width": 4.0,
+   "height": 1.0,
+   "parts": [
+    {
+     "material": "wall",
+     "triangles": 4
+    },
+    {
+     "material": "metal",
+     "triangles": 8
+    },
+    {
+     "material": "snow",
+     "triangles": 6
+    }
+   ]
+  },
+  "mansard": {
+   "width": 4.0,
+   "height": 3.2,
+   "parts": [
+    {
+     "material": "roof",
+     "triangles": 4
+    },
+    {
+     "material": "metal",
+     "triangles": 6
+    }
+   ]
+  },
+  "mansard_dormer": {
+   "width": 4.0,
+   "height": 3.2,
+   "parts": [
+    {
+     "material": "roof",
+     "triangles": 6
+    },
+    {
+     "material": "metal",
+     "triangles": 6
+    },
+    {
+     "material": "trim",
+     "triangles": 20
+    },
+    {
+     "material": "frame",
+     "triangles": 28
+    },
+    {
+     "material": "glass",
+     "triangles": 2
+    },
+    {
+     "material": "snow",
+     "triangles": 6
+    }
+   ]
+  },
+  "awning": {
+   "width": 3.2,
+   "height": 1.0,
+   "parts": [
+    {
+     "material": "awning",
+     "triangles": 6
+    },
+    {
+     "material": "snow",
+     "triangles": 6
+    }
+   ]
+  },
+  "blade_sign": {
+   "width": 0.9,
+   "height": 0.9,
+   "parts": [
+    {
+     "material": "metal",
+     "triangles": 20
+    },
+    {
+     "material": "sign_blade",
+     "triangles": 4
+    }
+   ]
+  }
+ }
+}

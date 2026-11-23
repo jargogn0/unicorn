@@ -1,86 +1,1038 @@
 {
-  "note": "STYLIZED hand-authored approximation of central Stockholm for the browser preview, in local metres (x east, y north) around 59.3275N 18.0680E. NOT OpenStreetMap data. Replaced by Tools/geodata output once OSM access works.",
-  "land": [
-    {"id": "gamla_stan", "name": "Gamla Stan", "base": 3.0, "rise": 9, "rise_dist": 160,
-     "ring": [[-80,40],[120,80],[330,45],[445,-120],[455,-400],[385,-605],[260,-722],[120,-705],[10,-605],[-70,-450],[-100,-250],[-95,-60]]},
-    {"id": "riddarholmen", "name": "Riddarholmen", "base": 2.6, "rise": 2, "rise_dist": 60,
-     "ring": [[-150,-150],[-140,-430],[-260,-470],[-380,-380],[-370,-220],[-250,-150]]},
-    {"id": "helgeandsholmen", "name": "Helgeandsholmen", "base": 2.6, "rise": 1, "rise_dist": 40,
-     "ring": [[-110,100],[170,110],[175,198],[-100,206]]},
-    {"id": "norrmalm", "name": "Norrmalm", "base": 3.0, "rise": 14, "rise_dist": 700,
-     "ring": [[-700,330],[-560,262],[-330,262],[-120,236],[80,230],[250,226],[340,175],[470,95],[640,105],[720,250],[950,420],[950,1450],[-700,1450]]},
-    {"id": "kungsholmen", "name": "Kungsholmen", "base": 3.0, "rise": 10, "rise_dist": 500,
-     "ring": [[-700,-40],[-690,250],[-735,720],[-1850,820],[-1850,-150],[-1200,-140],[-900,-90]]},
-    {"id": "sodermalm", "name": "Södermalm", "base": 3.0, "rise": 24, "rise_dist": 150,
-     "ring": [[-1850,-760],[-900,-770],[-400,-792],[-100,-805],[100,-822],[232,-848],[350,-880],[600,-930],[1250,-960],[1250,-2100],[-1850,-2100]]},
-    {"id": "skeppsholmen", "name": "Skeppsholmen", "base": 3.0, "rise": 6, "rise_dist": 120,
-     "ring": [[700,-100],[1000,-80],[1050,-350],[780,-400]]}
-  ],
-  "nodes": {
-    "N1": [-560,300], "N2": [-330,300], "N3": [-170,270], "N4": [40,272], "N5": [280,258], "N6": [520,200], "N7": [690,170],
-    "N8": [-450,520], "N9": [-150,520], "N10": [60,520], "N11": [300,500],
-    "N12": [-450,850], "N13": [-120,850], "N14": [300,850], "N15": [-450,1300], "N16": [-120,1300], "N17": [300,1300],
-    "D1": [-150,850],
-    "G1": [40,155], "G2": [120,45], "G3": [330,40], "G4": [440,-150], "G5": [450,-420], "G6": [375,-615], "G7": [240,-735],
-    "G8": [-80,-60], "G10": [70,-40], "G11": [88,-360], "G12": [110,-640], "G13": [300,-90], "G14": [300,-400], "G15": [285,-630], "G16": [160,-268],
-    "C1": [-230,140], "C2": [-125,-150], "C3": [-115,-500], "C4": [-40,-765],
-    "R1": [-190,-200], "R2": [-310,-300], "R3": [-200,-420],
-    "S1": [20,-845], "S2": [232,-870], "S3": [-400,-822], "S4": [-1250,-800], "S6": [-80,-1050], "S7": [-300,-1130], "S8": [-600,-1180], "S9": [-1300,-1225],
-    "S11": [-150,-962], "S12": [-470,-1000], "S13": [-900,-1032], "S14": [245,-1200], "S15": [265,-1650], "S16": [720,-1250], "S17": [700,-955], "S18": [1150,-985],
-    "K1": [-745,80], "K2": [-765,400], "K3": [-1650,440], "K4": [-765,720], "K5": [-1100,-95], "K6": [-957,415], "K7": [-1750,-115],
-    "H1": [800,-130], "H2": [950,-250]
+ "note": "STYLIZED hand-authored approximation of central Stockholm for the browser preview, in local metres (x east, y north) around 59.3275N 18.0680E. NOT OpenStreetMap data. Replaced by Tools/geodata output once OSM access works.",
+ "land": [
+  {
+   "id": "gamla_stan",
+   "name": "Gamla Stan",
+   "base": 3.0,
+   "rise": 9,
+   "rise_dist": 160,
+   "ring": [
+    [
+     -80,
+     40
+    ],
+    [
+     120,
+     80
+    ],
+    [
+     330,
+     45
+    ],
+    [
+     445,
+     -120
+    ],
+    [
+     455,
+     -400
+    ],
+    [
+     385,
+     -605
+    ],
+    [
+     260,
+     -722
+    ],
+    [
+     120,
+     -705
+    ],
+    [
+     10,
+     -605
+    ],
+    [
+     -70,
+     -450
+    ],
+    [
+     -100,
+     -250
+    ],
+    [
+     -95,
+     -60
+    ]
+   ]
   },
-  "ways": [
-    {"name": "Strömgatan", "cls": "secondary", "nodes": ["N1","N2","N3","N4","N5","N6","N7"]},
-    {"name": "Vasagatan", "cls": "primary", "nodes": ["N2","N8","N12","N15"]},
-    {"name": "Drottninggatan", "cls": "pedestrian", "nodes": ["N3","N9","D1"]},
-    {"name": "Sveavägen", "cls": "primary", "nodes": ["N9","N13","N16"]},
-    {"name": "Hamngatan", "cls": "secondary", "nodes": ["N8","N9","N10","N11"]},
-    {"name": "Kungsgatan", "cls": "secondary", "nodes": ["N12","D1","N13","N14"]},
-    {"name": "Kungsträdgårdsgatan", "cls": "tertiary", "nodes": ["N5","N11","N14"]},
-    {"name": "Regeringsgatan", "cls": "tertiary", "nodes": ["N4","N10"]},
-    {"name": "Tegnérlunden road", "cls": "tertiary", "nodes": ["N15","N16","N17","N14"]},
-    {"name": "Norrbro", "cls": "tertiary", "bridge": true, "nodes": ["N4","G1"]},
-    {"name": "Norrbro", "cls": "tertiary", "bridge": true, "nodes": ["G1","G2"]},
-    {"name": "Strömbron", "cls": "secondary", "bridge": true, "nodes": ["N5","G3"]},
-    {"name": "Skeppsbron", "cls": "secondary", "nodes": ["G2","G3","G4","G5","G6","G7"]},
-    {"name": "Vasabron", "cls": "secondary", "bridge": true, "nodes": ["N3","G8"]},
-    {"name": "Myntgatan", "cls": "tertiary", "nodes": ["G8","G10","G2"]},
-    {"name": "Västerlånggatan", "cls": "pedestrian", "nodes": ["G10","G11","G12"]},
-    {"name": "Österlånggatan", "cls": "pedestrian", "nodes": ["G3","G13","G14","G15"]},
-    {"name": "Stortorget lanes", "cls": "pedestrian", "nodes": ["G11","G16","G14"]},
-    {"name": "Köpmangatan", "cls": "pedestrian", "nodes": ["G16","G13"]},
-    {"name": "Södra lanes", "cls": "pedestrian", "nodes": ["G12","G15","G7"]},
-    {"name": "Centralbron", "cls": "primary", "bridge": true, "nodes": ["N2","C1","C2","C3","C4","S1"]},
-    {"name": "Riddarhusbron", "cls": "tertiary", "bridge": true, "nodes": ["G8","R1"]},
-    {"name": "Riddarholmen loop", "cls": "residential", "nodes": ["R1","R2","R3","R1"]},
-    {"name": "Centralbron ramp", "cls": "tertiary", "nodes": ["C2","G8"]},
-    {"name": "Slussen", "cls": "secondary", "bridge": true, "nodes": ["G7","S2"]},
-    {"name": "Söder Mälarstrand", "cls": "secondary", "nodes": ["S2","S1","S3","S4"]},
-    {"name": "Hornsgatan", "cls": "primary", "nodes": ["S2","S6","S7","S8","S9"]},
-    {"name": "Brännkyrkagatan", "cls": "residential", "nodes": ["S11","S12","S13"]},
-    {"name": "Torkel Knutssonsgatan", "cls": "residential", "nodes": ["S1","S11","S6"]},
-    {"name": "Ludvigsbergsgatan", "cls": "residential", "nodes": ["S3","S12","S7"]},
-    {"name": "Timmermansgatan", "cls": "residential", "nodes": ["S4","S13","S8"]},
-    {"name": "Götgatan", "cls": "secondary", "nodes": ["S2","S14","S15"]},
-    {"name": "Folkungagatan", "cls": "secondary", "nodes": ["S14","S16"]},
-    {"name": "Stadsgården", "cls": "secondary", "nodes": ["S2","S17","S18"]},
-    {"name": "Stadshusbron", "cls": "secondary", "bridge": true, "nodes": ["N1","K1"]},
-    {"name": "Hantverkargatan", "cls": "secondary", "nodes": ["K1","K2","K4"]},
-    {"name": "Hantverkargatan", "cls": "secondary", "nodes": ["K2","K6","K3"]},
-    {"name": "Norr Mälarstrand", "cls": "secondary", "nodes": ["K1","K5","K7"]},
-    {"name": "Skeppsholmsbron", "cls": "tertiary", "bridge": true, "nodes": ["N7","H1"]},
-    {"name": "Skeppsholmen", "cls": "residential", "nodes": ["H1","H2"]}
+  {
+   "id": "riddarholmen",
+   "name": "Riddarholmen",
+   "base": 2.6,
+   "rise": 2,
+   "rise_dist": 60,
+   "ring": [
+    [
+     -150,
+     -150
+    ],
+    [
+     -140,
+     -430
+    ],
+    [
+     -260,
+     -470
+    ],
+    [
+     -380,
+     -380
+    ],
+    [
+     -370,
+     -220
+    ],
+    [
+     -250,
+     -150
+    ]
+   ]
+  },
+  {
+   "id": "helgeandsholmen",
+   "name": "Helgeandsholmen",
+   "base": 2.6,
+   "rise": 1,
+   "rise_dist": 40,
+   "ring": [
+    [
+     -110,
+     100
+    ],
+    [
+     170,
+     110
+    ],
+    [
+     175,
+     198
+    ],
+    [
+     -100,
+     206
+    ]
+   ]
+  },
+  {
+   "id": "norrmalm",
+   "name": "Norrmalm",
+   "base": 3.0,
+   "rise": 14,
+   "rise_dist": 700,
+   "ring": [
+    [
+     -700,
+     330
+    ],
+    [
+     -560,
+     262
+    ],
+    [
+     -330,
+     262
+    ],
+    [
+     -120,
+     236
+    ],
+    [
+     80,
+     230
+    ],
+    [
+     250,
+     226
+    ],
+    [
+     340,
+     175
+    ],
+    [
+     470,
+     95
+    ],
+    [
+     640,
+     105
+    ],
+    [
+     720,
+     250
+    ],
+    [
+     950,
+     420
+    ],
+    [
+     950,
+     1450
+    ],
+    [
+     -700,
+     1450
+    ]
+   ]
+  },
+  {
+   "id": "kungsholmen",
+   "name": "Kungsholmen",
+   "base": 3.0,
+   "rise": 10,
+   "rise_dist": 500,
+   "ring": [
+    [
+     -700,
+     -40
+    ],
+    [
+     -690,
+     250
+    ],
+    [
+     -735,
+     720
+    ],
+    [
+     -1850,
+     820
+    ],
+    [
+     -1850,
+     -150
+    ],
+    [
+     -1200,
+     -140
+    ],
+    [
+     -900,
+     -90
+    ]
+   ]
+  },
+  {
+   "id": "sodermalm",
+   "name": "Södermalm",
+   "base": 3.0,
+   "rise": 24,
+   "rise_dist": 150,
+   "ring": [
+    [
+     -1850,
+     -760
+    ],
+    [
+     -900,
+     -770
+    ],
+    [
+     -400,
+     -792
+    ],
+    [
+     -100,
+     -805
+    ],
+    [
+     100,
+     -822
+    ],
+    [
+     232,
+     -848
+    ],
+    [
+     350,
+     -880
+    ],
+    [
+     600,
+     -930
+    ],
+    [
+     1250,
+     -960
+    ],
+    [
+     1250,
+     -2100
+    ],
+    [
+     -1850,
+     -2100
+    ]
+   ]
+  },
+  {
+   "id": "skeppsholmen",
+   "name": "Skeppsholmen",
+   "base": 3.0,
+   "rise": 6,
+   "rise_dist": 120,
+   "ring": [
+    [
+     700,
+     -100
+    ],
+    [
+     1000,
+     -80
+    ],
+    [
+     1050,
+     -350
+    ],
+    [
+     780,
+     -400
+    ]
+   ]
+  }
+ ],
+ "nodes": {
+  "N1": [
+   -560,
+   300
   ],
-  "landmarks": [
-    {"id": "palace", "name": "Kungliga slottet (Royal Palace)", "type": "palace", "x": 215, "y": -80, "w": 118, "d": 122, "h": 26, "angle": 8},
-    {"id": "storkyrkan", "name": "Storkyrkan", "type": "tower", "x": 185, "y": -190, "w": 14, "d": 14, "h": 66, "color": "#b98a5a"},
-    {"id": "tyska", "name": "Tyska kyrkan", "type": "spire", "x": 245, "y": -390, "w": 12, "d": 12, "h": 96, "color": "#9b6b44"},
-    {"id": "riddarholmskyrkan", "name": "Riddarholmskyrkan", "type": "lattice", "x": -235, "y": -270, "w": 16, "d": 16, "h": 90, "color": "#7a5a48"},
-    {"id": "riksdag", "name": "Riksdagshuset", "type": "block", "x": 30, "y": 160, "w": 150, "d": 70, "h": 24, "color": "#d9cfbe"},
-    {"id": "stadshuset", "name": "Stadshuset (City Hall)", "type": "cityhall", "x": -800, "y": 5, "w": 110, "d": 75, "h": 28, "tower_h": 106, "color": "#9c4a32"},
-    {"id": "hotorg", "name": "Hötorgsskraporna", "type": "slabs", "x": -60, "y": 700, "w": 18, "d": 40, "h": 72, "count": 5, "color": "#a9b4bd"},
-    {"id": "katarina", "name": "Katarina kyrka", "type": "dome", "x": 430, "y": -1180, "w": 34, "d": 34, "h": 26, "dome_h": 50, "color": "#e3c27a"},
-    {"id": "nationalmuseum", "name": "Nationalmuseum", "type": "block", "x": 565, "y": 120, "w": 90, "d": 55, "h": 22, "color": "#d8cdb8"}
+  "N2": [
+   -330,
+   300
+  ],
+  "N3": [
+   -170,
+   270
+  ],
+  "N4": [
+   40,
+   272
+  ],
+  "N5": [
+   280,
+   258
+  ],
+  "N6": [
+   520,
+   200
+  ],
+  "N7": [
+   690,
+   170
+  ],
+  "N8": [
+   -450,
+   520
+  ],
+  "N9": [
+   -150,
+   520
+  ],
+  "N10": [
+   60,
+   520
+  ],
+  "N11": [
+   300,
+   500
+  ],
+  "N12": [
+   -450,
+   800
+  ],
+  "N13": [
+   -246.7,
+   899.1
+  ],
+  "N14": [
+   200,
+   965.7
+  ],
+  "N15": [
+   -450,
+   1300
+  ],
+  "N16": [
+   -365,
+   1300
+  ],
+  "N17": [
+   300,
+   1300
+  ],
+  "D1": [
+   -330,
+   859
+  ],
+  "G1": [
+   40,
+   155
+  ],
+  "G2": [
+   120,
+   45
+  ],
+  "G3": [
+   330,
+   40
+  ],
+  "G4": [
+   440,
+   -150
+  ],
+  "G5": [
+   450,
+   -420
+  ],
+  "G6": [
+   375,
+   -615
+  ],
+  "G7": [
+   240,
+   -735
+  ],
+  "G8": [
+   -80,
+   -60
+  ],
+  "G10": [
+   70,
+   -40
+  ],
+  "G11": [
+   88,
+   -360
+  ],
+  "G12": [
+   110,
+   -640
+  ],
+  "G13": [
+   300,
+   -90
+  ],
+  "G14": [
+   300,
+   -400
+  ],
+  "G15": [
+   285,
+   -630
+  ],
+  "G16": [
+   160,
+   -268
+  ],
+  "C1": [
+   -230,
+   140
+  ],
+  "C2": [
+   -125,
+   -150
+  ],
+  "C3": [
+   -115,
+   -500
+  ],
+  "C4": [
+   -40,
+   -765
+  ],
+  "R1": [
+   -190,
+   -200
+  ],
+  "R2": [
+   -310,
+   -300
+  ],
+  "R3": [
+   -200,
+   -420
+  ],
+  "S1": [
+   20,
+   -845
+  ],
+  "S2": [
+   232,
+   -870
+  ],
+  "S3": [
+   -400,
+   -822
+  ],
+  "S4": [
+   -1250,
+   -800
+  ],
+  "S6": [
+   -80,
+   -1050
+  ],
+  "S7": [
+   -300,
+   -1130
+  ],
+  "S8": [
+   -600,
+   -1180
+  ],
+  "S9": [
+   -1300,
+   -1225
+  ],
+  "S11": [
+   -150,
+   -962
+  ],
+  "S12": [
+   -470,
+   -1000
+  ],
+  "S13": [
+   -900,
+   -1032
+  ],
+  "S14": [
+   245,
+   -1200
+  ],
+  "S15": [
+   265,
+   -1650
+  ],
+  "S16": [
+   720,
+   -1250
+  ],
+  "S17": [
+   700,
+   -955
+  ],
+  "S18": [
+   1150,
+   -985
+  ],
+  "K1": [
+   -745,
+   80
+  ],
+  "K2": [
+   -765,
+   400
+  ],
+  "K3": [
+   -1650,
+   440
+  ],
+  "K4": [
+   -765,
+   720
+  ],
+  "K5": [
+   -1100,
+   -95
+  ],
+  "K6": [
+   -957,
+   415
+  ],
+  "K7": [
+   -1750,
+   -115
+  ],
+  "H1": [
+   800,
+   -130
+  ],
+  "H2": [
+   950,
+   -250
   ]
+ },
+ "ways": [
+  {
+   "name": "Strömgatan",
+   "cls": "secondary",
+   "nodes": [
+    "N1",
+    "N2",
+    "N3",
+    "N4",
+    "N5",
+    "N6",
+    "N7"
+   ]
+  },
+  {
+   "name": "Vasagatan",
+   "cls": "primary",
+   "nodes": [
+    "N2",
+    "N8",
+    "N12",
+    "N15"
+   ]
+  },
+  {
+   "name": "Drottninggatan",
+   "cls": "pedestrian",
+   "nodes": [
+    "N3",
+    "N9",
+    "D1"
+   ]
+  },
+  {
+   "name": "Sveavägen",
+   "cls": "primary",
+   "nodes": [
+    "N9",
+    "N13",
+    "N16"
+   ]
+  },
+  {
+   "name": "Hamngatan",
+   "cls": "secondary",
+   "nodes": [
+    "N8",
+    "N9",
+    "N10",
+    "N11"
+   ]
+  },
+  {
+   "name": "Kungsgatan",
+   "cls": "secondary",
+   "nodes": [
+    "N12",
+    "D1",
+    "N13",
+    "N14"
+   ]
+  },
+  {
+   "name": "Kungsträdgårdsgatan",
+   "cls": "tertiary",
+   "nodes": [
+    "N5",
+    "N11",
+    "N14"
+   ]
+  },
+  {
+   "name": "Regeringsgatan",
+   "cls": "tertiary",
+   "nodes": [
+    "N4",
+    "N10"
+   ]
+  },
+  {
+   "name": "Tegnérlunden road",
+   "cls": "tertiary",
+   "nodes": [
+    "N15",
+    "N16",
+    "N17",
+    "N14"
+   ]
+  },
+  {
+   "name": "Norrbro",
+   "cls": "tertiary",
+   "bridge": true,
+   "nodes": [
+    "N4",
+    "G1"
+   ]
+  },
+  {
+   "name": "Norrbro",
+   "cls": "tertiary",
+   "bridge": true,
+   "nodes": [
+    "G1",
+    "G2"
+   ]
+  },
+  {
+   "name": "Strömbron",
+   "cls": "secondary",
+   "bridge": true,
+   "nodes": [
+    "N5",
+    "G3"
+   ]
+  },
+  {
+   "name": "Skeppsbron",
+   "cls": "secondary",
+   "nodes": [
+    "G2",
+    "G3",
+    "G4",
+    "G5",
+    "G6",
+    "G7"
+   ]
+  },
+  {
+   "name": "Vasabron",
+   "cls": "secondary",
+   "bridge": true,
+   "nodes": [
+    "N3",
+    "G8"
+   ]
+  },
+  {
+   "name": "Myntgatan",
+   "cls": "tertiary",
+   "nodes": [
+    "G8",
+    "G10",
+    "G2"
+   ]
+  },
+  {
+   "name": "Västerlånggatan",
+   "cls": "pedestrian",
+   "nodes": [
+    "G10",
+    "G11",
+    "G12"
+   ]
+  },
+  {
+   "name": "Österlånggatan",
+   "cls": "pedestrian",
+   "nodes": [
+    "G3",
+    "G13",
+    "G14",
+    "G15"
+   ]
+  },
+  {
+   "name": "Stortorget lanes",
+   "cls": "pedestrian",
+   "nodes": [
+    "G11",
+    "G16",
+    "G14"
+   ]
+  },
+  {
+   "name": "Köpmangatan",
+   "cls": "pedestrian",
+   "nodes": [
+    "G16",
+    "G13"
+   ]
+  },
+  {
+   "name": "Södra lanes",
+   "cls": "pedestrian",
+   "nodes": [
+    "G12",
+    "G15",
+    "G7"
+   ]
+  },
+  {
+   "name": "Centralbron",
+   "cls": "primary",
+   "bridge": true,
+   "nodes": [
+    "N2",
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "S1"
+   ]
+  },
+  {
+   "name": "Riddarhusbron",
+   "cls": "tertiary",
+   "bridge": true,
+   "nodes": [
+    "G8",
+    "R1"
+   ]
+  },
+  {
+   "name": "Riddarholmen loop",
+   "cls": "residential",
+   "nodes": [
+    "R1",
+    "R2",
+    "R3",
+    "R1"
+   ]
+  },
+  {
+   "name": "Centralbron ramp",
+   "cls": "tertiary",
+   "nodes": [
+    "C2",
+    "G8"
+   ]
+  },
+  {
+   "name": "Slussen",
+   "cls": "secondary",
+   "bridge": true,
+   "nodes": [
+    "G7",
+    "S2"
+   ]
+  },
+  {
+   "name": "Söder Mälarstrand",
+   "cls": "secondary",
+   "nodes": [
+    "S2",
+    "S1",
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "Hornsgatan",
+   "cls": "primary",
+   "nodes": [
+    "S2",
+    "S6",
+    "S7",
+    "S8",
+    "S9"
+   ]
+  },
+  {
+   "name": "Brännkyrkagatan",
+   "cls": "residential",
+   "nodes": [
+    "S11",
+    "S12",
+    "S13"
+   ]
+  },
+  {
+   "name": "Torkel Knutssonsgatan",
+   "cls": "residential",
+   "nodes": [
+    "S1",
+    "S11",
+    "S6"
+   ]
+  },
+  {
+   "name": "Ludvigsbergsgatan",
+   "cls": "residential",
+   "nodes": [
+    "S3",
+    "S12",
+    "S7"
+   ]
+  },
+  {
+   "name": "Timmermansgatan",
+   "cls": "residential",
+   "nodes": [
+    "S4",
+    "S13",
+    "S8"
+   ]
+  },
+  {
+   "name": "Götgatan",
+   "cls": "secondary",
+   "nodes": [
+    "S2",
+    "S14",
+    "S15"
+   ]
+  },
+  {
+   "name": "Folkungagatan",
+   "cls": "secondary",
+   "nodes": [
+    "S14",
+    "S16"
+   ]
+  },
+  {
+   "name": "Stadsgården",
+   "cls": "secondary",
+   "nodes": [
+    "S2",
+    "S17",
+    "S18"
+   ]
+  },
+  {
+   "name": "Stadshusbron",
+   "cls": "secondary",
+   "bridge": true,
+   "nodes": [
+    "N1",
+    "K1"
+   ]
+  },
+  {
+   "name": "Hantverkargatan",
+   "cls": "secondary",
+   "nodes": [
+    "K1",
+    "K2",
+    "K4"
+   ]
+  },
+  {
+   "name": "Hantverkargatan",
+   "cls": "secondary",
+   "nodes": [
+    "K2",
+    "K6",
+    "K3"
+   ]
+  },
+  {
+   "name": "Norr Mälarstrand",
+   "cls": "secondary",
+   "nodes": [
+    "K1",
+    "K5",
+    "K7"
+   ]
+  },
+  {
+   "name": "Skeppsholmsbron",
+   "cls": "tertiary",
+   "bridge": true,
+   "nodes": [
+    "N7",
+    "H1"
+   ]
+  },
+  {
+   "name": "Skeppsholmen",
+   "cls": "residential",
+   "nodes": [
+    "H1",
+    "H2"
+   ]
+  }
+ ],
+ "landmarks": [
+  {
+   "id": "palace",
+   "name": "Kungliga slottet (Royal Palace)",
+   "type": "palace",
+   "x": 215,
+   "y": -80,
+   "w": 118,
+   "d": 122,
+   "h": 26,
+   "angle": 8
+  },
+  {
+   "id": "storkyrkan",
+   "name": "Storkyrkan",
+   "type": "tower",
+   "x": 185,
+   "y": -190,
+   "w": 14,
+   "d": 14,
+   "h": 66,
+   "color": "#b98a5a"
+  },
+  {
+   "id": "tyska",
+   "name": "Tyska kyrkan",
+   "type": "spire",
+   "x": 245,
+   "y": -390,
+   "w": 12,
+   "d": 12,
+   "h": 96,
+   "color": "#9b6b44"
+  },
+  {
+   "id": "riddarholmskyrkan",
+   "name": "Riddarholmskyrkan",
+   "type": "lattice",
+   "x": -235,
+   "y": -270,
+   "w": 16,
+   "d": 16,
+   "h": 90,
+   "color": "#7a5a48"
+  },
+  {
+   "id": "riksdag",
+   "name": "Riksdagshuset",
+   "type": "block",
+   "x": 30,
+   "y": 160,
+   "w": 150,
+   "d": 70,
+   "h": 24,
+   "color": "#d9cfbe"
+  },
+  {
+   "id": "stadshuset",
+   "name": "Stadshuset (City Hall)",
+   "type": "cityhall",
+   "x": -800,
+   "y": 5,
+   "w": 110,
+   "d": 75,
+   "h": 28,
+   "tower_h": 106,
+   "color": "#9c4a32"
+  },
+  {
+   "id": "katarina",
+   "name": "Katarina kyrka",
+   "type": "dome",
+   "x": 430,
+   "y": -1180,
+   "w": 34,
+   "d": 34,
+   "h": 26,
+   "dome_h": 50,
+   "color": "#e3c27a"
+  },
+  {
+   "id": "nationalmuseum",
+   "name": "Nationalmuseum",
+   "type": "block",
+   "x": 565,
+   "y": 120,
+   "w": 90,
+   "d": 55,
+   "h": 22,
+   "color": "#d8cdb8"
+  }
+ ],
+ "hero": {
+  "id": "kungsgatan",
+  "note": "Real OpenStreetMap geometry (ODbL) for Kungsgatan, Norrmalm: Stockholm/Content/Data/Geo/hero_kungsgatan_city.json",
+  "rect": [
+   -396,
+   728,
+   112,
+   1078
+  ],
+  "ground": 10.0
+ }
 }

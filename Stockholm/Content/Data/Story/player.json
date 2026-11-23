@@ -1,0 +1,29 @@
+{
+  "kind": "player",
+  "note": "Protagonist profile supplied by the project owner. Reference for the MetaHuman/character art brief and UI copy. Not loaded by ContentDatabase.",
+  "name": "Doudou",
+  "role": "Founder, OctOpus",
+  "company": {
+    "name": "OctOpus",
+    "sector": "AI and big data",
+    "stage": "pre-revenue, going to market",
+    "looking_for": [
+      "clients",
+      "funding"
+    ],
+    "chapter1_product": "OctOpus Forecast: AI staffing and waste forecasting for cafés and bakeries"
+  },
+  "appearance": {
+    "top": "oversized lavender hoodie, purple octopus logo with 'OctOpus' wordmark on the chest, white drawcords",
+    "bottoms": "light-wash slim jeans",
+    "shoes": "dark brown leather lace-up boots",
+    "hair": "short dark hair",
+    "accessories": [
+      "grey-olive backpack with octopus patch",
+      "over-ear headphones around the neck",
+      "silver watch"
+    ],
+    "signature_pose": "peace-sign wave, wide smile"
+  },
+  "pronouns": "not specified; UI addresses the player as 'you'"
+}

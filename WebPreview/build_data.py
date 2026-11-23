@@ -21,4 +21,13 @@ out = {
 }
 dst = ROOT / "WebPreview" / "data.json"
 dst.write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+import shutil
+shutil.copy(DATA / "Geo" / "hero_kungsgatan_city.json", ROOT / "WebPreview" / "hero_kungsgatan_city.json")
 print(f"wrote {dst} ({dst.stat().st_size // 1024} KB)")
+
+# Wrap GLB models for publishing: the artifact host serves .json but not .glb.
+import base64
+for glb in sorted((ROOT / "WebPreview").rglob("*.glb")):
+    wrapped = glb.with_name(glb.name + ".json")
+    wrapped.write_text(json.dumps({"b64": base64.b64encode(glb.read_bytes()).decode("ascii")}))
+print("wrapped", len(list((ROOT / "WebPreview").rglob("*.glb.json"))), "models")

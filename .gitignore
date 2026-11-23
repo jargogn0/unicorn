@@ -21,3 +21,10 @@ Tests/build/
 __pycache__/
 *.pyc
 Tools/geodata/cache/
+
+# Third-party raw downloads (restore with Tools/assets/fetch_polyhaven.py)
+Assets/ThirdParty/polyhaven/
+Assets/ThirdParty/makehuman/
+
+# generated publish wrappers
+WebPreview/**/*.glb.json
