@@ -82,7 +82,7 @@ Verified in headless Chromium with software WebGL: no console errors, the openin
 Limits:
 
 - Outside Kungsgatan the city is **hand-placed and stylized**, not OSM, and its buildings are procedural boxes.
-- Story NPCs and cars are still procedural or blockout models.
+- Cars are still blockout models, and the venue interiors are simple boxes.
 - It ran at under 1 fps in software rendering; GPU frame rate has not been measured.
 
 It is a preview for playtesting the story and systems. **It is not the game and does not represent the target visual quality.**
@@ -93,7 +93,8 @@ See **VISUAL_OVERHAUL.md** for the audit, licences, evidence and gaps. In short:
 
 - **Verified in the browser build:** Kungsgatan (Norrmalm) rebuilt from real OpenStreetMap footprints with a Blender-modelled facade kit, Poly Haven CC0 scanned materials, HDRI lighting and 248 street props. Before/after frames are in `docs/visual_overhaul/`.
 - **Verified in the browser build:** a rigged, animated Doudou (lavender OctOpus hoodie, jeans, white sneakers; idle, walk, run, talk and interact) and four rigged pedestrian variants, built in Blender from MakeHuman CC0/CC BY assets. Depth-based ambient occlusion and a High/Low graphics switch.
-- **In progress:** rigged story NPCs (they are still procedural figures), and modelled cars and a bicycle (cars are still blockouts).
+- **Verified in the browser build:** rigged story NPCs (Noor, Sami, Aditi, Elin, Mateo and Helena; the landlord has no model) and 80 modelled winter trees along Sveavägen.
+- **In progress:** modelled cars and a bicycle (cars are still blockouts).
 - **Not done:** turn-in-place and facial animation, wet-road reflections, any measurement on a real GPU.
 - **Art direction:** the owner's packs (`ArtReference/`, `Stockholm/Content/Import/StarterPack`) are filed and described in ART_PIPELINE.md. The protagonist is Doudou BA, founder of OctOpus (`Content/Data/Story/player.json`).
 

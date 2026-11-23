@@ -14,7 +14,7 @@ API = "https://api.polyhaven.com"
 UA = {"User-Agent": "stockholm-game-assets/0.1"}
 
 TEXTURES = ["painted_plaster_wall", "white_plaster_02", "brick_wall_10", "brick_wall_006", "granite_wall", "asphalt_02",
-            "asphalt_snow", "concrete_pavement", "cobblestone_floor_08", "snow_02", "box_profile_metal_sheet", "grey_roof_01"]
+            "asphalt_snow", "concrete_pavement", "cobblestone_floor_08", "snow_02", "box_profile_metal_sheet", "grey_roof_01", "bark_willow"]
 HDRIS = ["winter_evening", "snowy_park_01"]
 MODELS = ["street_lamp_01", "street_lamp_02", "modular_street_seating", "metal_trash_can", "standing_chalkboard_01",
           "outdoor_table_chair_set_01", "planter_box_01", "utility_box_01", "water_manhole_cover"]

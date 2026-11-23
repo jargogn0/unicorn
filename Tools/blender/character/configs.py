@@ -143,7 +143,7 @@ CONFIGS['npc_noor'] = _ped(
              ('pants', 'pants01_cc0/clothes/toigo_wool_pants/toigo_wool_pants.mhclo'), ('shoes', BOOTS_F)],
     layers=['coat', 'sweater', 'pants', 'shoes'],
     push=[('sweater', 'pants', 0.006), ('coat', 'sweater', 0.010), ('coat', 'pants', 0.020)],
-    cull_rings=dict(sweater=0, pants=1), cull_dist_cloth=0.15,
+    cull_rings=dict(sweater=0, pants=1), cull_dist_cloth=0.15, decimate=dict(coat=0.7),
     hooks=[G.scarf], scarf=dict(color=(226, 212, 186)),
     mat=dict(body=dict(mul=(0.90, 0.80, 0.68)), eyes=dict(post=G.dark_brown_eyes),
              hair=dict(post=G.tint((14, 11, 10), (78, 58, 46))),
@@ -166,7 +166,7 @@ CONFIGS['npc_sami'] = _ped(
     layers=['hat', 'jacket', 'shirt', 'pants', 'shoes', 'hair'], no_cull=('pants',),      # socks hidden by trouser legs
     push=[('shirt', 'pants', 0.006), ('jacket', 'shirt', 0.008), ('jacket', 'pants', 0.008)],
     hooks=[G.hoodie_pullover, G.hair_cap, G.beanie],
-    hoodie=dict(role='jacket', close=False, loosen=0.014, hem_below_hip=0.0),
+    hoodie=dict(role='jacket', close=False, loosen=0.014, hem_below_hip=0.0), decimate=dict(jacket=0.5),
     hair_cap=dict(top=0.007, side=0.005, edge=0.003, subdiv=1, noise=0.0008),
     beanie=dict(color=(92, 96, 104)),
     mat=dict(eyes=dict(post=G.dark_brown_eyes),
@@ -204,13 +204,14 @@ CONFIGS['npc_elin'] = _ped(
     hair=SYS + '/hair/ponytail01/ponytail01.mhclo',
     clothes=[('suit', 'suits01_cc0/clothes/toigo_female_double-breasted_suit/toigo_female_double-breasted_suit.mhclo'),
              ('shoes', BOOTS_F)],
-    layers=['suit', 'shoes'],
+    layers=['suit', 'shoes'], decimate=dict(suit=0.7),
     hooks=[G.scarf], scarf=dict(color=(204, 206, 212)),
     mat=dict(hair=dict(post=G.tint((112, 84, 40), (240, 216, 150))),
              suit=dict(post=G.recolor(('dark', (10, 12, 22), (58, 62, 82))), rough=0.8), shoes=dict(post=BLACK_LEATHER, rough=0.45)),
 )
 
-# Mateo Ruiz - backend developer, late 20s: rust hoodie (hood out) under a charcoal quilted jacket, black jeans
+# Mateo Ruiz - backend developer, late 20s: olive hooded parka (open zip) over a rust top, black jeans, navy
+# trainers.  (A true hoodie-under-jacket double layer was tried and dropped: see the build report.)
 CONFIGS['npc_mateo'] = _ped(
     'npc_mateo', height=1.77,
     macro=dict(gender=1.0, age=0.51, muscle=0.5, weight=0.5, height=0.5, proportions=0.5,
@@ -218,16 +219,21 @@ CONFIGS['npc_mateo'] = _ped(
     skin=SYS + '/skins/young_caucasian_male/young_caucasian_male.mhmat',
     eye_mat=SYS + '/eyes/materials/brown.mhmat',
     hair='hair01_cc0/hair/cortu_short_messy_hair/cortu_short_messy_hair.mhclo',
-    clothes=[('suit', SYS + '/clothes/male_casualsuit05/male_casualsuit05.mhclo'), ('hoodie', HOODED),
+    clothes=[('jacket', HOODED),
+             ('shirt', 'shirts01_cc0/clothes/elvs_crude_t-shirt_male/elvs_crude_t-shirt_male.mhclo'),
+             ('jeans', 'pants02_ccby/clothes/punkduck_male_classic_jeans/punkduck_male_classic_jeans.mhclo'),
              ('shoes', SYS + '/clothes/shoes06/shoes06.mhclo')],
-    layers=['suit', 'hoodie', 'jeans', 'shoes'], no_cull=('hoodie',),      # jacket_over_hoodie trims the hoodie itself
-    tuck=[('jeans', 'hoodie', 0.035)],
-    hooks=[G.split_by_color('suit', dict(jeans=('blue', 0.5), shirt=('red', 0.2)), delete=('shirt',)),
-           G.hoodie_pullover, G.fleece_material, G.jacket_over_hoodie('suit', 'hoodie')],
-    hoodie=dict(color=(188, 88, 46)),
+    layers=['jacket', 'shirt', 'jeans', 'shoes'], no_cull=('jeans',), decimate=dict(jacket=0.5),
+    push=[('shirt', 'jeans', 0.006), ('jacket', 'shirt', 0.008), ('jacket', 'jeans', 0.008)],
+    tuck=[('jeans', 'jacket', 0.035)],
+    hooks=[G.hoodie_pullover],
+    hoodie=dict(role='jacket', close=False, loosen=0.010, hem_below_hip=0.10),
     mat=dict(body=dict(mul=(0.92, 0.80, 0.68)), eyes=dict(post=G.dark_brown_eyes),
              hair=dict(post=G.tint((16, 12, 10), (92, 66, 48))),
-             suit=dict(post=G.recolor(('green_grey', (20, 20, 24), (82, 82, 90)), ('denim', (16, 17, 22), (58, 60, 70))), rough=0.8),
+             jacket=dict(post=G.tint((54, 58, 30), (150, 152, 98)), rough=0.8, normal_strength=1.2),
+             shirt=dict(post=G.tint((150, 62, 30), (214, 116, 70)), rough=0.9),
+             jeans=dict(post=G.washed_denim(dark=(16, 17, 22), light=(58, 60, 72), stitch=(120, 112, 100)), rough=0.85,
+                        normal_strength=0.8),
              shoes=dict(rough=0.6)),
 )
 
@@ -241,7 +247,7 @@ CONFIGS['npc_helena'] = _ped(
     hair='hair01_cc0/hair/toigo_blunt_bob/toigo_blunt_bob.mhclo',
     clothes=[('suit', 'suits01_cc0/clothes/toigo_female_suit_2/toigo_female_suit_2.mhclo'),
              ('shoes', 'shoes02_ccby/clothes/punkduck_tennis_shoes/punkduck_tennis_shoes.mhclo')],
-    layers=['suit', 'shoes'],
+    layers=['suit', 'shoes'], decimate=dict(suit=0.55),
     mat=dict(hair=dict(post=G.grey_hair(0.95, 1.15)),
              suit=dict(post=G.recolor(('magenta', (18, 21, 30), (66, 72, 92))), rough=0.8), shoes=dict(rough=0.6)),
 )

@@ -16,7 +16,7 @@ def roles():
 def build_materials(cfg):
     R = roles(); name = cfg['name']; recipes = cfg.get('mat', {})
     for role, o in R.items():
-        if o.get('stk_custom_mat') or o.get('stk_mat_from'):
+        if o.get('stk_custom_mat'):
             continue
         rc = dict(recipes.get(role, {}))
         mh = MT.parse_mhmat(o.get('stk_mhmat', ''))
@@ -54,10 +54,6 @@ def build_materials(cfg):
                              normal_strength=rc.get('normal_strength', 1.0), alpha=alpha,
                              double_sided=rc.get('double_sided', role not in ('body', 'eyes')))
         MT.assign(o, m)
-    for role, o in R.items():                  # pieces split off a fused garment keep its material
-        src = R.get(o.get('stk_mat_from', ''))
-        if src is not None and src.data.materials:
-            MT.assign(o, src.data.materials[0])
 
 
 def finalize(cfg, in_blend=None, out_blend=None):
@@ -120,6 +116,15 @@ def finalize(cfg, in_blend=None, out_blend=None):
             zc = M.coords(R[inner])[:, 2]; lim = R[outer]['stk_hem'] + margin
             fm = np.array([all(zc[v] > lim for v in p.vertices) for p in R[inner].data.polygons], bool)
             M.delete_faces(R[inner], fm); print('tuck', inner, int(fm.sum()))
+
+    # optional polygon reduction of dense garments (keeps UVs and skin weights)
+    for role, ratio in cfg.get('decimate', {}).items():
+        if role in R:
+            o = R[role]; before = len(o.data.polygons)
+            C.activate(o)
+            md = o.modifiers.new('dec', 'DECIMATE'); md.ratio = ratio; md.use_collapse_triangulate = False
+            bpy.ops.object.modifier_apply(modifier=md.name)
+            print('decimate', role, before, '->', len(o.data.polygons))
 
     # 4. materials
     build_materials(cfg)

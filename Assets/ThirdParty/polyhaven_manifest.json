@@ -424,6 +424,42 @@
       ]
     },
     {
+      "id": "bark_willow",
+      "type": "texture",
+      "name": "Bark Willow",
+      "authors": [
+        "Dario Barresi",
+        "Dimitrios Savva"
+      ],
+      "page": "https://polyhaven.com/a/bark_willow",
+      "files": [
+        {
+          "map": "Diffuse",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/bark_willow/bark_willow_diff_1k.jpg",
+          "bytes": 779438,
+          "path": "Assets/ThirdParty/polyhaven/textures/bark_willow/bark_willow_diff_1k.jpg"
+        },
+        {
+          "map": "nor_gl",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/bark_willow/bark_willow_nor_gl_1k.jpg",
+          "bytes": 1438304,
+          "path": "Assets/ThirdParty/polyhaven/textures/bark_willow/bark_willow_nor_gl_1k.jpg"
+        },
+        {
+          "map": "arm",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/bark_willow/bark_willow_arm_1k.jpg",
+          "bytes": 979678,
+          "path": "Assets/ThirdParty/polyhaven/textures/bark_willow/bark_willow_arm_1k.jpg"
+        },
+        {
+          "map": "Rough",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/bark_willow/bark_willow_rough_1k.jpg",
+          "bytes": 372597,
+          "path": "Assets/ThirdParty/polyhaven/textures/bark_willow/bark_willow_rough_1k.jpg"
+        }
+      ]
+    },
+    {
       "id": "winter_evening",
       "type": "hdri",
       "name": "Winter Evening",

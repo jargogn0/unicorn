@@ -92,11 +92,8 @@ def covered_mask(obj, cover_objs, max_dist=0.10, start=0.0015):
 
 
 def cull_hidden(obj, cover_objs, protect=None, max_dist=0.10, rings=1):
-    """Delete faces of obj that are hidden under cover_objs (all verts covered, with a safety ring).
-    Vertices in an optional 'stk_keep' vertex group are never treated as covered."""
+    """Delete faces of obj that are hidden under cover_objs (all verts covered, with a safety ring)."""
     cov = covered_mask(obj, cover_objs, max_dist)
-    if 'stk_keep' in obj.vertex_groups:
-        cov &= ~group_mask(obj, 'stk_keep')
     if protect is not None:
         cov &= ~protect
     me = obj.data
@@ -164,26 +161,6 @@ def push_outside(obj, inner, margin=0.006, reach=0.04, vmask=None):
         sd = (p - loc).dot(nor)
         if sd < margin:
             v.co = mwi @ (p + nor * (margin - sd)); n += 1
-    b.free(); obj.data.update()
-    return n
-
-
-def push_inside(obj, outer, margin=0.005, reach=0.04, vmask=None):
-    """Move verts of obj that poke through / touch `outer` to `margin` beneath its surface (inner layer of two
-    garments: a dense inner mesh tucked under a coarser outer one)."""
-    t, b = bvh_of(outer)
-    mwi = obj.matrix_world.inverted(); mw = obj.matrix_world
-    n = 0
-    for v in obj.data.vertices:
-        if vmask is not None and not vmask[v.index]:
-            continue
-        p = mw @ v.co
-        loc, nor, idx, dist = t.find_nearest(p, reach)
-        if loc is None:
-            continue
-        sd = (p - loc).dot(nor)
-        if sd > -margin:
-            v.co = mwi @ (p - nor * (sd + margin)); n += 1
     b.free(); obj.data.update()
     return n
 

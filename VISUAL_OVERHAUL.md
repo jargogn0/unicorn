@@ -53,6 +53,8 @@ The full machine-readable lists with every file URL are `Assets/ThirdParty/polyh
 | standing_chalkboard_01 | Model | Poly Haven | CC0 | Café A-board |
 | outdoor_table_chair_set_01 | Model | Poly Haven | CC0 | Café table set |
 | planter_box_01, utility_box_01, water_manhole_cover, street_lamp_01 | Models | Poly Haven | CC0 | Street dressing |
+| bark_willow | PBR texture set | Poly Haven | CC0 | Winter street trees |
+| Winter street trees (3 variants) | Modelled here in Blender | This project | Project-owned | Sveavägen |
 | Kungsgatan map extract | Geodata | OpenStreetMap | ODbL 1.0 | Footprints, storeys, road widths, bridges |
 | Human base mesh, rig, skins, eyes, hair, system clothes | Character base | MakeHuman / MPFB2 | CC0 | Doudou and the pedestrians |
 | Hooded jacket (Elvaerwyn), jeans and shoes (punkduck), cardigans and trousers (Mindfront) | Clothing | MakeHuman community packs | CC BY (attribution in CREDITS.md) | Doudou's hoodie, jeans and sneakers; pedestrian outfits. All modified. |
@@ -64,7 +66,7 @@ Downloaded but not yet used: brick_wall_006, cobblestone_floor_08, grey_roof_01,
 **Not acquired (blockers):**
 - **A Nordic architectural kit from Fab or Megascans:** needs an Epic account. The facade kit here was modelled from scratch instead. It is real modelled architecture, not sourced scans, and it is simpler than a commercial kit.
 - **Realistic cars:** no CC0 realistic vehicles were reachable without a login. Traffic and parked cars are still the owner's sedan blockout and box cars. This is the most visible remaining weakness on the street.
-- **Bicycles, winter trees, bus shelters:** not available on Poly Haven; not built yet.
+- **Bicycles, winter trees, bus shelters:** not available on Poly Haven. Winter trees are now modelled here (see Phase 3); bus shelters are not built yet, and a bicycle is being modelled.
 
 ## Phase 3: one street, rebuilt
 
@@ -82,12 +84,13 @@ Downloaded but not yet used: brick_wall_006, cobblestone_floor_08, grey_roof_01,
 - **Street.** Scanned asphalt with slush at the edges, dashed lane lines, zebra crossings at junctions, granite kerbs, ploughed snowbanks, scanned paving slabs.
 - **Dressing.** 248 placed props, 51 lamps (suspended on wires across Kungsgatan, as in Stockholm, and post lamps on side streets), and winter garlands of 624 bulbs.
 - **Shops.** Lit interiors behind real glazing, with fourteen fictional shop signs.
+- **Trees.** 80 bare winter limes line Sveavägen, which is a tree-lined boulevard in reality; Kungsgatan itself has none. `Tools/blender/build_winter_tree.py` grows three variants (about 9,000–11,700 triangles each) as branching tubes with UVs for the scanned bark, plus snow strips on the upper side of the limbs. They are drawn as instances. QA renders are in `docs/prop_renders/`.
 
 Current counts: 2,734 facade bays, 97,219 kit instances.
 
 ## Phase 4: player character
 
-**Done in the browser build and verified in rendered frames of the running game.** Not done: turn-in-place clips, a facial rig, and the story NPCs (see below).
+**Done in the browser build and verified in rendered frames of the running game.** Not done: turn-in-place clips and a facial rig.
 
 - **Doudou.** A rigged human built in headless Blender (`Tools/blender/build_character.py`) on the MakeHuman base: 1.82 m, lavender OctOpus hoodie (#9B87B8) with chest logo and pocket, washed-blue jeans, white sneakers. 52-joint skeleton, 49,202 triangles, textures up to 1024 px, 3.5 MB.
 - **Animation.** Seven clips at 30 fps, all looping cleanly in place: Idle, Walk, Run, Talk, Interact, Agree, HeadShake. Idle, Walk, Run, Agree and HeadShake are retargeted motion capture; Talk and Interact are hand-keyed.
@@ -102,7 +105,12 @@ Current counts: 2,734 facade bays, 97,219 kit instances.
 - Talk and Interact are serviceable keys, not motion capture, and the fingers do not articulate.
 - One pedestrian's trouser leg clips her long coat on forward swings; another's shoe dips about 2 cm into the ground while walking.
 - The pedestrians wear jackets, cardigans and knitwear, because no winter coat or hat assets with a usable licence were found.
-- **Story NPCs (Noor, Sami and the others) are still the old procedural figures.** Dedicated rigged versions are being built with the same pipeline.
+- **Story NPCs.** Noor, Sami, Aditi, Elin, Mateo and Helena are rigged with the same pipeline and clips (30,600–35,000 triangles each) and dressed to their character notes: Noor in a long green wool coat, Sami in a padded jacket over scrubs with a beanie, Aditi in a patterned cardigan, Elin in a dark suit, Mateo in an olive hooded parka, Helena in a slate suit with white sneakers. Gunilla Ek, the landlord, has no model yet.
+  - Mateo was meant to wear a hoodie under a jacket; no free jacket could be layered cleanly, so he wears a hooded parka.
+  - Noor's coat and Aditi's cardigan reuse the meshes of two pedestrians, recoloured.
+  - Sami's scrub trousers read as teal jeans.
+  - Noor's trouser leg clips her coat on the forward swing, as on pedestrian 02.
+  - None of their props (aprons, tablets, glasses) are modelled.
 
 Blender QA renders of every character are in `docs/character_renders/`.
 
@@ -148,17 +156,16 @@ Facade kit QA renders (Blender Cycles) were inspected during the build.
 The street now has real architecture, materials and street furniture on real geography, with a rigged, animated player and pedestrians. It is a clear step up from the prototype. It is not GTA-quality:
 
 - The cars are still blockouts. Modelled replacements are in progress.
-- The story NPCs are still procedural figures. Rigged replacements are in progress.
 - The character has no facial animation and no turn-in-place clips.
 - The facade kit is one modeller-day of work rather than a commercial kit.
-- There are no reflections on wet asphalt, no bicycles, no winter trees and no bus shelters.
+- There are no reflections on wet asphalt, no bicycles and no bus shelters.
 - Nothing has run on a GPU.
 - Only this one area is rebuilt; the rest of the city is still the stylized blockout.
 
 ## Next steps, in order
 
-1. Integrate the modelled cars and bicycle, and the rigged story NPCs, when their builds finish.
+1. Integrate the modelled cars and bicycle when their build finishes.
 2. GPU profiling on real hardware; tune the Low setting from measurements.
-3. Wet-road reflections; winter trees and bus shelters.
+3. Wet-road reflections and bus shelters; a model for the landlord.
 4. Extend the same pipeline to Stureplan, then Gamla Stan (new kit style: narrow 1700s fronts).
 5. Port the kit, characters and placement to Unreal (the FBX kit is already exported to `Stockholm/Content/Import/FacadeKit`).

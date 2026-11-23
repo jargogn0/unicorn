@@ -1298,7 +1298,7 @@ async function buildHeroStreet() {
   const [cityRes, kit, ...propScenes] = await Promise.all([
     fetch('hero_kungsgatan_city.json').then((r) => (r.ok ? r.json() : null)).catch(() => null),
     loadGlb('assets/kit/stockholm_facade_kit.glb'),
-    ...['bench', 'trash_can', 'utility_box', 'chalkboard', 'cafe_table_set', 'planter', 'manhole_cover', 'street_lamp_post'].map((n) => loadGlb(`assets/props/${n}.glb`)),
+    ...['bench', 'trash_can', 'utility_box', 'chalkboard', 'cafe_table_set', 'planter', 'manhole_cover', 'street_lamp_post', 'winter_tree_a', 'winter_tree_b', 'winter_tree_c'].map((n) => loadGlb(`assets/props/${n}.glb`)),
   ]);
   if (!cityRes || !kit) { console.warn('Hero street assets missing; skipping.'); return; }
   const G0 = HERO.g;
@@ -1524,7 +1524,7 @@ async function buildHeroStreet() {
     const bm = new THREE.InstancedMesh(new THREE.SphereGeometry(0.07, 6, 5), new THREE.MeshBasicMaterial({ color: 0xffc777, toneMapped: false }), bulbs.length); bulbs.forEach((b, i) => bm.setMatrixAt(i, m4.makeTranslation(b[0], b[1], -b[2]))); bm.frustumCulled = false; scene.add(bm); M.bulbs = bm.material;
     const pg = new THREE.PlaneGeometry(1, 1); pg.rotateX(-Math.PI / 2); const pm = new THREE.InstancedMesh(pg, lmMats.lampPools, pools.length); pools.forEach((p, i) => pm.setMatrixAt(i, m4.compose(new THREE.Vector3(p[0], G0 + 0.09, -p[1]), new THREE.Quaternion(), new THREE.Vector3(p[2], 1, p[2])))); pm.frustumCulled = false; scene.add(pm); }
   // props: assembled and re-centred on the ground in Blender (Tools/blender/pack_props.py); cloned per placement
-  const [seating, bins, ubox, chalk, tables, planter, manhole, postLamp] = propScenes;
+  const [seating, bins, ubox, chalk, tables, planter, manhole, postLamp, ...treeScenes] = propScenes;
   const prep = (sc) => { if (!sc) return null; sc.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } }); const bb = new THREE.Box3().setFromObject(sc); return { sc, size: bb.getSize(new THREE.Vector3()) }; };
   const P = { seat: prep(seating), bin: prep(bins), ubox: prep(ubox), chalk: prep(chalk), table: prep(tables), planter: prep(planter), manhole: prep(manhole), post: prep(postLamp) };
   let propCount = 0;
@@ -1547,8 +1547,28 @@ async function buildHeroStreet() {
       if (slot % 9 === 0) place(P.manhole, p.x - dy * 1.6, p.y + dx * 1.6, 0);
     }
   }
-  hero.ready = true; hero.ways = ways; hero.main = main;
-  hero.stats = { buildings: B.length, facadeBays: bays, kitInstances: instCount, kitTriangles: Math.round(triCount), props: propCount, suspendedLamps: hero.lamps.length, garlandBulbs: bulbs.length, roadWays: ways.length };
+  // Bare winter limes along Sveavägen, which is a tree-lined boulevard in reality. Kungsgatan itself has no street trees.
+  // The trees are modelled in Blender (Tools/blender/build_winter_tree.py) and drawn as instances.
+  const trees = treeScenes.filter(Boolean); let treeCount = 0;
+  if (trees.length) {
+    const barkM = pbrMat('bark_willow', { color: 0xd8cfc6, roughness: 1 }); const spots = []; const tm4 = new THREE.Matrix4();
+    for (const w of ways.filter((w) => w.z === 0 && w.name === 'Sveavägen' && (w.class === 'secondary' || w.class === 'tertiary'))) {
+      const pts = densify(w.pts, 1); let acc = 0;
+      for (let i = 1; i < pts.length; i++) {
+        const a = pts[i - 1], q = pts[i]; const l = Math.hypot(q.x - a.x, q.y - a.y); const dx = (q.x - a.x) / l, dy = (q.y - a.y) / l; acc += l;
+        if (Math.floor(acc / 10.5) === Math.floor((acc - l) / 10.5)) continue;
+        for (const side of [1, -1]) { const off = w.width / 2 + 1.7; const x = q.x - dy * off * side, y = q.y + dx * off * side; if (x > HERO.minx + 4 && x < HERO.maxx - 4 && y > HERO.miny + 4 && y < HERO.maxy - 4 && free(x, y) && !spots.some((t) => Math.hypot(t.x - x, t.y - y) < 7)) spots.push({ x, y }); }
+      }
+    }
+    const per = trees.map(() => []); spots.forEach((t, i) => per[(i * 7 + 3) % trees.length].push(t));
+    trees.forEach((sc, k) => { if (!per[k].length) return; sc.updateMatrixWorld(true); sc.traverse((o) => {
+      if (!o.isMesh) return; const g = o.geometry.clone().applyMatrix4(o.matrixWorld); const im = new THREE.InstancedMesh(g, o.material.name === 'tree_snow' ? M.snow : barkM, per[k].length);
+      per[k].forEach((t, i) => { const sc1 = 0.9 + ((i * 37 + k * 11) % 10) / 40; im.setMatrixAt(i, tm4.compose(new THREE.Vector3(t.x, G0 + 0.02, -t.y), new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), (i * 2.39 + k) % 6.28), new THREE.Vector3(sc1, sc1, sc1))); });
+      im.castShadow = true; im.receiveShadow = true; scene.add(im); }); });
+    for (const t of spots) addCollider(t.x, t.y, 0.5, 0.5, 0); treeCount = spots.length;
+  }
+  hero.ready = true; hero.ways = ways; hero.main = main; hero.trees = treeCount;
+  hero.stats = { buildings: B.length, facadeBays: bays, kitInstances: instCount, kitTriangles: Math.round(triCount), props: propCount, trees: treeCount, suspendedLamps: hero.lamps.length, garlandBulbs: bulbs.length, roadWays: ways.length };
   console.info('Hero street built', JSON.stringify(hero.stats));
 }
 await buildHeroStreet();
