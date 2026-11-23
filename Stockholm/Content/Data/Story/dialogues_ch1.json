@@ -1,0 +1,1311 @@
+{
+  "kind": "dialogues",
+  "note": "Chapter 1 dialogue. 'anim' = gesture tag for the dialogue animation set; 'camera' = shot tag for the conversation camera rig. 'timeout' makes a choice timed (real seconds).",
+  "dialogues": [
+    {
+      "id": "opening_phone",
+      "speaker": "noor",
+      "start": "n1",
+      "nodes": {
+        "n1": {
+          "speaker": "noor",
+          "camera": "phone",
+          "text": "Hey. Heard you're building something. Can you show me?",
+          "next": "n2"
+        },
+        "n2": {
+          "speaker": "player",
+          "camera": "phone",
+          "text": "",
+          "timeout": 20,
+          "timeout_choice": 2,
+          "choices": [
+            {
+              "text": "Yes. Today. Where are you?",
+              "effects": [
+                {
+                  "rel": "noor",
+                  "affinity": 6
+                },
+                {
+                  "set_fact": "replied_eager"
+                }
+              ],
+              "next": "n3a"
+            },
+            {
+              "text": "Who told you about it?",
+              "effects": [
+                {
+                  "set_fact": "replied_curious"
+                }
+              ],
+              "next": "n3b"
+            },
+            {
+              "text": "It's not ready yet...",
+              "effects": [
+                {
+                  "rel": "noor",
+                  "affinity": -2
+                },
+                {
+                  "set_fact": "replied_hesitant"
+                }
+              ],
+              "next": "n3c"
+            }
+          ]
+        },
+        "n3a": {
+          "speaker": "noor",
+          "camera": "phone",
+          "text": "Kafé Kollektivet on Hornsgatan. I'm there until one. Bring whatever you have.",
+          "next": "end"
+        },
+        "n3b": {
+          "speaker": "noor",
+          "camera": "phone",
+          "text": "Aditi. The baker in Gamla Stan who used to be a programmer. She says you don't sleep. Hornsgatan, before one?",
+          "effects": [
+            {
+              "remember": "noor",
+              "memory": "knows_aditi_sent_her"
+            }
+          ],
+          "next": "end"
+        },
+        "n3c": {
+          "speaker": "noor",
+          "camera": "phone",
+          "text": "Nothing is ever ready. My first café opened with no sign. Hornsgatan, before one.",
+          "anim": "shrug",
+          "next": "end"
+        },
+        "end": {
+          "speaker": "narrator",
+          "camera": "phone",
+          "text": "Kafé Kollektivet, Hornsgatan. Before 13:00.",
+          "end": true
+        }
+      }
+    },
+    {
+      "id": "noor_discovery",
+      "speaker": "noor",
+      "start": "n1",
+      "nodes": {
+        "n1": {
+          "speaker": "noor",
+          "anim": "wipe_counter",
+          "camera": "two_shot",
+          "text": "You came. Sit. Coffee's on me, you look like you need it. So, what is it?",
+          "next": "n2"
+        },
+        "n2": {
+          "speaker": "player",
+          "camera": "close_player",
+          "text": "",
+          "choices": [
+            {
+              "text": "Before I show you anything: what's the worst part of your week?",
+              "effects": [
+                {
+                  "set_fact": "asked_before_pitching"
+                },
+                {
+                  "rel": "noor",
+                  "affinity": 5,
+                  "trust": 4
+                }
+              ],
+              "next": "n3_listen"
+            },
+            {
+              "text": "Let me show you the demo straight away.",
+              "effects": [
+                {
+                  "set_fact": "pitched_too_early"
+                },
+                {
+                  "rel": "noor",
+                  "affinity": -3
+                }
+              ],
+              "next": "n3_pitch"
+            }
+          ]
+        },
+        "n3_listen": {
+          "speaker": "noor",
+          "anim": "lean_in",
+          "camera": "close_npc",
+          "text": "Sunday nights. I sit with three spreadsheets and twenty-two staff who all have exams, kids, second jobs. Then Monday someone's sick and it all falls apart.",
+          "effects": [
+            {
+              "set_fact": "learned_scheduling_pain"
+            }
+          ],
+          "next": "n4"
+        },
+        "n3_pitch": {
+          "speaker": "noor",
+          "anim": "arms_crossed",
+          "camera": "two_shot",
+          "text": "Mm. Lots of buttons. Every salesperson shows me buttons. What problem do you think I have?",
+          "next": "n3_recover"
+        },
+        "n3_recover": {
+          "speaker": "player",
+          "camera": "close_player",
+          "text": "",
+          "choices": [
+            {
+              "text": "Honestly? I don't know yet. Tell me.",
+              "effects": [
+                {
+                  "rel": "noor",
+                  "affinity": 4,
+                  "trust": 3
+                }
+              ],
+              "next": "n3_listen"
+            },
+            {
+              "text": "Scheduling. Every café has scheduling problems.",
+              "effects": [
+                {
+                  "rel": "noor",
+                  "trust": -3
+                }
+              ],
+              "next": "n3_guess"
+            }
+          ]
+        },
+        "n3_guess": {
+          "speaker": "noor",
+          "camera": "close_npc",
+          "text": "Yes. Fine. Everyone says scheduling. Do you know how many staff I have? No. Twenty-two.",
+          "effects": [
+            {
+              "set_fact": "learned_scheduling_pain"
+            }
+          ],
+          "next": "n4"
+        },
+        "n4": {
+          "speaker": "noor",
+          "anim": "point_back_room",
+          "camera": "two_shot",
+          "text": "And the bread. I order for a Saturday, it snows, nobody comes, I throw away two crates.",
+          "next": "n5"
+        },
+        "n5": {
+          "speaker": "player",
+          "camera": "close_player",
+          "text": "",
+          "choices": [
+            {
+              "text": "How much does the waste cost you in a month?",
+              "effects": [
+                {
+                  "set_fact": "learned_waste_pain"
+                },
+                {
+                  "rel": "noor",
+                  "trust": 3
+                }
+              ],
+              "next": "n6_waste"
+            },
+            {
+              "text": "If the schedule fixed itself when someone called in sick, what would that be worth?",
+              "effects": [
+                {
+                  "set_fact": "learned_willingness_to_pay"
+                },
+                {
+                  "rel": "noor",
+                  "trust": 4
+                }
+              ],
+              "next": "n6_wtp"
+            },
+            {
+              "text": "My tool will fix all of that.",
+              "effects": [
+                {
+                  "rel": "noor",
+                  "trust": -4
+                },
+                {
+                  "set_fact": "overpromised"
+                }
+              ],
+              "next": "n6_over"
+            }
+          ]
+        },
+        "n6_waste": {
+          "speaker": "noor",
+          "camera": "close_npc",
+          "text": "Six, seven thousand kronor. More in January. Nobody talks about it because it's embarrassing.",
+          "next": "n7"
+        },
+        "n6_wtp": {
+          "speaker": "noor",
+          "anim": "thinking",
+          "camera": "close_npc",
+          "text": "My Sunday evenings? More than my accountant charges. But it has to work every time. Once it fails on a Monday morning, I'm back to paper.",
+          "next": "n7"
+        },
+        "n6_over": {
+          "speaker": "noor",
+          "anim": "raised_eyebrow",
+          "camera": "close_npc",
+          "text": "All of it. Right. Let's start with one thing that works.",
+          "next": "n7"
+        },
+        "n7": {
+          "speaker": "noor",
+          "camera": "two_shot",
+          "text": "Go and see Aditi at Kanel & Kod in Gamla Stan. She has the same problem, and she'll tell you if your code is rubbish. Then come back with something real.",
+          "effects": [
+            {
+              "meet": "aditi"
+            }
+          ],
+          "next": "n8"
+        },
+        "n8": {
+          "speaker": "player",
+          "camera": "close_player",
+          "text": "",
+          "choices": [
+            {
+              "text": "I'll have something you can try by Friday.",
+              "effects": [
+                {
+                  "commit": {
+                    "id": "noor_friday_build",
+                    "npc": "noor",
+                    "text": "Show Noor a working build by Friday",
+                    "due_hours": 96,
+                    "on_broken": [
+                      {
+                        "rel": "noor",
+                        "trust": -10
+                      },
+                      {
+                        "remember": "noor",
+                        "memory": "missed_friday"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "next": "end"
+            },
+            {
+              "text": "Thank you. I'll come back when it's worth your time.",
+              "effects": [
+                {
+                  "rel": "noor",
+                  "affinity": 2
+                }
+              ],
+              "next": "end"
+            }
+          ]
+        },
+        "end": {
+          "speaker": "noor",
+          "anim": "wave",
+          "camera": "two_shot",
+          "text": "Go. Before it gets dark at three.",
+          "end": true
+        }
+      }
+    },
+    {
+      "id": "aditi_validation",
+      "speaker": "aditi",
+      "start": "n1",
+      "nodes": {
+        "n1": {
+          "speaker": "aditi",
+          "anim": "dust_hands",
+          "camera": "two_shot",
+          "text": "Noor's founder! Come behind the counter, it's warmer. Show me what you've got. Code, not slides.",
+          "next": "n2"
+        },
+        "n2": {
+          "speaker": "player",
+          "camera": "over_shoulder_laptop",
+          "text": "",
+          "choices": [
+            {
+              "text": "Show her the scheduling prototype.",
+              "if": {
+                "fact": "learned_scheduling_pain"
+              },
+              "effects": [
+                {
+                  "set_fact": "showed_aditi_scheduling"
+                }
+              ],
+              "next": "n3"
+            },
+            {
+              "text": "Show her everything at once.",
+              "effects": [
+                {
+                  "rel": "aditi",
+                  "trust": -2
+                }
+              ],
+              "next": "n3_all"
+            }
+          ]
+        },
+        "n3": {
+          "speaker": "aditi",
+          "anim": "squint_screen",
+          "camera": "close_npc",
+          "text": "The rota logic is clever. But you store shifts as strings? And if the wifi drops — which it does, in a 400-year-old cellar — the whole thing dies.",
+          "effects": [
+            {
+              "set_fact": "learned_offline_risk"
+            }
+          ],
+          "next": "n4"
+        },
+        "n3_all": {
+          "speaker": "aditi",
+          "camera": "close_npc",
+          "text": "Slow down. Pick one thing. If I were Noor I'd want the rota. Also: it crashes without wifi. My cellar has no wifi.",
+          "effects": [
+            {
+              "set_fact": "learned_offline_risk"
+            }
+          ],
+          "next": "n4"
+        },
+        "n4": {
+          "speaker": "player",
+          "camera": "close_player",
+          "text": "",
+          "choices": [
+            {
+              "text": "Would you pay for it if it worked offline?",
+              "effects": [
+                {
+                  "set_fact": "aditi_would_pay"
+                },
+                {
+                  "add_stat": "pipeline",
+                  "value": 1
+                }
+              ],
+              "next": "n5_pay"
+            },
+            {
+              "text": "Can you help me fix the offline problem?",
+              "effects": [
+                {
+                  "rel": "aditi",
+                  "affinity": 5
+                },
+                {
+                  "remember": "aditi",
+                  "memory": "asked_for_help"
+                }
+              ],
+              "next": "n5_help"
+            }
+          ]
+        },
+        "n5_pay": {
+          "speaker": "aditi",
+          "anim": "nod",
+          "camera": "close_npc",
+          "text": "Six hundred a month, maybe. For one shop. Noor has three; she'd pay more. Fix offline first.",
+          "next": "end"
+        },
+        "n5_help": {
+          "speaker": "aditi",
+          "anim": "laugh",
+          "camera": "two_shot",
+          "text": "Local-first. Queue changes on the device, sync when you can. I'll send you a link tonight. Don't tell my dough I said I miss programming.",
+          "effects": [
+            {
+              "add_stat": "product_quality",
+              "value": 3
+            },
+            {
+              "message": {
+                "from": "aditi",
+                "text": "Here's that article on local-first sync. Read the conflict-resolution part twice."
+              }
+            }
+          ],
+          "next": "end"
+        },
+        "end": {
+          "speaker": "aditi",
+          "anim": "hand_over_bag",
+          "camera": "two_shot",
+          "text": "Take a cardamom bun. Founders forget to eat.",
+          "effects": [
+            {
+              "add_stat": "energy",
+              "value": 8
+            }
+          ],
+          "end": true
+        }
+      }
+    },
+    {
+      "id": "sami_keys",
+      "speaker": "sami",
+      "start": "n1",
+      "nodes": {
+        "n1": {
+          "speaker": "sami",
+          "anim": "yawn",
+          "camera": "two_shot",
+          "text": "Twelve hours on the ward. If you're here to borrow money, the answer is coffee.",
+          "next": "n2"
+        },
+        "n2": {
+          "speaker": "player",
+          "camera": "close_player",
+          "text": "",
+          "choices": [
+            {
+              "text": "I need the Volvo. Real customer, Kungsholmen, ten o'clock.",
+              "effects": [
+                {
+                  "rel": "sami",
+                  "trust": 2
+                }
+              ],
+              "next": "n3"
+            },
+            {
+              "text": "How was the shift?",
+              "effects": [
+                {
+                  "rel": "sami",
+                  "affinity": 5
+                }
+              ],
+              "next": "n2b"
+            }
+          ]
+        },
+        "n2b": {
+          "speaker": "sami",
+          "anim": "rub_eyes",
+          "camera": "close_npc",
+          "text": "Long. Someone's grandad made it, so — good. You want the car, don't you?",
+          "next": "n3"
+        },
+        "n3": {
+          "speaker": "sami",
+          "anim": "hold_keys",
+          "camera": "close_npc",
+          "text": "Winter tyres are on. The heater only works on max. Back by eight tonight, full tank, or I'm taking the bus to work and you're hearing about it for a year.",
+          "next": "n4"
+        },
+        "n4": {
+          "speaker": "player",
+          "camera": "close_player",
+          "text": "",
+          "choices": [
+            {
+              "text": "Back by eight. Full tank. Promise.",
+              "effects": [
+                {
+                  "set_fact": "has_sami_car"
+                },
+                {
+                  "commit": {
+                    "id": "sami_car",
+                    "npc": "sami",
+                    "text": "Return Sami's Volvo by 20:00",
+                    "due_hours": 12,
+                    "on_broken": [
+                      {
+                        "rel": "sami",
+                        "trust": -15,
+                        "affinity": -5
+                      },
+                      {
+                        "remember": "sami",
+                        "memory": "car_late"
+                      },
+                      {
+                        "message": {
+                          "from": "sami",
+                          "text": "Took the bus to work. Thanks a lot."
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "next": "end"
+            }
+          ]
+        },
+        "end": {
+          "speaker": "sami",
+          "anim": "toss_keys",
+          "camera": "two_shot",
+          "text": "Go impress someone. Drive like my mum is watching.",
+          "end": true
+        }
+      }
+    },
+    {
+      "id": "elin_pitch_intro",
+      "speaker": "elin",
+      "start": "n1",
+      "nodes": {
+        "n1": {
+          "speaker": "elin",
+          "camera": "two_shot",
+          "text": "Noor says you listen. That's rare. I have twenty minutes.",
+          "next": "n1_late_check"
+        },
+        "n1_late_check": {
+          "branch": [
+            {
+              "if": {
+                "fact": "late_to_pitch"
+              },
+              "next": "n1_late_apology"
+            },
+            {
+              "next": "n2"
+            }
+          ]
+        },
+        "n1_late": {
+          "speaker": "elin",
+          "anim": "check_watch",
+          "camera": "close_npc",
+          "text": "Everyone in Stockholm knows it snows in January. Now you have twelve minutes.",
+          "next": "n2"
+        },
+        "n2": {
+          "speaker": "player",
+          "camera": "close_player",
+          "text": "",
+          "choices": [
+            {
+              "text": "Twelve bakeries means a lot of rota changes. How do you handle sick calls today?",
+              "if": {
+                "fact": "learned_scheduling_pain"
+              },
+              "locked_hint": "You don't know enough about their problem yet.",
+              "effects": [
+                {
+                  "rel": "elin",
+                  "trust": 5
+                }
+              ],
+              "next": "n3_good"
+            },
+            {
+              "text": "We're building an AI platform for hospitality operations.",
+              "effects": [
+                {
+                  "rel": "elin",
+                  "trust": -3
+                }
+              ],
+              "next": "n3_buzz"
+            }
+          ]
+        },
+        "n3_good": {
+          "speaker": "elin",
+          "anim": "tablet_gesture",
+          "camera": "close_npc",
+          "text": "A WhatsApp group with 140 people in it and a manager who cries on Mondays. Show me.",
+          "next": "end"
+        },
+        "n3_buzz": {
+          "speaker": "elin",
+          "anim": "flat_look",
+          "camera": "close_npc",
+          "text": "So is everyone. Show me something that runs.",
+          "next": "end"
+        },
+        "end": {
+          "speaker": "narrator",
+          "camera": "over_shoulder_laptop",
+          "text": "Open the laptop to start the demo.",
+          "end": true
+        },
+        "n1_late_apology": {
+          "speaker": "player",
+          "camera": "close_player",
+          "text": "Sorry I'm late. The snow on Centralbron...",
+          "effects": [
+            {
+              "rel": "elin",
+              "trust": -2
+            }
+          ],
+          "next": "n1_late"
+        }
+      }
+    },
+    {
+      "id": "elin_after_demo",
+      "speaker": "elin",
+      "start": "n1",
+      "nodes": {
+        "n1": {
+          "branch": [
+            {
+              "if": {
+                "fact": "demo_recovered"
+              },
+              "next": "a1"
+            },
+            {
+              "if": {
+                "fact": "manual_workaround"
+              },
+              "next": "b1"
+            },
+            {
+              "if": {
+                "fact": "demo_crashed_twice"
+              },
+              "next": "c1"
+            },
+            {
+              "next": "d1"
+            }
+          ]
+        },
+        "a1": {
+          "speaker": "elin",
+          "anim": "slow_nod",
+          "camera": "close_npc",
+          "text": "You fixed that in front of me without panicking. That tells me more than the demo. Three bakeries, one month pilot. Paid — I don't do free; free means nobody cares.",
+          "effects": [
+            {
+              "set_fact": "pilot_agreed"
+            },
+            {
+              "set_fact": "customer_is_malarbrod"
+            },
+            {
+              "rel": "elin",
+              "trust": 10
+            },
+            {
+              "add_stat": "reputation",
+              "value": 3
+            }
+          ],
+          "next": "a2"
+        },
+        "a2": {
+          "speaker": "elin",
+          "camera": "two_shot",
+          "text": "Send me pricing by tomorrow. Don't make me chase you.",
+          "effects": [
+            {
+              "commit": {
+                "id": "send_proposal",
+                "npc": "elin",
+                "text": "Send Elin pricing within 24 hours",
+                "due_hours": 24,
+                "on_broken": [
+                  {
+                    "rel": "elin",
+                    "trust": -12
+                  },
+                  {
+                    "remember": "elin",
+                    "memory": "slow_proposal"
+                  }
+                ]
+              }
+            }
+          ],
+          "end": true
+        },
+        "b1": {
+          "speaker": "elin",
+          "anim": "tablet_gesture",
+          "camera": "close_npc",
+          "text": "A spreadsheet. Honest, at least. The logic is right even if the software isn't. Send me a proposal by Thursday — with a date when offline mode works.",
+          "effects": [
+            {
+              "set_fact": "proposal_requested"
+            },
+            {
+              "set_fact": "customer_is_malarbrod"
+            },
+            {
+              "rel": "elin",
+              "trust": 6
+            },
+            {
+              "commit": {
+                "id": "send_proposal",
+                "npc": "elin",
+                "text": "Send Elin a proposal by Thursday",
+                "due_hours": 72,
+                "on_broken": [
+                  {
+                    "rel": "elin",
+                    "trust": -12
+                  },
+                  {
+                    "remember": "elin",
+                    "memory": "slow_proposal"
+                  }
+                ]
+              }
+            }
+          ],
+          "end": true
+        },
+        "c1": {
+          "speaker": "elin",
+          "camera": "close_npc",
+          "text": "I can't take this to the owners.",
+          "next": "c2"
+        },
+        "c2": {
+          "speaker": "player",
+          "camera": "close_player",
+          "text": "",
+          "choices": [
+            {
+              "text": "You're right. The offline sync isn't there yet. Can I come back when it is?",
+              "effects": [
+                {
+                  "set_fact": "elin_door_open"
+                },
+                {
+                  "rel": "elin",
+                  "trust": 4
+                },
+                {
+                  "remember": "elin",
+                  "memory": "honest_after_failure"
+                }
+              ],
+              "next": "c3"
+            },
+            {
+              "text": "It's just the office wifi. It works fine normally.",
+              "effects": [
+                {
+                  "rel": "elin",
+                  "trust": -8
+                },
+                {
+                  "remember": "elin",
+                  "memory": "made_excuses"
+                }
+              ],
+              "next": "c4"
+            }
+          ]
+        },
+        "c3": {
+          "speaker": "elin",
+          "anim": "small_smile",
+          "camera": "close_npc",
+          "text": "Yes. People who say that usually don't come back. Prove me wrong.",
+          "effects": [
+            {
+              "set_fact": "lost_contract"
+            }
+          ],
+          "end": true
+        },
+        "c4": {
+          "speaker": "elin",
+          "camera": "close_npc",
+          "text": "Our bakeries are in cellars and train stations. 'Normally' isn't a word I can use. Thank you for coming.",
+          "effects": [
+            {
+              "set_fact": "lost_contract"
+            }
+          ],
+          "end": true
+        },
+        "d1": {
+          "speaker": "elin",
+          "camera": "close_npc",
+          "text": "Reschedule. Hm. My calendar is full until March. Send me an email when you have something stable.",
+          "effects": [
+            {
+              "set_fact": "elin_door_open"
+            }
+          ],
+          "end": true
+        }
+      }
+    },
+    {
+      "id": "mateo_breakfast",
+      "speaker": "mateo",
+      "start": "n1",
+      "nodes": {
+        "n1": {
+          "speaker": "mateo",
+          "anim": "wave_bun",
+          "camera": "two_shot",
+          "text": "You look like someone whose demo died yesterday. Sit — they have free cardamom buns and terrible coffee.",
+          "next": "n2"
+        },
+        "n2": {
+          "speaker": "player",
+          "camera": "close_player",
+          "text": "",
+          "choices": [
+            {
+              "text": "It crashed. Twice. In front of a 12-bakery chain.",
+              "effects": [
+                {
+                  "rel": "mateo",
+                  "affinity": 6
+                }
+              ],
+              "next": "n3"
+            },
+            {
+              "text": "I'm fine. Just networking.",
+              "effects": [
+                {
+                  "rel": "mateo",
+                  "affinity": -1
+                }
+              ],
+              "next": "n3b"
+            }
+          ]
+        },
+        "n3": {
+          "speaker": "mateo",
+          "anim": "lean_in",
+          "camera": "close_npc",
+          "text": "Big chains are slow anyway. Who already loves you? Start there. One small customer who pays beats twelve who are 'interested'.",
+          "next": "n4"
+        },
+        "n3b": {
+          "speaker": "mateo",
+          "camera": "close_npc",
+          "text": "Sure. Nobody comes here at 7:30 for fun. Who already likes what you're making?",
+          "next": "n4"
+        },
+        "n4": {
+          "speaker": "mateo",
+          "camera": "two_shot",
+          "text": "Also — half the people in this room work out of the coworking spaces up the road. Put them on your map. That's where the founders are.",
+          "effects": [
+            {
+              "discover": "epicenter"
+            },
+            {
+              "discover": "sup46"
+            },
+            {
+              "set_fact": "met_mateo"
+            },
+            {
+              "remember": "mateo",
+              "memory": "met_at_breakfast"
+            }
+          ],
+          "end": true
+        }
+      }
+    },
+    {
+      "id": "noor_first_customer",
+      "speaker": "noor",
+      "start": "n1",
+      "nodes": {
+        "n1": {
+          "speaker": "noor",
+          "anim": "arms_crossed",
+          "camera": "two_shot",
+          "text": "Elin told me. She said you were honest. That's worth more to me than a demo.",
+          "next": "n2"
+        },
+        "n2": {
+          "speaker": "noor",
+          "camera": "close_npc",
+          "text": "Here's my offer. My three cafés. You make Sunday nights disappear. I pay you. If it breaks on a Monday, you come here and fix it in person.",
+          "next": "n3"
+        },
+        "n3": {
+          "speaker": "player",
+          "camera": "close_player",
+          "text": "",
+          "choices": [
+            {
+              "text": "Deal. I'll be here at 6:30 every Monday for a month.",
+              "effects": [
+                {
+                  "set_fact": "pilot_agreed_noor"
+                },
+                {
+                  "set_fact": "customer_is_noor"
+                },
+                {
+                  "rel": "noor",
+                  "trust": 10,
+                  "affinity": 5
+                },
+                {
+                  "commit": {
+                    "id": "noor_mondays",
+                    "npc": "noor",
+                    "text": "Be at Kafé Kollektivet at 06:30 on Mondays during the pilot",
+                    "due_hours": 720
+                  }
+                }
+              ],
+              "next": "end"
+            },
+            {
+              "text": "Deal — but I can't promise in-person every week.",
+              "effects": [
+                {
+                  "set_fact": "pilot_agreed_noor"
+                },
+                {
+                  "set_fact": "customer_is_noor"
+                },
+                {
+                  "rel": "noor",
+                  "trust": 4
+                }
+              ],
+              "next": "end"
+            }
+          ]
+        },
+        "end": {
+          "speaker": "noor",
+          "anim": "handshake",
+          "camera": "two_shot",
+          "text": "Good. Now go home and write me a price. A real one.",
+          "end": true
+        }
+      }
+    },
+    {
+      "id": "elin_negotiation",
+      "speaker": "elin",
+      "start": "n1",
+      "nodes": {
+        "n1": {
+          "speaker": "elin",
+          "camera": "phone",
+          "text": "I read your proposal. Three bakeries. Before I sign: the owners want a discount, and finance asks if you'll take a free first month.",
+          "next": "n2"
+        },
+        "n2": {
+          "speaker": "player",
+          "camera": "phone",
+          "text": "",
+          "timeout": 25,
+          "timeout_choice": 0,
+          "choices": [
+            {
+              "text": "Monthly, at the price I quoted. No discount — you'll see the value in week one.",
+              "effects": [
+                {
+                  "set_fact": "deal_monthly"
+                },
+                {
+                  "set_fact": "deal_months_upfront",
+                  "value": 1
+                },
+                {
+                  "rel": "elin",
+                  "trust": 2
+                }
+              ],
+              "next": "n3_monthly"
+            },
+            {
+              "text": "Ten percent off if you pay the first quarter upfront.",
+              "effects": [
+                {
+                  "set_fact": "deal_quarter"
+                },
+                {
+                  "set_fact": "deal_months_upfront",
+                  "value": 3
+                },
+                {
+                  "set_fact": "deal_discount",
+                  "value": 0.1
+                }
+              ],
+              "next": "n3_quarter"
+            },
+            {
+              "text": "Free first month, full price after.",
+              "effects": [
+                {
+                  "set_fact": "deal_free_month"
+                },
+                {
+                  "set_fact": "deal_months_upfront",
+                  "value": 0
+                },
+                {
+                  "set_fact": "deal_setup_fee",
+                  "value": 3000
+                },
+                {
+                  "rel": "elin",
+                  "trust": -3
+                },
+                {
+                  "remember": "elin",
+                  "memory": "gave_it_away"
+                }
+              ],
+              "next": "n3_free"
+            }
+          ]
+        },
+        "n3_monthly": {
+          "speaker": "elin",
+          "camera": "phone",
+          "text": "Confident. Fine. Invoice me the first month today.",
+          "next": "end"
+        },
+        "n3_quarter": {
+          "speaker": "elin",
+          "camera": "phone",
+          "text": "Finance will like that. I'll approve the quarter. Don't make me regret it.",
+          "next": "end"
+        },
+        "n3_free": {
+          "speaker": "elin",
+          "camera": "phone",
+          "text": "I told you I don't do free. But I'll take it. Invoice the 3 000 kronor setup fee, then we talk in a month.",
+          "next": "end"
+        },
+        "end": {
+          "speaker": "narrator",
+          "camera": "phone",
+          "text": "Send the invoice from your laptop.",
+          "end": true
+        }
+      }
+    },
+    {
+      "id": "noor_negotiation",
+      "speaker": "noor",
+      "start": "n1",
+      "nodes": {
+        "n1": {
+          "speaker": "noor",
+          "anim": "read_paper",
+          "camera": "two_shot",
+          "text": "I read it. Twice. It's fair. My accountant asks: monthly, or do I pay ahead for a discount?",
+          "next": "n2"
+        },
+        "n2": {
+          "speaker": "player",
+          "camera": "close_player",
+          "text": "",
+          "choices": [
+            {
+              "text": "Monthly. If it doesn't work, you can walk.",
+              "effects": [
+                {
+                  "set_fact": "deal_monthly"
+                },
+                {
+                  "set_fact": "deal_months_upfront",
+                  "value": 1
+                },
+                {
+                  "rel": "noor",
+                  "trust": 3
+                }
+              ],
+              "next": "end"
+            },
+            {
+              "text": "Pay a quarter ahead, get ten percent off. It honestly helps me pay rent.",
+              "effects": [
+                {
+                  "set_fact": "deal_quarter"
+                },
+                {
+                  "set_fact": "deal_months_upfront",
+                  "value": 3
+                },
+                {
+                  "set_fact": "deal_discount",
+                  "value": 0.1
+                },
+                {
+                  "rel": "noor",
+                  "affinity": 4
+                },
+                {
+                  "remember": "noor",
+                  "memory": "knows_rent_trouble"
+                }
+              ],
+              "next": "end"
+            },
+            {
+              "text": "Try it free for a month. Just a small setup fee.",
+              "effects": [
+                {
+                  "set_fact": "deal_free_month"
+                },
+                {
+                  "set_fact": "deal_months_upfront",
+                  "value": 0
+                },
+                {
+                  "set_fact": "deal_setup_fee",
+                  "value": 2000
+                },
+                {
+                  "rel": "noor",
+                  "trust": -2
+                }
+              ],
+              "next": "end"
+            }
+          ]
+        },
+        "end": {
+          "speaker": "noor",
+          "anim": "handshake",
+          "camera": "two_shot",
+          "text": "Send me the invoice. I pay on time. Always.",
+          "end": true
+        }
+      }
+    },
+    {
+      "id": "noor_ambient",
+      "speaker": "noor",
+      "start": "n1",
+      "nodes": {
+        "n1": {
+          "branch": [
+            {
+              "if": {
+                "memory": "noor",
+                "has": "missed_friday"
+              },
+              "next": "cool"
+            },
+            {
+              "next": "warm"
+            }
+          ]
+        },
+        "warm": {
+          "speaker": "noor",
+          "anim": "wipe_counter",
+          "camera": "close_npc",
+          "text": "Cardamom or cinnamon? Don't answer, you look like cardamom.",
+          "effects": [
+            {
+              "add_stat": "energy",
+              "value": 5
+            },
+            {
+              "rel": "noor",
+              "affinity": 1
+            }
+          ],
+          "end": true
+        },
+        "cool": {
+          "speaker": "noor",
+          "camera": "close_npc",
+          "text": "Friday came and went. I'm still here. Are you?",
+          "end": true
+        }
+      }
+    },
+    {
+      "id": "aditi_ambient",
+      "speaker": "aditi",
+      "start": "n1",
+      "nodes": {
+        "n1": {
+          "speaker": "aditi",
+          "anim": "knead",
+          "camera": "two_shot",
+          "text": "Tourists asked me today if the bakery is from the Viking age. I said yes. Business is business.",
+          "end": true
+        }
+      }
+    },
+    {
+      "id": "sami_ambient",
+      "speaker": "sami",
+      "start": "n1",
+      "nodes": {
+        "n1": {
+          "branch": [
+            {
+              "if": {
+                "memory": "sami",
+                "has": "car_late"
+              },
+              "next": "sore"
+            },
+            {
+              "next": "ok"
+            }
+          ]
+        },
+        "sore": {
+          "speaker": "sami",
+          "anim": "arms_crossed",
+          "camera": "close_npc",
+          "text": "The bus to the hospital takes fifty minutes, did you know? I know.",
+          "end": true
+        },
+        "ok": {
+          "speaker": "sami",
+          "anim": "grin",
+          "camera": "close_npc",
+          "text": "You slept, right? Actually slept? Wellbeing is not a feature you ship later.",
+          "effects": [
+            {
+              "rel": "sami",
+              "affinity": 1
+            }
+          ],
+          "end": true
+        }
+      }
+    }
+  ]
+}

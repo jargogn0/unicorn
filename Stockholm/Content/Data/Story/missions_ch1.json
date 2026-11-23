@@ -1,0 +1,961 @@
+{
+  "kind": "missions",
+  "note": "Chapter 1 — the first ~30 minutes. Objective types: reach, drive, talk, interact, decision, wait_until, phone_call, custom. next: objective id | @complete | @fail. Failure always routes somewhere recoverable.",
+  "missions": [
+    {
+      "id": "m00_five_days",
+      "chapter": 1,
+      "title": "Five Days",
+      "summary": "Snow outside. Rent due in five days. A message from someone who wants to see what you're building.",
+      "giver": "noor",
+      "auto_start": true,
+      "prerequisites": null,
+      "on_start": [
+        {
+          "world_event": "cinematic:opening",
+          "text": "Snow falling outside. A phone lights up."
+        },
+        {
+          "message": {
+            "from": "bank",
+            "text": "Reminder: rent 9 400 SEK due in 5 days. Balance: 4 200 SEK."
+          }
+        },
+        {
+          "message": {
+            "from": "noor",
+            "text": "Hey. Heard you're building something. Can you show me?"
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": "o1",
+          "type": "phone_call",
+          "text": "Reply to the message",
+          "target": "phone",
+          "dialogue": "opening_phone",
+          "next": "o2"
+        },
+        {
+          "id": "o2",
+          "type": "interact",
+          "text": "Grab your laptop",
+          "target": "laptop_home",
+          "on_complete": [
+            {
+              "world_event": "cinematic:laptop_closeup",
+              "text": "The unfinished product. A login screen and a scheduling grid that half works."
+            }
+          ],
+          "next": "@complete"
+        }
+      ],
+      "on_complete": [
+        {
+          "set_fact": "opening_done"
+        }
+      ],
+      "recovery_hint": ""
+    },
+    {
+      "id": "m01_show_me",
+      "chapter": 1,
+      "title": "Can You Show Me?",
+      "summary": "Customer discovery on foot across Södermalm and Gamla Stan.",
+      "giver": "noor",
+      "auto_start": true,
+      "prerequisites": {
+        "mission": "m00_five_days",
+        "status": "completed"
+      },
+      "objectives": [
+        {
+          "id": "o1",
+          "type": "reach",
+          "text": "Get to Kafé Kollektivet on Hornsgatan before 13:00",
+          "target": "cafe_kollektivet",
+          "deadline": "13:00",
+          "on_fail": [
+            {
+              "rel": "noor",
+              "affinity": -4
+            },
+            {
+              "message": {
+                "from": "noor",
+                "text": "Had to leave for a supplier. Tomorrow, 8:30? Same place."
+              }
+            },
+            {
+              "set_fact": "late_to_noor"
+            }
+          ],
+          "fail_next": "o1_retry",
+          "next": "o2"
+        },
+        {
+          "id": "o1_retry",
+          "type": "wait_until",
+          "text": "Meet Noor tomorrow at 08:30",
+          "target": "",
+          "deadline": "08:00",
+          "next": "o1b"
+        },
+        {
+          "id": "o1b",
+          "type": "reach",
+          "text": "Get to Kafé Kollektivet by 09:30",
+          "target": "cafe_kollektivet",
+          "deadline": "09:30",
+          "on_fail": [
+            {
+              "rel": "noor",
+              "trust": -10
+            },
+            {
+              "remember": "noor",
+              "memory": "stood_up_twice"
+            },
+            {
+              "message": {
+                "from": "noor",
+                "text": "Okay. Come by when you're serious."
+              }
+            }
+          ],
+          "fail_next": "o1b_last",
+          "next": "o2"
+        },
+        {
+          "id": "o1b_last",
+          "type": "reach",
+          "text": "Go and apologise to Noor at the café",
+          "target": "cafe_kollektivet",
+          "next": "o2"
+        },
+        {
+          "id": "o2",
+          "type": "talk",
+          "text": "Talk to Noor",
+          "target": "noor",
+          "dialogue": "noor_discovery",
+          "next": "o3"
+        },
+        {
+          "id": "o3",
+          "type": "reach",
+          "text": "Walk to Kanel & Kod on Västerlånggatan, Gamla Stan",
+          "target": "bakery_kanel",
+          "on_start": [
+            {
+              "meet": "aditi"
+            }
+          ],
+          "next": "o4"
+        },
+        {
+          "id": "o4",
+          "type": "talk",
+          "text": "Show Aditi the prototype",
+          "target": "aditi",
+          "dialogue": "aditi_validation",
+          "next": "o5"
+        },
+        {
+          "id": "o5",
+          "type": "reach",
+          "text": "Head home",
+          "target": "apt_player",
+          "next": "o6"
+        },
+        {
+          "id": "o6",
+          "type": "interact",
+          "text": "Rework the prototype at your laptop",
+          "target": "laptop_home",
+          "on_complete": [
+            {
+              "advance_time": 240
+            },
+            {
+              "add_stat": "energy",
+              "value": -20
+            },
+            {
+              "if": {
+                "fact": "learned_scheduling_pain"
+              },
+              "then": [
+                {
+                  "add_stat": "product_quality",
+                  "value": 6
+                }
+              ]
+            },
+            {
+              "if": {
+                "fact": "learned_offline_risk"
+              },
+              "then": [
+                {
+                  "add_stat": "product_quality",
+                  "value": 4
+                },
+                {
+                  "set_fact": "offline_mode_started"
+                }
+              ]
+            },
+            {
+              "if": {
+                "fact": "learned_willingness_to_pay"
+              },
+              "then": [
+                {
+                  "add_stat": "pipeline",
+                  "value": 1
+                }
+              ]
+            }
+          ],
+          "next": "@complete"
+        }
+      ],
+      "on_complete": [
+        {
+          "message": {
+            "from": "noor",
+            "text": "My friend Elin runs operations at Mälarbröd — twelve bakeries. Tomorrow 10:00, their office on Hantverkargatan, Kungsholmen. She won't wait."
+          }
+        },
+        {
+          "discover": "kth_innovation"
+        }
+      ],
+      "recovery_hint": ""
+    },
+    {
+      "id": "m02_first_pitch",
+      "chapter": 1,
+      "title": "The First Pitch",
+      "summary": "Cross the city in a snowstorm to demo for a 12-bakery chain. The demo will fail. What you do next matters.",
+      "giver": "noor",
+      "auto_start": true,
+      "prerequisites": {
+        "mission": "m01_show_me",
+        "status": "completed"
+      },
+      "on_start": [
+        {
+          "world_event": "weather:heavy_snow",
+          "text": "Heavy snow forecast across Stockholm."
+        }
+      ],
+      "objectives": [
+        {
+          "id": "o1",
+          "type": "decision",
+          "text": "How will you get to Kungsholmen?",
+          "target": "",
+          "options": [
+            {
+              "id": "car",
+              "text": "Borrow Sami's Volvo",
+              "next": "o1_sami"
+            },
+            {
+              "id": "transit",
+              "text": "Tunnelbana and walk (cheap, slower)",
+              "effects": [
+                {
+                  "add_stat": "personal_cash",
+                  "value": -42
+                }
+              ],
+              "next": "o2_walk"
+            },
+            {
+              "id": "taxi",
+              "text": "Taxi (about 380 SEK)",
+              "if": {
+                "can_afford": 380
+              },
+              "effects": [
+                {
+                  "add_stat": "personal_cash",
+                  "value": -380
+                },
+                {
+                  "world_event": "travel:taxi:office_malarbrod_parking"
+                },
+                {
+                  "advance_time": 25
+                }
+              ],
+              "next": "o3"
+            }
+          ],
+          "next": "o3"
+        },
+        {
+          "id": "o1_sami",
+          "type": "talk",
+          "text": "Catch Sami by his car as he gets home from his night shift",
+          "target": "sami",
+          "dialogue": "sami_keys",
+          "marker": "sami_car_spot",
+          "next": "o2_drive"
+        },
+        {
+          "id": "o2_drive",
+          "type": "drive",
+          "text": "Drive to Mälarbröd on Hantverkargatan by 10:00",
+          "target": "office_malarbrod_parking",
+          "deadline": "10:00",
+          "on_start": [
+            {
+              "world_event": "spawn_vehicle:sami_volvo:sami_car_spot"
+            }
+          ],
+          "on_fail": [
+            {
+              "set_fact": "late_to_pitch"
+            },
+            {
+              "rel": "elin",
+              "trust": -6
+            },
+            {
+              "message": {
+                "from": "noor",
+                "text": "Elin says you're late. Hurry."
+              }
+            }
+          ],
+          "fail_next": "o2_drive_late",
+          "next": "o3",
+          "deadline_anchor": "mission",
+          "deadline_day_offset": 1
+        },
+        {
+          "id": "o2_drive_late",
+          "type": "drive",
+          "text": "You're late. Get to Mälarbröd anyway",
+          "target": "office_malarbrod_parking",
+          "next": "o3"
+        },
+        {
+          "id": "o2_walk",
+          "type": "reach",
+          "text": "Get to Mälarbröd on Hantverkargatan by 10:00",
+          "target": "office_malarbrod",
+          "deadline": "10:00",
+          "on_fail": [
+            {
+              "set_fact": "late_to_pitch"
+            },
+            {
+              "rel": "elin",
+              "trust": -6
+            }
+          ],
+          "fail_next": "o2_walk_late",
+          "next": "o3",
+          "deadline_anchor": "mission",
+          "deadline_day_offset": 1
+        },
+        {
+          "id": "o2_walk_late",
+          "type": "reach",
+          "text": "You're late. Get to Mälarbröd anyway",
+          "target": "office_malarbrod",
+          "next": "o3"
+        },
+        {
+          "id": "o3",
+          "type": "talk",
+          "text": "Meet Elin Bergqvist",
+          "target": "elin",
+          "dialogue": "elin_pitch_intro",
+          "next": "o4"
+        },
+        {
+          "id": "o4",
+          "type": "interact",
+          "text": "Start the live demo",
+          "target": "laptop_demo",
+          "on_complete": [
+            {
+              "world_event": "demo_failure",
+              "text": "The office wifi drops. The rota grid freezes mid-render. Elin looks up."
+            }
+          ],
+          "next": "o5"
+        },
+        {
+          "id": "o5",
+          "type": "decision",
+          "text": "The demo has frozen. Decide — now.",
+          "target": "",
+          "decision_seconds": 12,
+          "decision_default": 2,
+          "options": [
+            {
+              "id": "fix",
+              "text": "Fix it live",
+              "if": {
+                "stat": "product_quality",
+                "op": ">=",
+                "value": 20
+              },
+              "next": "o6_fix"
+            },
+            {
+              "id": "manual",
+              "text": "Switch to a manual walkthrough on a spreadsheet",
+              "if": {
+                "fact": "learned_scheduling_pain"
+              },
+              "effects": [
+                {
+                  "set_fact": "manual_workaround"
+                }
+              ],
+              "next": "o7"
+            },
+            {
+              "id": "reschedule",
+              "text": "Apologise and ask to reschedule",
+              "effects": [
+                {
+                  "set_fact": "lost_contract"
+                }
+              ],
+              "next": "o7"
+            }
+          ],
+          "next": "o7"
+        },
+        {
+          "id": "o6_fix",
+          "type": "custom",
+          "text": "Get the demo running again (offline cache, restart the sync)",
+          "target": "demo_fix_success",
+          "time_limit_minutes": 8,
+          "on_complete": [
+            {
+              "set_fact": "demo_recovered"
+            },
+            {
+              "add_stat": "product_quality",
+              "value": 3
+            }
+          ],
+          "on_fail": [
+            {
+              "set_fact": "demo_crashed_twice"
+            },
+            {
+              "add_stat": "wellbeing",
+              "value": -4
+            }
+          ],
+          "fail_next": "o7",
+          "next": "o7"
+        },
+        {
+          "id": "o7",
+          "type": "talk",
+          "text": "Hear Elin's verdict",
+          "target": "elin",
+          "dialogue": "elin_after_demo",
+          "next_if": [
+            {
+              "if": {
+                "fact": "has_sami_car"
+              },
+              "next": "o8"
+            }
+          ],
+          "next": "@complete"
+        },
+        {
+          "id": "o8",
+          "type": "drive",
+          "text": "Fill the tank and return Sami's car by 20:00",
+          "target": "sami_car_spot",
+          "deadline": "20:00",
+          "on_start": [
+            {
+              "add_stat": "personal_cash",
+              "value": -310
+            }
+          ],
+          "on_complete": [
+            {
+              "fulfil": "sami_car"
+            },
+            {
+              "world_event": "despawn_vehicle:sami_volvo"
+            }
+          ],
+          "on_fail": [
+            {
+              "world_event": "despawn_vehicle:sami_volvo"
+            }
+          ],
+          "fail_next": "@complete",
+          "next": "@complete"
+        }
+      ],
+      "on_complete": [
+        {
+          "if": {
+            "any": [
+              {
+                "fact": "pilot_agreed"
+              },
+              {
+                "fact": "proposal_requested"
+              }
+            ]
+          },
+          "then": [
+            {
+              "message": {
+                "from": "noor",
+                "text": "Elin called me. Don't you dare celebrate before you invoice."
+              }
+            }
+          ],
+          "else": [
+            {
+              "set_fact": "needs_another_door"
+            }
+          ]
+        }
+      ],
+      "recovery_hint": "Losing Mälarbröd is not the end. Someone smaller may already believe in you."
+    },
+    {
+      "id": "m02b_another_door",
+      "chapter": 1,
+      "title": "Another Door",
+      "summary": "A founders' breakfast, a stranger's advice, and the customer who was there all along.",
+      "giver": "aditi",
+      "auto_start": true,
+      "prerequisites": {
+        "all": [
+          {
+            "mission": "m02_first_pitch",
+            "status": "completed"
+          },
+          {
+            "fact": "needs_another_door"
+          }
+        ]
+      },
+      "on_start": [
+        {
+          "message": {
+            "from": "aditi",
+            "text": "Bad day? Founders' breakfast tomorrow 07:30, café on Strömgatan. Free cardamom buns. Go and talk to people."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": "o1",
+          "type": "reach",
+          "text": "Get to the founders' breakfast on Strömgatan by 09:30",
+          "target": "breakfast_strommen",
+          "deadline": "09:30",
+          "fail_next": "o3",
+          "on_fail": [
+            {
+              "notify": "The breakfast is over. Maybe the answer is closer to home."
+            }
+          ],
+          "next": "o2",
+          "deadline_anchor": "mission",
+          "deadline_day_offset": 1
+        },
+        {
+          "id": "o2",
+          "type": "talk",
+          "text": "Talk to the developer by the window",
+          "target": "mateo",
+          "dialogue": "mateo_breakfast",
+          "next": "o3"
+        },
+        {
+          "id": "o3",
+          "type": "reach",
+          "text": "Go and see Noor",
+          "target": "cafe_kollektivet",
+          "next": "o4"
+        },
+        {
+          "id": "o4",
+          "type": "talk",
+          "text": "Talk to Noor",
+          "target": "noor",
+          "dialogue": "noor_first_customer",
+          "next": "@complete"
+        }
+      ],
+      "recovery_hint": "Noor is still at the café most days until 15:00."
+    },
+    {
+      "id": "m03_first_payment",
+      "chapter": 1,
+      "title": "First Payment",
+      "summary": "Set a price, choose how to get paid, negotiate, and see real money arrive — just in time for rent, or not.",
+      "giver": "noor",
+      "auto_start": true,
+      "prerequisites": {
+        "any": [
+          {
+            "fact": "pilot_agreed"
+          },
+          {
+            "fact": "proposal_requested"
+          },
+          {
+            "fact": "pilot_agreed_noor"
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "id": "o1",
+          "type": "interact",
+          "text": "Write the proposal on your laptop",
+          "target": "laptop_home",
+          "next": "o2"
+        },
+        {
+          "id": "o2",
+          "type": "decision",
+          "text": "Set your price per location, per month",
+          "target": "",
+          "options": [
+            {
+              "id": "low",
+              "text": "1 490 SEK — easy yes, thin margin",
+              "effects": [
+                {
+                  "set_fact": "price_per_location",
+                  "value": 1490
+                },
+                {
+                  "set_fact": "price_tier",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "id": "fair",
+              "text": "2 900 SEK — what the pain is worth",
+              "effects": [
+                {
+                  "set_fact": "price_per_location",
+                  "value": 2900
+                },
+                {
+                  "set_fact": "price_tier",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "id": "premium",
+              "text": "4 900 SEK — premium, needs proof",
+              "if": {
+                "any": [
+                  {
+                    "fact": "demo_recovered"
+                  },
+                  {
+                    "rel": "noor",
+                    "field": "trust",
+                    "op": ">=",
+                    "value": 40
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "set_fact": "price_per_location",
+                  "value": 4900
+                },
+                {
+                  "set_fact": "price_tier",
+                  "value": 3
+                }
+              ]
+            }
+          ],
+          "on_complete": [
+            {
+              "fulfil": "send_proposal"
+            }
+          ],
+          "next": "o3"
+        },
+        {
+          "id": "o3",
+          "type": "decision",
+          "text": "How will you invoice?",
+          "target": "",
+          "options": [
+            {
+              "id": "sole_trader",
+              "text": "Register as a sole trader (enskild firma) — cheap, personal liability",
+              "effects": [
+                {
+                  "set_fact": "company_form",
+                  "value": 1
+                },
+                {
+                  "add_stat": "personal_cash",
+                  "value": -1000
+                }
+              ]
+            },
+            {
+              "id": "ab",
+              "text": "Form a limited company (aktiebolag) — needs 25 000 SEK share capital",
+              "if": {
+                "can_afford": 26900
+              },
+              "effects": [
+                {
+                  "set_fact": "company_form",
+                  "value": 2
+                },
+                {
+                  "add_stat": "personal_cash",
+                  "value": -26900
+                },
+                {
+                  "add_stat": "company_cash",
+                  "value": 25000
+                }
+              ]
+            },
+            {
+              "id": "service",
+              "text": "Use an invoicing service — no registration, they keep 6 %",
+              "effects": [
+                {
+                  "set_fact": "company_form",
+                  "value": 3
+                }
+              ]
+            }
+          ],
+          "next_if": [
+            {
+              "if": {
+                "fact": "customer_is_malarbrod"
+              },
+              "next": "o4_elin"
+            }
+          ],
+          "next": "o4_noor"
+        },
+        {
+          "id": "o4_elin",
+          "type": "phone_call",
+          "text": "Take Elin's call about the proposal",
+          "target": "elin",
+          "dialogue": "elin_negotiation",
+          "next": "o5_elin"
+        },
+        {
+          "id": "o4_noor",
+          "type": "reach",
+          "text": "Bring the proposal to Noor",
+          "target": "cafe_kollektivet",
+          "next": "o4_noor_talk"
+        },
+        {
+          "id": "o4_noor_talk",
+          "type": "talk",
+          "text": "Talk terms with Noor",
+          "target": "noor",
+          "dialogue": "noor_negotiation",
+          "next": "o5_noor"
+        },
+        {
+          "id": "o5_elin",
+          "type": "interact",
+          "text": "Send the invoice from your laptop",
+          "target": "laptop_home",
+          "next": "o6"
+        },
+        {
+          "id": "o5_noor",
+          "type": "interact",
+          "text": "Send the invoice from your laptop",
+          "target": "laptop_home",
+          "next": "o6"
+        },
+        {
+          "id": "o6",
+          "type": "wait_until",
+          "text": "Wait for the payment (tomorrow morning)",
+          "target": "",
+          "deadline": "09:00",
+          "on_complete": [
+            {
+              "if": {
+                "fact": "customer_is_malarbrod"
+              },
+              "then": [
+                {
+                  "invoice": {
+                    "customer": "malarbrod",
+                    "locations": 3
+                  }
+                }
+              ],
+              "else": [
+                {
+                  "invoice": {
+                    "customer": "kollektivet",
+                    "locations": 3
+                  }
+                }
+              ]
+            },
+            {
+              "world_event": "cinematic:first_payment",
+              "text": "Your phone buzzes. Incoming payment."
+            },
+            {
+              "add_stat": "wellbeing",
+              "value": 8
+            },
+            {
+              "add_stat": "reputation",
+              "value": 2
+            }
+          ],
+          "next": "o7"
+        },
+        {
+          "id": "o7",
+          "type": "decision",
+          "text": "Rent: 9 400 SEK",
+          "target": "",
+          "options": [
+            {
+              "id": "pay",
+              "text": "Pay rent now",
+              "if": {
+                "any": [
+                  {
+                    "can_afford": 9400
+                  },
+                  {
+                    "rent_paid": true
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "pay_rent": true
+                }
+              ]
+            },
+            {
+              "id": "grace",
+              "text": "Ask Gunilla for a week's grace",
+              "if": {
+                "rent_paid": false
+              },
+              "effects": [
+                {
+                  "rel": "landlord",
+                  "trust": -5
+                },
+                {
+                  "commit": {
+                    "id": "rent_late",
+                    "npc": "landlord",
+                    "text": "Pay Gunilla the rent within 7 days",
+                    "due_hours": 168,
+                    "on_broken": [
+                      {
+                        "rel": "landlord",
+                        "trust": -20
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "borrow",
+              "text": "Borrow 5 000 SEK from Sami",
+              "if": {
+                "all": [
+                  {
+                    "rel": "sami",
+                    "field": "trust",
+                    "op": ">=",
+                    "value": 20
+                  },
+                  {
+                    "memory": "sami",
+                    "lacks": "car_late"
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "add_stat": "personal_cash",
+                  "value": 5000
+                },
+                {
+                  "rel": "sami",
+                  "trust": -2
+                },
+                {
+                  "commit": {
+                    "id": "repay_sami",
+                    "npc": "sami",
+                    "text": "Pay Sami back 5 000 SEK within two weeks",
+                    "due_hours": 336
+                  }
+                },
+                {
+                  "pay_rent": true
+                }
+              ]
+            }
+          ],
+          "next": "@complete"
+        }
+      ],
+      "on_complete": [
+        {
+          "message": {
+            "from": "noor",
+            "text": "First invoice paid. Write the date down. You'll want to remember it."
+          }
+        },
+        {
+          "discover": "norrsken_house"
+        },
+        {
+          "discover": "almi_invest"
+        }
+      ],
+      "recovery_hint": "If you cannot pay rent, there are people who will help — at a cost to trust."
+    }
+  ]
+}

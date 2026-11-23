@@ -1,0 +1,2483 @@
+{
+  "kind": "ecosystem",
+  "schema_version": 1,
+  "researched_on": "2026-11-23",
+  "notes": "Conservative, sourced dataset of Stockholm tech-ecosystem organisations for the Founder Map layer. All lat/lon are null by design; coordinates are geocoded later from OpenStreetMap (ODbL, '© OpenStreetMap contributors'). Addresses are recorded only where a cited source states them; aggregator-sourced addresses are flagged in each entry's notes. District values derived from an address/postcode are inferences to be confirmed by geocoding; district-precision entries are placed at district anchors and labelled approximate in-game. 'other' district = outside the listed districts or unknown (check precision). Fields set to null mean 'not verified', not 'false'. Founder names are public historical facts only: the game must not portray real people as characters, and storyline_hooks are challenge archetypes for fictional missions with no implied endorsement. Status facts reflect sources seen up to 2026-11-23 and will go stale. Wikipedia was rate-limited during research, so some Wikipedia citations were seen via search-result extracts rather than full pages.",
+  "entries": [
+    {
+      "id": "spotify",
+      "name": "Spotify",
+      "categories": [
+        "unicorn_landmark",
+        "potential_customer"
+      ],
+      "founded_year": 2006,
+      "founded_in": "Stockholm",
+      "founders_public": [
+        "Daniel Ek",
+        "Martin Lorentzon"
+      ],
+      "summary": "Music streaming service founded in Stockholm in April 2006. It went public on 3 April 2018 through a direct listing on the New York Stock Exchange, without raising new capital. Wikipedia reports over 788 million monthly active users (306 million paying subscribers) as of March 2026. Since 1 January 2026 Daniel Ek has been executive chairman, with Gustav Söderström and Alex Norström serving as co-CEOs.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "public",
+        "detail": "Listed on NYSE since the April 2018 direct listing. Spotify AB is headquartered in Stockholm.",
+        "acquired_by": null,
+        "listing": "NYSE: SPOT"
+      },
+      "unicorn": {
+        "ever": true,
+        "current_private_unicorn": false,
+        "note": "Was a private unicorn before 2018; publicly listed since April 2018."
+      },
+      "locations": [
+        {
+          "label": "Spotify AB headquarters",
+          "address": "Regeringsgatan 19, SE-111 53 Stockholm",
+          "district": "norrmalm",
+          "period": "current",
+          "precision": "address",
+          "lat": null,
+          "lon": null,
+          "source": "https://www.spotify.com/us/about/press/"
+        }
+      ],
+      "storyline_hooks": [
+        "Licensing gauntlet: get rights holders to sign before the launch window closes.",
+        "Freemium economics: convert free users to paying ones without driving the free users away.",
+        "Leadership handover: a founder moves up to chairman and the team must keep shipping."
+      ],
+      "sources": [
+        {
+          "title": "Wikipedia: Spotify (REST summary, read 2026-11-23)",
+          "url": "https://en.wikipedia.org/wiki/Spotify"
+        },
+        {
+          "title": "Spotify press page (HQ address)",
+          "url": "https://www.spotify.com/us/about/press/"
+        },
+        {
+          "title": "Harvard Law School Forum: Spotify direct listing case study",
+          "url": "https://corpgov.law.harvard.edu/2018/07/05/spotify-case-study-structuring-and-executing-a-direct-listing/"
+        },
+        {
+          "title": "Fortune: Spotify direct listing (2018-04-03)",
+          "url": "https://fortune.com/2018/04/03/spotify-stock-market-cap-ipo-direct-listing/"
+        },
+        {
+          "title": "NPR: Daniel Ek to step aside as CEO (2025-09-30)",
+          "url": "https://www.npr.org/2025/09/30/nx-s1-5558012/spotifys-daniel-ek-announces-that-hell-step-aside-as-ceo.Retrieved"
+        },
+        {
+          "title": "Music Week: co-CEOs named",
+          "url": "https://www.musicweek.com/public_html/index.php/digital/read/daniel-ek-to-become-spotify-executive-chairman-gustav-s-derstr-m-alex-norstr-m-upped-to-co-ceos/092746"
+        }
+      ],
+      "verification": "verified",
+      "notes": "The listed entity is Spotify Technology S.A. (Luxembourg). Wikipedia describes the listing as American depositary receipts; it is recorded here only as 'NYSE: SPOT'. The office is in the 'Urban Escape' block, per the Spotify newsroom."
+    },
+    {
+      "id": "klarna",
+      "name": "Klarna",
+      "categories": [
+        "unicorn_landmark",
+        "potential_customer"
+      ],
+      "founded_year": 2005,
+      "founded_in": "Stockholm",
+      "founders_public": [
+        "Sebastian Siemiatkowski",
+        "Niklas Adalberth",
+        "Victor Jacobsson"
+      ],
+      "summary": "Payments and 'buy now, pay later' company founded in Stockholm in 2005 (originally Kreditor Europe AB) after its founders took part in the Stockholm School of Economics entrepreneurship competition. It created a UK holding company (Klarna Group plc, incorporated in England and Wales) in 2023–24, ahead of an IPO. Klarna listed on the NYSE on 10 September 2025 at $40 per share (about $15B valuation). The share price later fell well below the IPO price. Q3 2026 revenue was about $1.01B, with a net loss of $65M.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "public",
+        "detail": "NYSE-listed since September 2025 through Klarna Group plc (England and Wales). The operating bank, Klarna Bank AB (publ), keeps its registered head office in Stockholm.",
+        "acquired_by": null,
+        "listing": "NYSE: KLAR"
+      },
+      "unicorn": {
+        "ever": true,
+        "current_private_unicorn": false,
+        "note": "Was one of Europe's most valuable private fintechs before the IPO; public since September 2025."
+      },
+      "locations": [
+        {
+          "label": "Klarna Bank AB registered and head office",
+          "address": "Sveavägen 46, 111 34 Stockholm",
+          "district": "norrmalm",
+          "period": "current",
+          "precision": "address",
+          "lat": null,
+          "lon": null,
+          "source": "https://www.klarna.com/se/en/about-us/contact/"
+        }
+      ],
+      "storyline_hooks": [
+        "Trust problem: persuade shoppers and merchants that a new checkout is safe.",
+        "Credit-loss squeeze: grow lending volume without letting defaults eat the margin.",
+        "Going public: restructure the holding company and survive the share price after the IPO."
+      ],
+      "sources": [
+        {
+          "title": "Klarna: pricing of IPO (press release)",
+          "url": "https://www.klarna.com/international/press/klarna-announces-pricing-of-its-initial-public-offering/"
+        },
+        {
+          "title": "Fortune: Klarna jumps in NYSE debut (2025-09-11)",
+          "url": "https://fortune.com/2025/09/11/swedish-bnpl-giant-klarna-biggest-ipo-2025-nyse/"
+        },
+        {
+          "title": "SEC: Klarna Group plc 424B4 prospectus",
+          "url": "https://www.sec.gov/Archives/edgar/data/0002003292/000200329225000052/klarnagroupplc424b4.htm"
+        },
+        {
+          "title": "CNBC: Klarna sets up UK holding company (2023-11-06)",
+          "url": "https://www.cnbc.com/2023/11/06/klarna-sets-up-uk-holding-company-in-move-toward-ipo.html/"
+        },
+        {
+          "title": "Klarna contact page (head office address)",
+          "url": "https://www.klarna.com/se/en/about-us/contact/"
+        },
+        {
+          "title": "Wikipedia: Klarna",
+          "url": "https://en.wikipedia.org/wiki/Klarna"
+        },
+        {
+          "title": "The Next Web: Klarna Q3 2026 results",
+          "url": "https://thenextweb.com/news/klarna-q3-2026-results-revenue-1bn-us-fair-financing"
+        },
+        {
+          "title": "Investing.com: KLAR quote (price context, Aug 2026)",
+          "url": "https://www.investing.com/equities/klarna"
+        }
+      ],
+      "verification": "verified",
+      "notes": "Some finance sites list Klarna as 'based in London' because of the UK plc. The Stockholm address is the head office of Klarna Bank AB. Share-price figures move constantly and are deliberately left out of the summary."
+    },
+    {
+      "id": "king",
+      "name": "King (Candy Crush)",
+      "categories": [
+        "unicorn_landmark"
+      ],
+      "founded_year": 2003,
+      "founded_in": "Stockholm",
+      "founders_public": [
+        "Riccardo Zacconi",
+        "Toby Rowland",
+        "Mel Morris",
+        "Thomas Hartwig",
+        "Sebastian Knutsson",
+        "Lars Markgren",
+        "Patrik Stymne"
+      ],
+      "summary": "Mobile and social game maker founded in Stockholm in August 2003 as Midasplayer.com and renamed King.com in 2005. It rose to fame with Candy Crush Saga (2012). Activision Blizzard bought it for $5.9B, closing in February 2016. Microsoft completed its purchase of Activision Blizzard on 13 October 2023, so King is now part of Microsoft's Xbox. In July 2025 it cut about 10% of its staff (around 200 jobs), mostly in Stockholm.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "subsidiary",
+        "detail": "Part of Microsoft (Xbox), via Activision Blizzard. Wikipedia: headquartered in Stockholm and London, incorporated in Malta.",
+        "acquired_by": "Microsoft (via Activision Blizzard)",
+        "listing": null
+      },
+      "unicorn": {
+        "ever": true,
+        "current_private_unicorn": false,
+        "note": "Went public in 2014 at a valuation of around $7B. No longer independent."
+      },
+      "locations": [
+        {
+          "label": "King Stockholm office (as reported 2015)",
+          "address": "Sveavägen 44, Stockholm",
+          "district": "norrmalm",
+          "period": "historical",
+          "precision": "address",
+          "lat": null,
+          "lon": null,
+          "source": "https://www.dezeen.com/2015/03/24/candy-crush-offices-interior-designed-kingdom-adolfsson-partners-stockholm-sweden/amp/"
+        }
+      ],
+      "storyline_hooks": [
+        "Near-bankruptcy: keep a browser-game startup alive until a hit arrives.",
+        "One-hit risk: follow up a mega-hit casual game.",
+        "Corporate parent: keep a studio's culture after two acquisitions in a row."
+      ],
+      "sources": [
+        {
+          "title": "Wikipedia: King (company) (REST summary, read 2026-11-23)",
+          "url": "https://en.wikipedia.org/wiki/King_(company)"
+        },
+        {
+          "title": "TechCrunch: Activision Blizzard closes $5.9B acquisition of King (2016-02-23)",
+          "url": "https://techcrunch.com/2016/02/23/activision-blizzard-closes-its-5-9b-acquisition-of-king-makers-of-candy-crush/"
+        },
+        {
+          "title": "Microsoft blog: welcoming Activision Blizzard King (2023-10-13)",
+          "url": "https://blogs.microsoft.com/blog/2023/10/13/welcoming-the-legendary-teams-at-activision-blizzard-king-to-team-xbox/"
+        },
+        {
+          "title": "Dezeen: King's Stockholm offices (2015)",
+          "url": "https://www.dezeen.com/2015/03/24/candy-crush-offices-interior-designed-kingdom-adolfsson-partners-stockholm-sweden/amp/"
+        },
+        {
+          "title": "PocketGamer.biz: King loses 10% of staff",
+          "url": "https://www.pocketgamer.biz/king-loses-10-of-staff-as-microsoft-makes-games-division-cuts"
+        },
+        {
+          "title": "Fortune: Activision buys King (2015-11-03)",
+          "url": "https://fortune.com/2015/11/03/activision-king-digital/"
+        }
+      ],
+      "verification": "verified",
+      "notes": "The Sveavägen 44 address comes from 2015 architecture coverage. Whether King is still there in 2026 is unconfirmed, so it is marked historical. The founder list follows the Wikipedia infobox as reported in search results; other sources omit some names."
+    },
+    {
+      "id": "mojang",
+      "name": "Mojang Studios (Minecraft)",
+      "categories": [
+        "unicorn_landmark"
+      ],
+      "founded_year": 2009,
+      "founded_in": "Stockholm",
+      "founders_public": [
+        "Markus Persson"
+      ],
+      "summary": "Game studio founded in Stockholm in 2009 by Markus Persson around Minecraft. Mojang AB was incorporated in 2010. Microsoft announced the purchase on 15 September 2014 for $2.5B and completed it on 6 November 2014. Today Mojang Studios is an Xbox studio based in Stockholm.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "subsidiary",
+        "detail": "Xbox studio owned by Microsoft since November 2014.",
+        "acquired_by": "Microsoft",
+        "listing": null
+      },
+      "unicorn": {
+        "ever": true,
+        "current_private_unicorn": false,
+        "note": "Acquired for $2.5B in 2014; not independent since."
+      },
+      "locations": [
+        {
+          "label": "Mojang Studios HQ (per Wikipedia-derived sources)",
+          "address": "Söder Mälarstrand 43, Stockholm",
+          "district": "sodermalm",
+          "period": "current",
+          "precision": "address",
+          "lat": null,
+          "lon": null,
+          "source": "https://en.wikipedia.org/wiki/Mojang_Studios"
+        }
+      ],
+      "storyline_hooks": [
+        "Indie breakout: a side project goes viral and has to become a company overnight.",
+        "Selling the studio: decide whether to sell a beloved game to a platform giant."
+      ],
+      "sources": [
+        {
+          "title": "Wikipedia: Mojang Studios (REST summary, read 2026-11-23)",
+          "url": "https://en.wikipedia.org/wiki/Mojang_Studios"
+        },
+        {
+          "title": "Microsoft News: Minecraft to join Microsoft (2014-09-15)",
+          "url": "https://news.microsoft.com/2014/09/15/minecraft-to-join-microsoft/"
+        },
+        {
+          "title": "Engadget: Microsoft completes acquisition of Minecraft studio (2014-11-06)",
+          "url": "https://www.engadget.com/2014/11/06/microsoft-completes-acquisition-of-minecraft-studio/"
+        }
+      ],
+      "verification": "partially_verified",
+      "notes": "Sources give different founding dates (May or June 2009; incorporation in September 2010). The Söder Mälarstrand 43 address was seen only via Wikipedia and aggregator search snippets, not on a Mojang page. A fan wiki names Maria Skolgata 83 as an earlier office (unconfirmed, not recorded). Other co-founders are left out because no source seen named them."
+    },
+    {
+      "id": "skype",
+      "name": "Skype",
+      "categories": [
+        "unicorn_landmark"
+      ],
+      "founded_year": 2003,
+      "founded_in": "Registered in Luxembourg; software developed in Tallinn (Swedish and Danish founders)",
+      "founders_public": [
+        "Niklas Zennström",
+        "Janus Friis"
+      ],
+      "summary": "Internet calling service founded in 2003 by Swede Niklas Zennström and Dane Janus Friis. The software was written by Estonian engineers (Ahti Heinla, Priit Kasesalu and Jaan Tallinn). The company was registered in Luxembourg and had offices including Tallinn and Stockholm. Microsoft completed its $8.5B acquisition on 13 October 2011. Microsoft retired the consumer Skype service on 5 May 2025 and moved users to Teams Free.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "defunct",
+        "detail": "Consumer service retired by Microsoft on 5 May 2025. Users were migrated to Microsoft Teams Free.",
+        "acquired_by": "Microsoft",
+        "listing": null
+      },
+      "unicorn": {
+        "ever": true,
+        "current_private_unicorn": false,
+        "note": "Acquired by Microsoft for $8.5B in 2011; the service no longer runs."
+      },
+      "locations": [
+        {
+          "label": "Skype Stockholm office (historical)",
+          "address": null,
+          "district": "other",
+          "period": "historical",
+          "precision": "city",
+          "lat": null,
+          "lon": null,
+          "source": "https://en.wikipedia.org/wiki/Skype"
+        }
+      ],
+      "storyline_hooks": [
+        "Peer-to-peer scaling: run a global calling network on a startup budget.",
+        "Legacy sunset: migrate millions of users when a parent company retires a product."
+      ],
+      "sources": [
+        {
+          "title": "Wikipedia: Skype",
+          "url": "https://en.wikipedia.org/wiki/Skype"
+        },
+        {
+          "title": "Microsoft News: Microsoft officially welcomes Skype (2011-10-13)",
+          "url": "https://news.microsoft.com/2011/10/13/microsoft-officially-welcomes-skype"
+        },
+        {
+          "title": "TechCrunch: Skype to shut down May 5, 2025",
+          "url": "https://techcrunch.com/2025/02/28/microsoft-hangs-up-on-skype-service-to-shut-down-may-5-2025"
+        },
+        {
+          "title": "Tom's Hardware: Microsoft retires Skype",
+          "url": "https://www.tomshardware.com/software/video-conferencing/microsoft-finally-retires-skype-after-22-years-of-service"
+        },
+        {
+          "title": "ERR News: Skype's legacy (Estonia)",
+          "url": "https://news.err.ee/1609621340/skype-s-legacy-much-more-than-just-free-internet-and-video-calls"
+        }
+      ],
+      "verification": "verified",
+      "notes": "Skype is only loosely a 'Stockholm' company: one co-founder is Swedish and it had a Stockholm office, but it was registered in Luxembourg and engineered in Tallinn. No Stockholm street address was found. district is 'other' (unknown). Present it in-game as a historical landmark, not a current company."
+    },
+    {
+      "id": "zettle",
+      "name": "Zettle by PayPal (formerly iZettle)",
+      "categories": [
+        "unicorn_landmark",
+        "potential_customer"
+      ],
+      "founded_year": 2010,
+      "founded_in": "Stockholm",
+      "founders_public": [
+        "Jacob de Geer",
+        "Magnus Nilsson"
+      ],
+      "summary": "Mobile card-reader and point-of-sale company founded in Stockholm in April 2010. It launched its first app and chip-card reader in 2011. PayPal agreed to buy iZettle in May 2018, cancelling a planned IPO, and completed the roughly $2.2B deal on 20 September 2018. The company renamed itself 'Zettle by PayPal' in February 2021.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "subsidiary",
+        "detail": "Owned by PayPal since September 2018, trading as Zettle by PayPal.",
+        "acquired_by": "PayPal",
+        "listing": null
+      },
+      "unicorn": {
+        "ever": true,
+        "current_private_unicorn": false,
+        "note": "Acquired for about $2.2B in 2018 (PayPal's largest deal at the time)."
+      },
+      "locations": [
+        {
+          "label": "Zettle headquarters",
+          "address": null,
+          "district": "other",
+          "period": "current",
+          "precision": "city",
+          "lat": null,
+          "lon": null,
+          "source": "https://en.wikipedia.org/wiki/Zettle"
+        }
+      ],
+      "storyline_hooks": [
+        "Hardware plus software: ship a card reader small merchants trust on day one.",
+        "IPO or exit: choose between listing and selling to a payments giant."
+      ],
+      "sources": [
+        {
+          "title": "Wikipedia: Zettle (REST summary, read 2026-11-23)",
+          "url": "https://en.wikipedia.org/wiki/Zettle"
+        },
+        {
+          "title": "PayPal newsroom: PayPal completes acquisition of iZettle (2018-09-20)",
+          "url": "https://newsroom.paypal-corp.com/2018-09-20-PayPal-Completes-Acquisition-of-iZettle"
+        },
+        {
+          "title": "Zettle: iZettle is now Zettle by PayPal",
+          "url": "https://www.zettle.com/gb/about-us/izettle-now-zettle-by-paypal"
+        },
+        {
+          "title": "TechCrunch: PayPal buying iZettle for $2.2B (2018-05-17)",
+          "url": "https://techcrunch.com/2018/05/17/paypal-confirms-that-it-is-buying-payments-startup-izettle-for-2-2b-in-an-all-cash-deal"
+        }
+      ],
+      "verification": "verified",
+      "notes": "CB Insights lists 'Regeringsgatan 59, Stockholm', but that is an aggregator, so the location is kept at city precision. The Wikipedia HQ sentence is marked 'citation needed'. No 2025–2026 status change was found."
+    },
+    {
+      "id": "tink",
+      "name": "Tink",
+      "categories": [
+        "unicorn_landmark",
+        "potential_customer"
+      ],
+      "founded_year": 2012,
+      "founded_in": "Stockholm",
+      "founders_public": [
+        "Daniel Kjellén"
+      ],
+      "summary": "Open-banking platform founded in Stockholm in 2012. It connects to more than 3,400 banks across Europe. Visa announced the deal in June 2021 (about €1.8B) and completed it on 10 March 2022; Visa's filings report about $1.9B in cash. Tink runs as a standalone Visa subsidiary, and Visa said its headquarters would stay in Stockholm.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "subsidiary",
+        "detail": "Wholly owned subsidiary of Visa since March 2022.",
+        "acquired_by": "Visa",
+        "listing": null
+      },
+      "unicorn": {
+        "ever": true,
+        "current_private_unicorn": false,
+        "note": "Acquired by Visa in 2022 for about €1.8B."
+      },
+      "locations": [
+        {
+          "label": "Tink headquarters",
+          "address": null,
+          "district": "other",
+          "period": "current",
+          "precision": "city",
+          "lat": null,
+          "lon": null,
+          "source": "https://investor.visa.com/news/news-details/2022/Visa-Completes-Acquisition-of-Tink/default.aspx"
+        }
+      ],
+      "storyline_hooks": [
+        "Bank integrations: connect to thousands of banks, each with its own quirks.",
+        "Regulatory clock: build a product around a new open-banking rule."
+      ],
+      "sources": [
+        {
+          "title": "Visa IR: Visa completes acquisition of Tink (2022-03-10)",
+          "url": "https://investor.visa.com/news/news-details/2022/Visa-Completes-Acquisition-of-Tink/default.aspx"
+        },
+        {
+          "title": "Visa FY2022 10-K (SEC)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316122000081/v-20220930.htm"
+        },
+        {
+          "title": "tech.eu: Visa buys Tink for €1.8B (2021-06-24)",
+          "url": "https://tech.eu/2021/06/24/visa-charges-ahead-swipes-up-open-banking-platform-tink-for-e1-8-billion/"
+        }
+      ],
+      "verification": "verified",
+      "notes": "Only one co-founder (Daniel Kjellén) is named in the sources seen. No 2025–2026 news was found, so current leadership is unverified. No street address was recorded."
+    },
+    {
+      "id": "lovable",
+      "name": "Lovable",
+      "categories": [
+        "unicorn_landmark",
+        "startup"
+      ],
+      "founded_year": 2023,
+      "founded_in": "Stockholm",
+      "founders_public": [
+        "Anton Osika",
+        "Fabian Hedin"
+      ],
+      "summary": "AI app-building ('vibe coding') company founded in Stockholm in 2023, growing out of the open-source GPT Engineer project. Its rounds: a $15M pre-Series A led by Creandum (February 2025); a $200M Series A at a $1.8B valuation led by Accel (July 2025); a $330M Series B at $6.6B (December 2025); and a $400M Series C at $13.3B led by Menlo Ventures and co-led by the EQT-managed Scaleup Europe Fund (12 August 2026). Antler was its first investor. The company says Stockholm remains its centre of gravity.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "private",
+        "detail": "Venture-backed. Valued at $13.3B in the August 2026 Series C.",
+        "acquired_by": null,
+        "listing": null
+      },
+      "unicorn": {
+        "ever": true,
+        "current_private_unicorn": true,
+        "note": "Became a unicorn in July 2025 (Series A at $1.8B). Latest round: $13.3B (Aug 2026)."
+      },
+      "locations": [
+        {
+          "label": "Lovable headquarters",
+          "address": null,
+          "district": "other",
+          "period": "current",
+          "precision": "city",
+          "lat": null,
+          "lon": null,
+          "source": "https://lovable.dev/blog/series-c"
+        }
+      ],
+      "storyline_hooks": [
+        "Hypergrowth: hire and scale infrastructure fast enough to keep up with sign-ups.",
+        "Open source to company: turn a viral GitHub project into a product people pay for.",
+        "Talent magnet: keep the HQ in Stockholm while opening offices abroad."
+      ],
+      "sources": [
+        {
+          "title": "TechCrunch: Lovable becomes a unicorn (2025-07-17)",
+          "url": "https://techcrunch.com/2025/07/17/lovable-becomes-a-unicorn-with-200m-series-a-just-8-months-after-launch"
+        },
+        {
+          "title": "TechCrunch: Lovable $16M pre-Series A (2025-02-25)",
+          "url": "https://techcrunch.com/2025/02/25/swedens-lovable-an-app-building-ai-platform-rakes-in-16m-after-spectacular-growth"
+        },
+        {
+          "title": "TechCrunch: Lovable raises $330M at $6.6B (2025-12-18)",
+          "url": "https://techcrunch.com/2025/12/18/vibe-coding-startup-lovable-raises-330m-at-a-6-6b-valuation/"
+        },
+        {
+          "title": "Lovable blog: Series C",
+          "url": "https://lovable.dev/blog/series-c"
+        },
+        {
+          "title": "tech.eu: Lovable valuation doubles to $13.3B (2026-08-12)",
+          "url": "https://tech.eu/2026/08/12/lovables-valuation-doubles-to-13bn-as-raises-400m/"
+        },
+        {
+          "title": "Antler press release: Lovable Series C",
+          "url": "https://www.antler.co/press-releases/antler-portfolio-company-lovable-raises-400m-series-c-at-13-3b-valuation"
+        },
+        {
+          "title": "Wikipedia: Anton Osika",
+          "url": "https://en.wikipedia.org/wiki/Anton_Osika"
+        },
+        {
+          "title": "Forbes Australia: Lovable founding story",
+          "url": "https://forbes.com.au/news/entrepreneurs/vibe-coding-turned-this-swedish-ai-unicorn-into-the-fastest-growing-software-startup-ever/"
+        }
+      ],
+      "verification": "verified",
+      "notes": "The pre-Series A is reported as $15M or $16M depending on the outlet. The Series B is reported as $330M (some say $300M); it was led by CapitalG and Menlo Ventures. A directory site (komo.ai) gives 'Regeringsgatan 25', but this is unconfirmed and not recorded. Fabian Hedin previously worked at Depict.ai."
+    },
+    {
+      "id": "legora",
+      "name": "Legora (formerly Leya)",
+      "categories": [
+        "unicorn_landmark",
+        "startup"
+      ],
+      "founded_year": 2023,
+      "founded_in": "Stockholm",
+      "founders_public": [
+        "Max Junestrand",
+        "Sigge Labor",
+        "August Erséus"
+      ],
+      "summary": "Legal AI platform founded in Stockholm in 2023 as Leya. It went through Y Combinator (Winter 2024) and renamed itself Legora in February 2025. Its rounds: an $80M Series B at $675M (May 2025); a $150M Series C at $1.8B led by Bessemer (30 October 2025); a $550M Series D at $5.55B (March 2026, later extended to $600M); and a $550M Series E at $8.8B post-money led by Atreides (October 2026). It opened a New York office in 2025 and has expanded across the US.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "private",
+        "detail": "Venture-backed. Valued at $8.8B post-money in the October 2026 Series E.",
+        "acquired_by": null,
+        "listing": null
+      },
+      "unicorn": {
+        "ever": true,
+        "current_private_unicorn": true,
+        "note": "Became a unicorn with the October 2025 Series C ($1.8B). Latest round: $8.8B (Oct 2026)."
+      },
+      "locations": [
+        {
+          "label": "Legora (origin and HQ listed in company profiles)",
+          "address": null,
+          "district": "other",
+          "period": "current",
+          "precision": "city",
+          "lat": null,
+          "lon": null,
+          "source": "https://www.ycombinator.com/companies/legora"
+        }
+      ],
+      "storyline_hooks": [
+        "Selling to lawyers: win over cautious, billable-hour customers with an AI tool.",
+        "Head-to-head rival: race a better-funded US competitor for the same firms.",
+        "HQ question: decide how much of the company to move to New York."
+      ],
+      "sources": [
+        {
+          "title": "Legora blog: $150M Series C",
+          "url": "https://legora.com/blog/series-c"
+        },
+        {
+          "title": "Business Wire: Legora raises $150M Series C (2025-10-30)",
+          "url": "https://www.businesswire.com/news/home/20251030974157/en/Legora-Raises-$150-Million-Series-C-to-Accelerate-Global-Rollout-of-Its-AI-Platform-for-Legal-Professionals"
+        },
+        {
+          "title": "tech.eu: Legora $150M Series C",
+          "url": "https://tech.eu/2025/10/30/swedish-legaltech-legora-raises-150m-series-c/"
+        },
+        {
+          "title": "TechCrunch: Legora reaches $5.55B (2026-03-10)",
+          "url": "https://techcrunch.com/2026/03/10/legora-reaches-5-55-billion-valuation-as-ai-legaltech-boom-endures/"
+        },
+        {
+          "title": "Legora blog: $550M Series E",
+          "url": "https://legora.com/blog/series-e"
+        },
+        {
+          "title": "Artificial Lawyer: Leya rebrands to Legora (2025-02-19)",
+          "url": "https://www.artificiallawyer.com/2025/02/19/legal-genai-pioneer-leya-rebrands-to-legora/"
+        },
+        {
+          "title": "Contrary Research: Legora",
+          "url": "https://research.contrary.com/report/legora"
+        },
+        {
+          "title": "Y Combinator: Legora",
+          "url": "https://www.ycombinator.com/companies/legora"
+        }
+      ],
+      "verification": "verified",
+      "notes": "HQ conflict: tech.eu (Oct 2025) says Legora is 'now headquartered in New York', while company profiles and other press still list Stockholm. The Stockholm location is kept at city precision and flagged. Some sources name only Junestrand and Labor as founders. An FT-sourced report of talks at $10B+ did not match the announced $8.8B round and is ignored."
+    },
+    {
+      "id": "epidemic_sound",
+      "name": "Epidemic Sound",
+      "categories": [
+        "unicorn_landmark",
+        "potential_customer"
+      ],
+      "founded_year": 2009,
+      "founded_in": "Stockholm",
+      "founders_public": [
+        "Peer Åström",
+        "David Stenmarck",
+        "Oscar Höglund",
+        "Jan Zachrisson",
+        "Hjalmar Winbladh"
+      ],
+      "summary": "Royalty-free soundtrack music platform for creators, founded in Stockholm in 2009. In March 2021 it raised $450M at a $1.4B valuation from EQT Growth and Blackstone Growth. In 2026 it announced a move beyond its music catalogue toward a broader creative platform. The parent company is being renamed Epidemic Group AB. Co-founder Oscar Höglund stepped down as CEO; CFO Sara Börsvik is interim CEO. The company reported a return to profitable growth in 2026.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "private",
+        "detail": "Privately held. Leadership transition in 2026 (interim CEO).",
+        "acquired_by": null,
+        "listing": null
+      },
+      "unicorn": {
+        "ever": true,
+        "current_private_unicorn": false,
+        "note": "Last disclosed valuation was $1.4B in 2021. No current valuation was found, so current unicorn status is not confirmed."
+      },
+      "locations": [
+        {
+          "label": "Epidemic Sound AB",
+          "address": "Västgötagatan 2, 118 27 Stockholm",
+          "district": "sodermalm",
+          "period": "current",
+          "precision": "address",
+          "lat": null,
+          "lon": null,
+          "source": "https://epidemicsound.com/about"
+        }
+      ],
+      "storyline_hooks": [
+        "Rights reinvented: build a music catalogue that creators can use without licensing headaches.",
+        "AI disruption: adapt a content business when generative AI changes the market."
+      ],
+      "sources": [
+        {
+          "title": "Epidemic Sound: $450M round at $1.4B (2021)",
+          "url": "https://corporate.epidemicsound.com/press-and-media/press-releases/2021/epidemic-sound-the-company-soundtracking-the-internet-closes-a-450million-round-at-a-1-4billion-valuation/"
+        },
+        {
+          "title": "Epidemic Sound: About (legal entity and address)",
+          "url": "https://epidemicsound.com/about"
+        },
+        {
+          "title": "Epidemic Sound careers: founders",
+          "url": "https://careers.epidemicsound.com/pages/what-we-do"
+        },
+        {
+          "title": "Epidemic Sound: Höglund steps down as CEO (2026)",
+          "url": "https://corporate.epidemicsound.com/press-and-media/press-releases/2026/co-founder-oscar-hoglund-steps-down-as-ceo-and-takes-position-on-the-board-cfo-sara-borsvik-appointed-interim-ceo/"
+        },
+        {
+          "title": "Epidemic Group: 2025 annual report (2026)",
+          "url": "https://corporate.epidemicsound.com/press-and-media/press-releases/2026/epidemic-group-publishes-2025-annual-and-sustainability-report-a-transformative-year-investing-significantly-into-ai-and-bringing-the-company-back-to-profitable-growth-in-2026/"
+        },
+        {
+          "title": "Wikipedia: Epidemic Sound",
+          "url": "https://en.wikipedia.org/wiki/Epidemic_Sound"
+        }
+      ],
+      "verification": "verified",
+      "notes": "The district (Södermalm) is inferred from the address and postcode 118 27; confirm with OSM. Most 2026 facts come from the company's own press releases. Co-founder Hjalmar Winbladh also founded EQT Ventures."
+    },
+    {
+      "id": "truecaller",
+      "name": "Truecaller",
+      "categories": [
+        "unicorn_landmark",
+        "potential_customer"
+      ],
+      "founded_year": 2009,
+      "founded_in": "Stockholm",
+      "founders_public": [
+        "Alan Mamedi",
+        "Nami Zarringhalam"
+      ],
+      "summary": "Caller ID and spam-blocking app founded in Stockholm in 2009 by two KTH computer-science graduates. It listed on Nasdaq Stockholm on 8 October 2021 at SEK 52 per Class B share (ticker TRUE B), valuing it at roughly $2.2B. Most users and many employees are in India. Its Q3 2026 report (November 2026) described a 'return to growth following a successful strategic reset' under CEO Rishit Jhunjhunwala.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "public",
+        "detail": "Listed on Nasdaq Stockholm since October 2021.",
+        "acquired_by": null,
+        "listing": "Nasdaq Stockholm: TRUE B"
+      },
+      "unicorn": {
+        "ever": true,
+        "current_private_unicorn": false,
+        "note": "Valued at about $2.2B at the 2021 IPO; public since."
+      },
+      "locations": [
+        {
+          "label": "Truecaller AB (per Yahoo Finance company profile)",
+          "address": "Mäster Samuelsgatan 56, 111 21 Stockholm",
+          "district": "norrmalm",
+          "period": "current",
+          "precision": "address",
+          "lat": null,
+          "lon": null,
+          "source": "https://uk.finance.yahoo.com/quote/0AA7.L/profile"
+        }
+      ],
+      "storyline_hooks": [
+        "Spam war: stay ahead of scammers who adapt as fast as the filters.",
+        "Biggest market abroad: run a Stockholm company whose main user base is in India.",
+        "Privacy balance: build trust while handling phone-number data."
+      ],
+      "sources": [
+        {
+          "title": "Cision: Truecaller IPO priced at SEK 52",
+          "url": "https://news.cision.com/truecaller-ab/r/the-offering-price-for-truecaller-s-initial-public-offering-has-been-set-at-sek-52-per-class-b-share,c3429160"
+        },
+        {
+          "title": "Seedtable: Truecaller listing",
+          "url": "https://seedtable.com/exits/truecaller"
+        },
+        {
+          "title": "KTH: KTH duo behind fast-growing mobile app",
+          "url": "https://www.kth.se/en/aktuellt/nyheter/kth-duo-behind-fast-growing-mobile-app-1.437091"
+        },
+        {
+          "title": "Wikipedia: Truecaller",
+          "url": "https://en.wikipedia.org/wiki/Truecaller"
+        },
+        {
+          "title": "MFN: Truecaller Q3 2026 report",
+          "url": "https://mfn.se/cis/a/truecaller/truecaller-ab-return-to-growth-following-a-successful-strategic-reset-495674ad"
+        },
+        {
+          "title": "Yahoo Finance: Truecaller profile (address)",
+          "url": "https://uk.finance.yahoo.com/quote/0AA7.L/profile"
+        }
+      ],
+      "verification": "partially_verified",
+      "notes": "The street address comes from a finance aggregator only, not from Truecaller. Confirm it before using it as more than a district anchor. The valuation at listing is from Seedtable and pre-IPO coverage."
+    },
+    {
+      "id": "northvolt",
+      "name": "Northvolt",
+      "categories": [
+        "startup"
+      ],
+      "founded_year": 2016,
+      "founded_in": "Stockholm",
+      "founders_public": [
+        "Peter Carlsson",
+        "Paolo Cerruti"
+      ],
+      "summary": "Battery maker founded in Stockholm (as SGF Energy) by two former Tesla executives. It built the Northvolt Ett gigafactory in Skellefteå in northern Sweden. Northvolt filed for bankruptcy in Sweden in March 2025 and stopped production in June 2025. US battery company Lyten agreed to buy its remaining assets in Sweden (Northvolt Ett, Northvolt Labs in Västerås) and Germany (Northvolt Drei) and has begun restarting operations.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "bankrupt",
+        "detail": "Filed for bankruptcy in Sweden in March 2025. Main assets sold to Lyten, which reports completing the Swedish part of the deal.",
+        "acquired_by": "Lyten (assets)",
+        "listing": null
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": false,
+        "note": "Widely reported as a former unicorn, but no valuation source was checked in this research; bankrupt since 2025."
+      },
+      "locations": [
+        {
+          "label": "Northvolt head office (historical)",
+          "address": null,
+          "district": "other",
+          "period": "historical",
+          "precision": "city",
+          "lat": null,
+          "lon": null,
+          "source": "https://en.wikipedia.org/wiki/Northvolt"
+        },
+        {
+          "label": "Northvolt Ett gigafactory, Skellefteå (outside Stockholm)",
+          "address": null,
+          "district": "other",
+          "period": "historical",
+          "precision": "city",
+          "lat": null,
+          "lon": null,
+          "source": "https://northvolt.com/articles/lyten-to-acquire-all-remaining-northvolt-assets-in-sweden-and-germany/"
+        }
+      ],
+      "storyline_hooks": [
+        "Deep-tech capital: raise billions before the factory produces a single product.",
+        "Collapse and rescue: a cautionary arc in which a fictional hardware startup has to restructure."
+      ],
+      "sources": [
+        {
+          "title": "Wikipedia: Northvolt",
+          "url": "https://en.wikipedia.org/wiki/Northvolt"
+        },
+        {
+          "title": "Northvolt: Lyten to acquire remaining assets in Sweden and Germany",
+          "url": "https://northvolt.com/articles/lyten-to-acquire-all-remaining-northvolt-assets-in-sweden-and-germany/"
+        },
+        {
+          "title": "Electrek: Lyten takes over Northvolt (2025-08-07)",
+          "url": "https://electrek.co/2025/08/07/lyten-just-took-over-5b-of-northvolt-battery-empire/"
+        },
+        {
+          "title": "Energy-Storage.news: Lyten deal and creditors",
+          "url": "https://www.energy-storage.news/a-win-for-transatlantic-relations-but-a-big-loss-for-creditors-lytens-northvolt-deal/"
+        },
+        {
+          "title": "Fortune: Northvolt battery factory (2017)",
+          "url": "https://fortune.com/2017/03/07/northvolt-battery-factory-sweden-carlsson/"
+        }
+      ],
+      "verification": "partially_verified",
+      "notes": "The founding year is reported as 2015 (as SGF Energy, per Wikipedia) or 2016. Some sources add Carl-Erik Lagercrantz and Harald Mix as co-founders. The closing date of the Lyten deal and current production status were not confirmed. Present this entry respectfully: real people lost jobs."
+    },
+    {
+      "id": "voi",
+      "name": "Voi Technology",
+      "categories": [
+        "startup",
+        "unicorn_landmark"
+      ],
+      "founded_year": 2018,
+      "founded_in": "Stockholm",
+      "founders_public": [
+        "Fredrik Hjelm",
+        "Adam Jafer",
+        "Douglas Stark"
+      ],
+      "summary": "Shared e-scooter and e-bike operator founded in Stockholm in 2018, operating in more than 110 European cities. A $115M Series D in December 2021 valued it at just over $1B. Voi reported its first profitable year in 2024 and record results in 2025. Its CFO has said an IPO is a 'natural long-term option' but there are 'no concrete plans'.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "private",
+        "detail": "Privately held. Profitable since 2024, with no concrete IPO timeline.",
+        "acquired_by": null,
+        "listing": null
+      },
+      "unicorn": {
+        "ever": true,
+        "current_private_unicorn": null,
+        "note": "Passed $1B with the December 2021 Series D. No current valuation was found."
+      },
+      "locations": [
+        {
+          "label": "Voi headquarters",
+          "address": null,
+          "district": "other",
+          "period": "current",
+          "precision": "city",
+          "lat": null,
+          "lon": null,
+          "source": "https://techcrunch.com/2025/01/28/shared-scooter-startup-voi-reports-its-first-profitable-year-as-it-explores-an-ipo"
+        }
+      ],
+      "storyline_hooks": [
+        "City permits: win operating licences from city governments.",
+        "Unit economics: make a scooter fleet profitable before investors run out of patience."
+      ],
+      "sources": [
+        {
+          "title": "TechCrunch: Voi reports first profitable year (2025-01-28)",
+          "url": "https://techcrunch.com/2025/01/28/shared-scooter-startup-voi-reports-its-first-profitable-year-as-it-explores-an-ipo"
+        },
+        {
+          "title": "tech.eu: Voi $115M Series D at $1B (2021-12-21)",
+          "url": "https://tech.eu/2021/12/21/voi-keeps-a-rollin-along-brings-home-115-million-in-series-d-round/"
+        },
+        {
+          "title": "Zag Daily: Voi 'no concrete plans' for IPO",
+          "url": "https://zagdaily.com/micromobility/voi-reveals-no-concrete-plans-for-ipo-after-strong-q2-results/"
+        },
+        {
+          "title": "MFN: Voi full-year report 2025",
+          "url": "https://mfn.se/all/a/voitechnology/voi-technology-ab-publ-publishes-fourth-quarter-and-full-year-report-2025"
+        },
+        {
+          "title": "Seedtable: Voi (founders)",
+          "url": "https://seedtable.com/companies/voi"
+        }
+      ],
+      "verification": "verified",
+      "notes": "Founders are from Seedtable. Sources disagree on the 2024 adjusted profit figure. Voi is an SSE Business Lab alumnus according to SSE."
+    },
+    {
+      "id": "kry",
+      "name": "Kry (Livi)",
+      "categories": [
+        "startup"
+      ],
+      "founded_year": 2015,
+      "founded_in": "Sweden",
+      "founders_public": [],
+      "summary": "Digital healthcare (video doctor) provider from Sweden that traded as Livi in the UK and France. It is consolidating those markets under the Kry brand. Kry merged with the Swedish healthcare company Helsa and reported its first operating profit in 2025. In February 2026 it reached agreement with Region Stockholm on how digital care visits are invoiced.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "private",
+        "detail": "Privately held, venture-backed. First operating profit reported for 2025.",
+        "acquired_by": null,
+        "listing": null
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": null,
+        "note": "Unicorn status not verified in sources seen."
+      },
+      "locations": [
+        {
+          "label": "Kry (Stockholm-area operations)",
+          "address": null,
+          "district": "other",
+          "period": "current",
+          "precision": "city",
+          "lat": null,
+          "lon": null,
+          "source": "https://www.kry.se/press/nyheter/kry-drives-growth-in-2024-with-its-best-results-to-date/"
+        }
+      ],
+      "storyline_hooks": [
+        "Regulated market: negotiate reimbursement rules with a regional health authority.",
+        "Brand consolidation: merge country brands without losing patient trust."
+      ],
+      "sources": [
+        {
+          "title": "Kry press: Kry drives growth in 2024",
+          "url": "https://www.kry.se/press/nyheter/kry-drives-growth-in-2024-with-its-best-results-to-date/"
+        },
+        {
+          "title": "Livi: Livi becomes Kry in the UK and France",
+          "url": "https://uk-partners.livi.co.uk/news/livi-becomes-kry-in-the-uk-and-france/"
+        },
+        {
+          "title": "MobiHealthNews: Kry merges with Helsa",
+          "url": "https://www.mobihealthnews.com/news/emea/kry-announces-merger-swedish-healthcare-company-helsa"
+        },
+        {
+          "title": "Index Ventures: Kry seed round",
+          "url": "https://www.indexventures.com/news-room/news/kry-the-swedish-video-based-healthcare-provider-raises-%E2%82%AC61-million-in-seed-round-led"
+        }
+      ],
+      "verification": "partially_verified",
+      "notes": "The founding year is 2015 per Kry's own press material and 2014 per one secondary source. Co-founders were not confirmed from the sources seen, so the list is left empty. No HQ street address was found."
+    },
+    {
+      "id": "einride",
+      "name": "Einride",
+      "categories": [
+        "startup"
+      ],
+      "founded_year": 2016,
+      "founded_in": "Stockholm",
+      "founders_public": [],
+      "summary": "Electric and autonomous freight company founded in Stockholm in 2016. It runs about 200 heavy-duty electric trucks in Europe, North America and the UAE, plus limited autonomous 'pod' deployments. It went public on Nasdaq on 10 June 2026 by merging with the SPAC Legato Merger Corp. III, at a pre-money equity value of about $1.35B (down from $1.8B announced in November 2025), alongside a $113M PIPE.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "public",
+        "detail": "Listed on Nasdaq since June 2026 via a SPAC merger (ADS ticker ENRD, warrants ENRDW).",
+        "acquired_by": null,
+        "listing": "Nasdaq: ENRD"
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": false,
+        "note": "Valued at about $1.35B pre-money in the SPAC deal; now public."
+      },
+      "locations": [
+        {
+          "label": "Einride (Stockholm origin)",
+          "address": null,
+          "district": "other",
+          "period": "current",
+          "precision": "city",
+          "lat": null,
+          "lon": null,
+          "source": "https://techcrunch.com/2025/11/12/self-driving-trucks-startup-einride-plans-to-go-public-via-a-spac"
+        }
+      ],
+      "storyline_hooks": [
+        "Autonomy permits: get approval to run driverless freight on public roads.",
+        "SPAC valuation reset: list publicly after the valuation is cut."
+      ],
+      "sources": [
+        {
+          "title": "TechCrunch: Einride plans SPAC (2025-11-12)",
+          "url": "https://techcrunch.com/2025/11/12/self-driving-trucks-startup-einride-plans-to-go-public-via-a-spac"
+        },
+        {
+          "title": "TechCrunch: Einride $113M PIPE (2026-02-26)",
+          "url": "https://techcrunch.com/2026/02/26/self-driving-truck-startup-einride-raises-113m-pipe-ahead-of-public-debut/"
+        },
+        {
+          "title": "Trucking Dive: Einride becomes publicly traded",
+          "url": "https://www.truckingdive.com/news/einride-becomes-publicly-traded-company/822734/"
+        },
+        {
+          "title": "Finviz/PR: Einride commences trading on Nasdaq (ENRD, ENRDW)",
+          "url": "https://finviz.com/news/360906/einride-a-global-leader-in-autonomous-and-electric-freight-commences-trading-on-nasdaq-under-tickers-enrd-and-enrdw"
+        },
+        {
+          "title": "The Next Web: Einride lists at $1.35B",
+          "url": "https://thenextweb.com/news/einride-nasdaq-spac-driverless-trucking-valuation-drop"
+        }
+      ],
+      "verification": "verified",
+      "notes": "Founders were not confirmed in the sources seen, so the list is left empty. Early reports mentioned NYSE, but it actually listed on Nasdaq. Whether Einride was ever privately valued at $1B+ was not confirmed (unicorn.ever = null)."
+    },
+    {
+      "id": "trustly",
+      "name": "Trustly",
+      "categories": [
+        "startup",
+        "potential_customer"
+      ],
+      "founded_year": 2008,
+      "founded_in": "Stockholm",
+      "founders_public": [],
+      "summary": "Open-banking 'pay by bank' payments company founded in Stockholm in 2008 as Glue Finance. Nordic Capital bought a majority stake in 2018 (deal rumoured at about €700M); the founders and Alfvén & Didrikson stayed on as significant shareholders. In October 2026 Trustly announced more than $40M in new equity commitments, and said it processed over $100B in payments in 2025.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "private",
+        "detail": "Majority-owned by Nordic Capital since 2018.",
+        "acquired_by": null,
+        "listing": null
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": null,
+        "note": "Unicorn status not verified in sources seen."
+      },
+      "locations": [
+        {
+          "label": "Trustly headquarters",
+          "address": null,
+          "district": "other",
+          "period": "current",
+          "precision": "city",
+          "lat": null,
+          "lon": null,
+          "source": "https://en.wikipedia.org/wiki/Trustly"
+        }
+      ],
+      "storyline_hooks": [
+        "Bank-to-bank checkout: get merchants to accept a payment method that skips cards.",
+        "Private equity owner: grow under a buyout firm's timeline."
+      ],
+      "sources": [
+        {
+          "title": "Wikipedia: Trustly",
+          "url": "https://en.wikipedia.org/wiki/Trustly"
+        },
+        {
+          "title": "Nordic Capital: acquires Trustly (2018)",
+          "url": "https://www.nordiccapital.com/insights/press-releases/nordic-capital-acquires-trustly-the-leading-next-generation-direct-payment-provider/"
+        },
+        {
+          "title": "Finextra: Nordic Capital buys majority stake",
+          "url": "https://finextra.com/newsarticle/31812/nordic-capital-buys-majority-stake-in-online-payments-firm-trustly"
+        },
+        {
+          "title": "Placera: Trustly equity commitments (2026-10-02)",
+          "url": "https://www.placera.se/pressmeddelanden/trustly-001-trustly-ab-publ-receives-signed-equity-commitment-letters-of-more-than-usd-40m-from-nordic-capital-and-alfvn-didrikson-to-accelerate-its-ai-powered-growth-strategy-20261002"
+        }
+      ],
+      "verification": "partially_verified",
+      "notes": "Founder names were not confirmed in the sources seen. The CEO and chair listed on Wikipedia may be out of date."
+    },
+    {
+      "id": "sana",
+      "name": "Sana (formerly Sana Labs)",
+      "categories": [
+        "startup"
+      ],
+      "founded_year": 2016,
+      "founded_in": "Stockholm",
+      "founders_public": [
+        "Joel Hellermark"
+      ],
+      "summary": "Enterprise AI company (learning and knowledge agents) founded in 2016 by Joel Hellermark as Sana Labs. Workday announced an agreement to buy it in September 2025 for about $1.1B and completed the deal on 4 November 2025.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "acquired",
+        "detail": "Acquired by Workday on 4 November 2025.",
+        "acquired_by": "Workday",
+        "listing": null
+      },
+      "unicorn": {
+        "ever": true,
+        "current_private_unicorn": false,
+        "note": "Acquired for about $1.1B (announced price); final price not disclosed."
+      },
+      "locations": [
+        {
+          "label": "Sana (Stockholm)",
+          "address": null,
+          "district": "other",
+          "period": "historical",
+          "precision": "city",
+          "lat": null,
+          "lon": null,
+          "source": "https://tech.eu/2025/09/16/workday-to-acquire-sana-for-11-billion/"
+        }
+      ],
+      "storyline_hooks": [
+        "Pivot under pressure: move from corporate learning to AI agents as the market shifts."
+      ],
+      "sources": [
+        {
+          "title": "Workday: completes acquisition of Sana (2025-11-04)",
+          "url": "https://newsroom.workday.com/2025-11-04-Workday-Completes-Acquisition-of-Sana"
+        },
+        {
+          "title": "tech.eu: Workday to acquire Sana for $1.1B",
+          "url": "https://tech.eu/2025/09/16/workday-to-acquire-sana-for-11-billion/"
+        },
+        {
+          "title": "Seedtable: Sana exit",
+          "url": "https://seedtable.com/exits/sana"
+        }
+      ],
+      "verification": "verified",
+      "notes": "unicorn.ever is based on the roughly $1.1B acquisition price. No disclosed private round at $1B+ was checked."
+    },
+    {
+      "id": "paradox_interactive",
+      "name": "Paradox Interactive",
+      "categories": [
+        "startup",
+        "potential_customer"
+      ],
+      "founded_year": 1999,
+      "founded_in": "Stockholm",
+      "founders_public": [],
+      "summary": "Strategy-game publisher and developer headquartered on Södermalm in Stockholm. It listed on Nasdaq First North on 31 May 2016 (PDX) and moved to the Nasdaq Stockholm Main Market on 9 June 2026.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "public",
+        "detail": "Listed on the Nasdaq Stockholm Main Market since June 2026 (previously First North).",
+        "acquired_by": null,
+        "listing": "Nasdaq Stockholm: PDX"
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": false,
+        "note": "Publicly listed; unicorn framing not applicable or not verified."
+      },
+      "locations": [
+        {
+          "label": "Paradox Interactive HQ (Södermalm, per company site)",
+          "address": null,
+          "district": "sodermalm",
+          "period": "current",
+          "precision": "district",
+          "lat": null,
+          "lon": null,
+          "source": "https://www.paradoxinteractive.com/our-company"
+        }
+      ],
+      "storyline_hooks": [
+        "Niche to global: grow a hardcore strategy-game audience without alienating it."
+      ],
+      "sources": [
+        {
+          "title": "Paradox Interactive: our company",
+          "url": "https://www.paradoxinteractive.com/our-company"
+        },
+        {
+          "title": "Paradox Interactive: prospectuses (main market listing)",
+          "url": "https://www.paradoxinteractive.com/investors/prospectuses"
+        },
+        {
+          "title": "Wikiwand/Wikipedia: Paradox Interactive",
+          "url": "https://www.wikiwand.com/en/Paradox_Interactive"
+        }
+      ],
+      "verification": "partially_verified",
+      "notes": "The founding year is given as 1999 or 2004, depending on whether the earlier entity is counted. Street addresses conflict (Magnus Ladulåsgatan 4 on Yahoo Finance, Västgötagatan 5 on CB Insights), so only the district is recorded."
+    },
+    {
+      "id": "dice",
+      "name": "EA DICE",
+      "categories": [
+        "startup",
+        "potential_customer"
+      ],
+      "founded_year": 1992,
+      "founded_in": "Sweden",
+      "founders_public": [],
+      "summary": "Game studio behind the Battlefield series, founded in Sweden in 1992 as Digital Illusions. It moved from Gothenburg to Stockholm in 2005. Electronic Arts took a 62% stake in 2005 and completed full ownership on 2 October 2006. In 2026 EA itself was taken private by a consortium led by Saudi Arabia's Public Investment Fund, with Silver Lake and Affinity Partners, in a roughly $55B deal.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "subsidiary",
+        "detail": "Studio of Electronic Arts. EA was taken private in 2026 by a PIF-led consortium.",
+        "acquired_by": "Electronic Arts",
+        "listing": null
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": false,
+        "note": "Not applicable (acquired studio)."
+      },
+      "locations": [
+        {
+          "label": "EA DICE Stockholm studio",
+          "address": null,
+          "district": "other",
+          "period": "current",
+          "precision": "city",
+          "lat": null,
+          "lon": null,
+          "source": "https://en.wikipedia.org/wiki/DICE_(company)"
+        }
+      ],
+      "storyline_hooks": [
+        "Live-service pressure: deliver a huge multiplayer launch under the parent company's deadline."
+      ],
+      "sources": [
+        {
+          "title": "Wikipedia: DICE (company)",
+          "url": "https://en.wikipedia.org/wiki/DICE_(company)"
+        },
+        {
+          "title": "The National: PIF completes $55bn Electronic Arts takeover (2026-08-05)",
+          "url": "https://www.thenationalnews.com/future/technology/2026/08/05/saudi-pif-completes-55bn-electronic-arts-takeover/"
+        },
+        {
+          "title": "Saudi Gazette: PIF-led consortium completes EA acquisition",
+          "url": "https://saudigazette.com.sa/article/663546"
+        }
+      ],
+      "verification": "partially_verified",
+      "notes": "Some fan sources give 1988 in Alvesta as the founding date. No Stockholm street address was recorded. The EA take-private appears to have closed in early August 2026 (exact date not confirmed)."
+    },
+    {
+      "id": "tobii",
+      "name": "Tobii",
+      "categories": [
+        "startup",
+        "potential_customer"
+      ],
+      "founded_year": 2001,
+      "founded_in": "Stockholm",
+      "founders_public": [
+        "John Elvesjö",
+        "Mårten Skogö",
+        "Henrik Eskilsson"
+      ],
+      "summary": "Eye-tracking technology company founded in 2001 by three entrepreneurs who studied at KTH. It listed on Nasdaq Stockholm in 2015. Its assistive-technology arm, Tobii Dynavox, was spun off and listed separately in December 2021.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "public",
+        "detail": "Listed on Nasdaq Stockholm since 2015.",
+        "acquired_by": null,
+        "listing": "Nasdaq Stockholm: TOBII"
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": false,
+        "note": "Not verified."
+      },
+      "locations": [
+        {
+          "label": "Tobii HQ (per Yahoo Finance profile)",
+          "address": "Karlsrovägen 2D, Danderyd",
+          "district": "other",
+          "period": "current",
+          "precision": "address",
+          "lat": null,
+          "lon": null,
+          "source": "https://au.finance.yahoo.com/quote/0R6W.IL/profile"
+        }
+      ],
+      "storyline_hooks": [
+        "University spinout: turn a KTH research idea into a hardware company."
+      ],
+      "sources": [
+        {
+          "title": "Tobii: history of Tobii",
+          "url": "https://corporate.tobii.com/about-us/history-of-tobii"
+        },
+        {
+          "title": "Wikipedia: Tobii",
+          "url": "https://en.wikipedia.org/wiki/Tobii"
+        },
+        {
+          "title": "Yahoo Finance: Tobii profile (address)",
+          "url": "https://au.finance.yahoo.com/quote/0R6W.IL/profile"
+        }
+      ],
+      "verification": "partially_verified",
+      "notes": "Danderyd is a municipality north of Stockholm, so district is 'other'. The address comes from an aggregator; Tobii itself says 'Stockholm'."
+    },
+    {
+      "id": "bambuser",
+      "name": "Bambuser",
+      "categories": [
+        "startup"
+      ],
+      "founded_year": 2007,
+      "founded_in": "Stockholm",
+      "founders_public": [],
+      "summary": "Stockholm video company founded in 2007 as a live-streaming pioneer. It moved into live video shopping in 2020. Shares trade on Nasdaq First North Growth Market. A 30:1 reverse share split took effect in December 2025, and a rights issue completed in February 2026.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "public",
+        "detail": "Listed on Nasdaq First North Growth Market.",
+        "acquired_by": null,
+        "listing": "Nasdaq First North: BUSER"
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": false,
+        "note": "Not verified."
+      },
+      "locations": [
+        {
+          "label": "Bambuser (Stockholm)",
+          "address": null,
+          "district": "other",
+          "period": "current",
+          "precision": "city",
+          "lat": null,
+          "lon": null,
+          "source": "https://www.placera.se/pressmeddelanden/bambuser-bambuser-invites-live-shopping-hosts-to-join-its-global-community-20260924"
+        }
+      ],
+      "storyline_hooks": [
+        "Pivot: reinvent a live-streaming product as e-commerce tooling.",
+        "Small-cap survival: raise capital when the share price is low."
+      ],
+      "sources": [
+        {
+          "title": "Bambuser: about us",
+          "url": "https://bambuser.com/about-us"
+        },
+        {
+          "title": "MFN: Bambuser rights issue outcome",
+          "url": "https://mfn.se/all/a/bambuser/bambuser-ab-announces-final-outcome-of-the-companys-rights-issue"
+        },
+        {
+          "title": "Placera: Bambuser press release (2026-09-24)",
+          "url": "https://www.placera.se/pressmeddelanden/bambuser-bambuser-invites-live-shopping-hosts-to-join-its-global-community-20260924"
+        }
+      ],
+      "verification": "partially_verified",
+      "notes": "The First North listing date was not confirmed. Founders were not confirmed."
+    },
+    {
+      "id": "ericsson",
+      "name": "Ericsson",
+      "categories": [
+        "potential_customer"
+      ],
+      "founded_year": 1876,
+      "founded_in": "Stockholm",
+      "founders_public": [
+        "Lars Magnus Ericsson"
+      ],
+      "summary": "Telecoms equipment company that traces its origins to a telegraph repair workshop opened in Stockholm by Lars Magnus Ericsson on 1 April 1876; it marked its 150th anniversary in 2026. Ericsson began moving production to Kista in 1975 and moved its headquarters there from Telefonplan in 2003. In May 2026 it announced that its Stockholm operations, including the HQ, will move to Hagastaden, with the move out of Kista starting around early 2028.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "public",
+        "detail": "Listed on Nasdaq Stockholm (ERIC A/B) and Nasdaq US (ERIC). HQ move from Kista to Hagastaden announced in May 2026, starting around 2028.",
+        "acquired_by": null,
+        "listing": "Nasdaq Stockholm: ERIC B; Nasdaq: ERIC"
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": false,
+        "note": "Not applicable (established corporation)."
+      },
+      "locations": [
+        {
+          "label": "Ericsson global headquarters (Kista)",
+          "address": "Torshamnsgatan 21, 164 83 Stockholm",
+          "district": "kista",
+          "period": "current",
+          "precision": "address",
+          "lat": null,
+          "lon": null,
+          "source": "https://www.ericsson.com/en/about-us/company-facts/ericsson-worldwide/sweden"
+        }
+      ],
+      "storyline_hooks": [
+        "Enterprise sales: land a pilot with a slow-moving telecom giant.",
+        "Neighbourhood shift: a big anchor tenant announces it will leave the tech district."
+      ],
+      "sources": [
+        {
+          "title": "Ericsson: Sweden (HQ address)",
+          "url": "https://www.ericsson.com/en/about-us/company-facts/ericsson-worldwide/sweden"
+        },
+        {
+          "title": "Ericsson: to relocate Stockholm operations to Hagastaden (May 2026)",
+          "url": "https://www.ericsson.com/en/press-releases/2026/5/ericsson-to-relocate-stockholm-operations-to-hagastaden"
+        },
+        {
+          "title": "Ericsson history: 1876 workshop",
+          "url": "https://www.ericsson.com/en/about-us/history/company/timeline-placeholder/timeline-1876-lars-magnus-ericsson-starts-a-mechanical-workshop"
+        },
+        {
+          "title": "Ericsson: plans to move HQ to Kista (2002)",
+          "url": "https://www.ericsson.com/en/press-releases/2002/12/ericsson-plans-to-move-headquarters-to-kista"
+        },
+        {
+          "title": "Nordregio: Kista and Ericsson history",
+          "url": "https://archive.nordregio.org/Metameny/About-Nordregio/Journal-of-Nordregio/2009/Journal-of-Nordregio-no-2-2009/Kista-wants-entrepreneurial-ICT-student/index.html"
+        },
+        {
+          "title": "Wikipedia: Ericsson (REST summary)",
+          "url": "https://en.wikipedia.org/wiki/Ericsson"
+        }
+      ],
+      "verification": "verified",
+      "notes": "The Hagastaden move is planned, not done; review this entry when it happens. The 2002 press release gave Torshamnsgatan 23, and directories list 21–23."
+    },
+    {
+      "id": "epicenter",
+      "name": "Epicenter Stockholm",
+      "categories": [
+        "coworking",
+        "founder_event"
+      ],
+      "founded_year": 2015,
+      "founded_in": "Stockholm",
+      "founders_public": [],
+      "summary": "Innovation house and coworking community founded in 2015 (conceived in 2014). It calls itself Stockholm's first digital 'House of Innovation'. Its Stockholm building is a former bank building. It hosts tech events and is extending its offer with property partner AMF Fastigheter in the MOOD district.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "private",
+        "detail": "Operating coworking and innovation house.",
+        "acquired_by": null,
+        "listing": null
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": null,
+        "note": "Not applicable."
+      },
+      "locations": [
+        {
+          "label": "Epicenter Stockholm",
+          "address": "Mäster Samuelsgatan 36, 111 57 Stockholm",
+          "district": "norrmalm",
+          "period": "current",
+          "precision": "address",
+          "lat": null,
+          "lon": null,
+          "source": "https://www.visitstockholm.com/o/epicenter"
+        }
+      ],
+      "storyline_hooks": [
+        "Find your first desk: pitch your way into a membership at a busy innovation house.",
+        "Demo night: present to a room of founders and investors."
+      ],
+      "sources": [
+        {
+          "title": "Epicenter: about",
+          "url": "https://weareepicenter.com/stockholm/about-epicenter"
+        },
+        {
+          "title": "Visit Stockholm: Epicenter (address)",
+          "url": "https://www.visitstockholm.com/o/epicenter"
+        },
+        {
+          "title": "Vice: inside Epicenter Stockholm",
+          "url": "https://creators.vice.com/en_us/article/inside-epicenter-stockholm-innovation-hub"
+        }
+      ],
+      "verification": "verified",
+      "notes": "Craft.co gives 2014; the company itself says 2015. Founders were not confirmed in sources seen."
+    },
+    {
+      "id": "norrsken_house",
+      "name": "Norrsken House Stockholm (Norrsken Foundation)",
+      "categories": [
+        "coworking",
+        "angel_investor"
+      ],
+      "founded_year": 2016,
+      "founded_in": "Stockholm",
+      "founders_public": [
+        "Niklas Adalberth"
+      ],
+      "summary": "Impact-focused foundation created in June 2016 by Klarna co-founder Niklas Adalberth. Its first Norrsken House, a roughly 2,400 m² coworking hub for social-impact entrepreneurs in a converted tram depot on Birger Jarlsgatan, opened at the start of 2017. Adalberth invested about SEK 170M in the conversion. Norrsken has since opened houses in other cities.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "nonprofit",
+        "detail": "Foundation-run coworking hub, still operating.",
+        "acquired_by": null,
+        "listing": null
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": null,
+        "note": "Not applicable."
+      },
+      "locations": [
+        {
+          "label": "Norrsken House Stockholm",
+          "address": "Birger Jarlsgatan 57C, 113 56 Stockholm",
+          "district": "vasastan",
+          "period": "current",
+          "precision": "address",
+          "lat": null,
+          "lon": null,
+          "source": "https://thatsup.co.uk/stockholm/conference-room/norrsken-house/"
+        }
+      ],
+      "storyline_hooks": [
+        "Impact pivot: rework your fictional startup's pitch to show measurable social impact.",
+        "Tram-depot community: earn standing among mission-driven founders."
+      ],
+      "sources": [
+        {
+          "title": "Wikipedia: Norrsken Foundation",
+          "url": "https://en.wikipedia.org/wiki/Norrsken_Foundation"
+        },
+        {
+          "title": "The Local: Klarna founder unveils social entrepreneurship hub (2016-09-05)",
+          "url": "https://www.thelocal.se/20160905/klarna-founder-unveils-huge-social-entrepreneurship-hub"
+        },
+        {
+          "title": "Norrsken: Stockholm house",
+          "url": "https://www.norrsken.org/houses/stockholm"
+        },
+        {
+          "title": "Thatsup: Norrsken House (address)",
+          "url": "https://thatsup.co.uk/stockholm/conference-room/norrsken-house/"
+        },
+        {
+          "title": "Allabolag: Stiftelsen Norrsken Foundation",
+          "url": "https://www.allabolag.se/8024795448/stiftelsen-norrsken-foundation"
+        }
+      ],
+      "verification": "verified",
+      "notes": "founded_year refers to the foundation (2016); the house opened in early 2017. The 'angel_investor' category reflects Norrsken's investing activity, which this research did not cover in detail."
+    },
+    {
+      "id": "kth_innovation",
+      "name": "KTH Innovation",
+      "categories": [
+        "accelerator",
+        "university_research"
+      ],
+      "founded_year": 2007,
+      "founded_in": "Stockholm",
+      "founders_public": [],
+      "summary": "KTH Royal Institute of Technology's innovation support unit, running since 2007. It offers free, confidential support and takes no equity. It runs a pre-incubator with a coworking space at Teknikringen 1 on the KTH campus, says it has helped start more than 475 companies, and meets about 400 idea teams a year.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "institution",
+        "detail": "University unit, operating.",
+        "acquired_by": null,
+        "listing": null
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": null,
+        "note": "Not applicable."
+      },
+      "locations": [
+        {
+          "label": "KTH Innovation",
+          "address": "Teknikringen 1, KTH Campus, Stockholm",
+          "district": "kth_valhallavagen",
+          "period": "current",
+          "precision": "address",
+          "lat": null,
+          "lon": null,
+          "source": "https://www.kth.se/om/innovation/om/hitta-till-kth-innovation-1.979474"
+        }
+      ],
+      "storyline_hooks": [
+        "Lab to market: turn a student thesis prototype into a company without giving away equity.",
+        "Pre-incubator deadline: get your fictional team accepted before the cohort closes."
+      ],
+      "sources": [
+        {
+          "title": "KTH Innovation: find us",
+          "url": "https://www.kth.se/om/innovation/om/hitta-till-kth-innovation-1.979474"
+        },
+        {
+          "title": "KTH Innovation: about",
+          "url": "https://kth.se/en/om/innovation/om"
+        },
+        {
+          "title": "KTH Innovation: pre-incubator",
+          "url": "https://www.kth.se/en/innovation/forinkubator"
+        },
+        {
+          "title": "KTH Innovation alumni (startups from KTH)",
+          "url": "https://www.kth.se/en/om/innovation/alumner"
+        }
+      ],
+      "verification": "verified",
+      "notes": "The visiting-address postcode differs between KTH pages (100 44 or 114 28), so the postcode is omitted. Company counts change over time."
+    },
+    {
+      "id": "kth",
+      "name": "KTH Royal Institute of Technology",
+      "categories": [
+        "university_research"
+      ],
+      "founded_year": 1827,
+      "founded_in": "Stockholm",
+      "founders_public": [],
+      "summary": "Public research university that started as the Technological Institute in Stockholm in 1827 and took its current name in 1877. It is Sweden's largest technical university, with five schools on four campuses in and around Stockholm. KTH says its alumni have founded companies including Spotify, Lovable and Databricks. Truecaller's and Tobii's founders also studied there.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "institution",
+        "detail": "Public university.",
+        "acquired_by": null,
+        "listing": null
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": null,
+        "note": "Not applicable."
+      },
+      "locations": [
+        {
+          "label": "KTH main campus",
+          "address": null,
+          "district": "kth_valhallavagen",
+          "period": "current",
+          "precision": "district",
+          "lat": null,
+          "lon": null,
+          "source": "https://www.kth.se/om/innovation/om/hitta-till-kth-innovation-1.979474"
+        },
+        {
+          "label": "KTH Kista campus",
+          "address": null,
+          "district": "kista",
+          "period": "current",
+          "precision": "district",
+          "lat": null,
+          "lon": null,
+          "source": "https://www.kth.se/en/om/kontakt/campus/kth-kista-1.640358"
+        }
+      ],
+      "storyline_hooks": [
+        "Recruit a technical co-founder from a university hackathon.",
+        "Research licensing: negotiate access to a university lab's technology."
+      ],
+      "sources": [
+        {
+          "title": "Wikipedia: KTH Royal Institute of Technology (REST summary)",
+          "url": "https://en.wikipedia.org/wiki/KTH_Royal_Institute_of_Technology"
+        },
+        {
+          "title": "KTH: history",
+          "url": "https://www.kth.se/en/om/fakta/historik"
+        },
+        {
+          "title": "KTH: Sweden's largest technical university",
+          "url": "https://www.kth.se/en/om/fakta/sveriges-storsta-tekniska-universitet-1.3487"
+        },
+        {
+          "title": "KTH: Kista campus",
+          "url": "https://www.kth.se/en/om/kontakt/campus/kth-kista-1.640358"
+        },
+        {
+          "title": "KTH Innovation alumni",
+          "url": "https://www.kth.se/en/om/innovation/alumner"
+        }
+      ],
+      "verification": "verified",
+      "notes": "The main-campus location is district-level only. The 'kth_valhallavagen' anchor should be placed by OSM geocoding of the KTH campus."
+    },
+    {
+      "id": "sting",
+      "name": "Sting (Stockholm Innovation & Growth)",
+      "categories": [
+        "accelerator"
+      ],
+      "founded_year": 2002,
+      "founded_in": "Stockholm (Kista)",
+      "founders_public": [
+        "Pär Hedberg"
+      ],
+      "summary": "Non-profit incubator and accelerator founded in 2002 by Pär Hedberg after the dot-com crash, described as Stockholm's first startup incubator. It is owned by the Electrum Foundation (the Kista Science City foundation) and publicly funded through Electrum, Vinnova, the City of Stockholm and Region Stockholm. Sting says it has supported nearly 500 startups.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "nonprofit",
+        "detail": "Operating non-profit accelerator.",
+        "acquired_by": null,
+        "listing": null
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": null,
+        "note": "Not applicable."
+      },
+      "locations": [
+        {
+          "label": "Sting (central Stockholm)",
+          "address": "Östermalmsgatan 26A, 114 26 Stockholm",
+          "district": "ostermalm",
+          "period": "current",
+          "precision": "address",
+          "lat": null,
+          "lon": null,
+          "source": "https://www.visitstockholm.com/o/sting"
+        },
+        {
+          "label": "Sting (former Kista base, c/o Electrum)",
+          "address": "Isafjordsgatan 22, 164 40 Kista",
+          "district": "kista",
+          "period": "historical",
+          "precision": "address",
+          "lat": null,
+          "lon": null,
+          "source": "https://www.sisp.se/members/sting"
+        }
+      ],
+      "storyline_hooks": [
+        "Get accepted into a selective accelerator programme and survive demo day."
+      ],
+      "sources": [
+        {
+          "title": "Sting: about",
+          "url": "https://sting.co/about"
+        },
+        {
+          "title": "Visit Stockholm: Sting (address)",
+          "url": "https://www.visitstockholm.com/o/sting"
+        },
+        {
+          "title": "SISP: Sting (Kista address)",
+          "url": "https://www.sisp.se/members/sting"
+        },
+        {
+          "title": "City AM: Pär Hedberg, founder of Sting",
+          "url": "https://www.cityam.com/sting-founder-par-hedberg-sweden-tech-startups/"
+        },
+        {
+          "title": "Interreg Europe: Sting good practice",
+          "url": "https://interregeurope.eu/good-practices/sting-stockholm-innovation-growth"
+        }
+      ],
+      "verification": "verified",
+      "notes": "Do not confuse Sting with STING Capital, a separate investment firm. CB Insights also lists 'Drottning Kristinas väg 53' (unconfirmed, not recorded). The Kista address date is unknown, so it is marked historical."
+    },
+    {
+      "id": "creandum",
+      "name": "Creandum",
+      "categories": [
+        "vc_firm"
+      ],
+      "founded_year": 2003,
+      "founded_in": "Stockholm",
+      "founders_public": [],
+      "summary": "Early-stage venture capital firm founded in 2003, with hubs in Stockholm, Berlin, London and San Francisco. It co-led Spotify's 2008 Series A after more than a year of talks and describes itself as Spotify's first institutional backer. Its portfolio includes Klarna and iZettle. It led Lovable's pre-Series A in February 2025.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "private",
+        "detail": "Operating VC firm.",
+        "acquired_by": null,
+        "listing": null
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": null,
+        "note": "Not applicable."
+      },
+      "locations": [
+        {
+          "label": "Creandum Stockholm office",
+          "address": "Jakobsbergsgatan 18, 111 44 Stockholm",
+          "district": "norrmalm",
+          "period": "current",
+          "precision": "address",
+          "lat": null,
+          "lon": null,
+          "source": "https://creandum.com/contact"
+        }
+      ],
+      "storyline_hooks": [
+        "Seed pitch: convince an early-stage fund to lead your first round.",
+        "Patient capital: negotiate terms over many months for a deal that could define a fund."
+      ],
+      "sources": [
+        {
+          "title": "Creandum: contact",
+          "url": "https://creandum.com/contact"
+        },
+        {
+          "title": "Creandum: Spotify commitment",
+          "url": "https://creandum.com/commitments/spotify"
+        },
+        {
+          "title": "Creandum: 20 years of Creandum",
+          "url": "https://creandum.com/stories/20-years-of-creandum"
+        },
+        {
+          "title": "Creandum: Lovable commitment",
+          "url": "https://creandum.com/commitments/lovable"
+        },
+        {
+          "title": "Bloomberg: early Spotify investor raises $300M (2019)",
+          "url": "https://www.bloomberg.com/news/articles/2019-06-24/early-spotify-investor-raises-300-million-for-early-stage-deals"
+        }
+      ],
+      "verification": "verified",
+      "notes": "Northzone also calls itself Spotify's first institutional investor; both took part in the 2008 Series A. The cheque size is unverified."
+    },
+    {
+      "id": "eqt_ventures",
+      "name": "EQT Ventures",
+      "categories": [
+        "vc_firm"
+      ],
+      "founded_year": 2016,
+      "founded_in": "Stockholm",
+      "founders_public": [
+        "Hjalmar Winbladh"
+      ],
+      "summary": "Multi-stage venture arm of the Stockholm private-equity group EQT, founded in 2016. Its funds: Fund I (€566M, 2016), Fund II (€660M, 2019) and Fund III (€1.1B, November 2022). It invests in startups and scale-ups in Europe and the US. Separately, the EQT-managed Scaleup Europe Fund co-led Lovable's 2026 Series C.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "subsidiary",
+        "detail": "Venture arm of EQT AB.",
+        "acquired_by": "EQT AB (parent)",
+        "listing": null
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": null,
+        "note": "Not applicable."
+      },
+      "locations": [
+        {
+          "label": "EQT Ventures Stockholm (per CB Insights)",
+          "address": "Regeringsgatan 25, 111 53 Stockholm",
+          "district": "norrmalm",
+          "period": "current",
+          "precision": "address",
+          "lat": null,
+          "lon": null,
+          "source": "https://www.cbinsights.com/investor/eqt-ventures"
+        }
+      ],
+      "storyline_hooks": [
+        "Data-driven VC: get your fictional startup noticed by an investor's deal-sourcing algorithm."
+      ],
+      "sources": [
+        {
+          "title": "Wikipedia: EQT Ventures",
+          "url": "https://en.wikipedia.org/wiki/EQT_Ventures"
+        },
+        {
+          "title": "EQT: EQT Ventures secures EUR 566M (2016)",
+          "url": "https://eqtgroup.com/news/2016/eqt-ventures-secures-commitments-totaling-eur-566-million"
+        },
+        {
+          "title": "EQT: EQT Ventures III closes (2022)",
+          "url": "https://eqtgroup.com/news/2022/eqt-ventures-iii-closes-europe-s-largest-venture-capital-fund-committed-to-early-stage-tech-startups"
+        },
+        {
+          "title": "CB Insights: EQT Ventures (address)",
+          "url": "https://www.cbinsights.com/investor/eqt-ventures"
+        }
+      ],
+      "verification": "partially_verified",
+      "notes": "The address comes from an aggregator, and CB Insights gives 2015 as the founding year (Wikipedia says 2016). status.label is 'subsidiary' because it is part of the EQT group; acquired_by names the parent, not an acquisition."
+    },
+    {
+      "id": "northzone",
+      "name": "Northzone",
+      "categories": [
+        "vc_firm"
+      ],
+      "founded_year": 1996,
+      "founded_in": "Oslo",
+      "founders_public": [],
+      "summary": "Venture capital firm founded in 1996, originally in Oslo, with offices including Stockholm, London, New York, Berlin and Amsterdam. Partner Pär-Jörgen Pärson led its 2008 investment in Spotify's Series A. It closed a $500M fund in 2019. Other earlier bets include iZettle and Trustpilot.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "private",
+        "detail": "Operating VC firm.",
+        "acquired_by": null,
+        "listing": null
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": null,
+        "note": "Not applicable."
+      },
+      "locations": [
+        {
+          "label": "Northzone Stockholm office",
+          "address": "Kungsgatan 30, 111 35 Stockholm",
+          "district": "norrmalm",
+          "period": "current",
+          "precision": "address",
+          "lat": null,
+          "lon": null,
+          "source": "https://northzone.com/offices"
+        }
+      ],
+      "storyline_hooks": [
+        "Board seat: manage an investor who wants a say in your strategy."
+      ],
+      "sources": [
+        {
+          "title": "Northzone: offices",
+          "url": "https://northzone.com/offices"
+        },
+        {
+          "title": "Northzone: Spotify, the impossible success story",
+          "url": "https://northzone.com/insights/spotify-impossible-success-story"
+        },
+        {
+          "title": "Bloomberg: Northzone raises $500M (2019)",
+          "url": "https://www.bloomberg.com/news/articles/2019-11-18/spotify-backer-northzone-raises-500-million-for-new-investments"
+        },
+        {
+          "title": "Fortune: Spotify investor Pär-Jörgen Pärson (2018)",
+          "url": "https://fortune.com/2018/03/21/spotify-investor-par-jorgen-parson"
+        }
+      ],
+      "verification": "verified",
+      "notes": "One article places the office on the 16th floor; the official page says 15th. Founded in Oslo, not Stockholm."
+    },
+    {
+      "id": "kista_science_city",
+      "name": "Kista Science City",
+      "categories": [
+        "university_research",
+        "coworking"
+      ],
+      "founded_year": 1986,
+      "founded_in": "Stockholm (Kista)",
+      "founders_public": [],
+      "summary": "Innovation district in Kista, north-west Stockholm, often described as Europe's largest ICT cluster. Ericsson moved production there from 1975 and its HQ in 2003. Industry, academia and the City of Stockholm formed the Electrum Foundation in 1986, and the shared 'science city' vision dates from 1999. Kista Science City AB is a non-profit wholly owned by the Electrum Foundation. Ericsson announced in 2026 that it plans to leave Kista for Hagastaden from around 2028.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "nonprofit",
+        "detail": "Cluster organisation (Kista Science City AB) owned by the Electrum Foundation.",
+        "acquired_by": null,
+        "listing": null
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": null,
+        "note": "Not applicable."
+      },
+      "locations": [
+        {
+          "label": "Kista Science City district",
+          "address": null,
+          "district": "kista",
+          "period": "current",
+          "precision": "district",
+          "lat": null,
+          "lon": null,
+          "source": "https://en.wikipedia.org/wiki/Kista"
+        }
+      ],
+      "storyline_hooks": [
+        "Suburban tech hub: weigh cheaper Kista space against being near city-centre investors.",
+        "Anchor tenant leaving: the district's biggest employer announces a move."
+      ],
+      "sources": [
+        {
+          "title": "Wikipedia: Kista",
+          "url": "https://en.wikipedia.org/wiki/Kista"
+        },
+        {
+          "title": "SISP: Kista Science City",
+          "url": "https://www.sisp.se/members/kista-science-city"
+        },
+        {
+          "title": "Nordregio: Kista wants entrepreneurial ICT students",
+          "url": "https://archive.nordregio.org/Metameny/About-Nordregio/Journal-of-Nordregio/2009/Journal-of-Nordregio-no-2-2009/Kista-wants-entrepreneurial-ICT-student/index.html"
+        },
+        {
+          "title": "Ericsson: relocation to Hagastaden (2026)",
+          "url": "https://www.ericsson.com/en/press-releases/2026/5/ericsson-to-relocate-stockholm-operations-to-hagastaden"
+        }
+      ],
+      "verification": "partially_verified",
+      "notes": "founded_year = 1986 (Electrum Foundation); one weaker source says 1985. 'Europe's largest ICT cluster' is a common claim but not independently measured here."
+    },
+    {
+      "id": "stockholm_school_of_economics",
+      "name": "Stockholm School of Economics (SSE)",
+      "categories": [
+        "university_research"
+      ],
+      "founded_year": 1909,
+      "founded_in": "Stockholm",
+      "founders_public": [],
+      "summary": "Private business school founded by Swedish business leaders. It opened in 1909 at Brunkebergstorg and moved in 1926 to Sveavägen 65, still its main building. Klarna's founders met through its entrepreneurship competition. Its incubator, SSE Business Lab, is listed separately.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "institution",
+        "detail": "Private university-level business school.",
+        "acquired_by": null,
+        "listing": null
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": null,
+        "note": "Not applicable."
+      },
+      "locations": [
+        {
+          "label": "SSE main building",
+          "address": "Sveavägen 65, Stockholm",
+          "district": "vasastan",
+          "period": "current",
+          "precision": "address",
+          "lat": null,
+          "lon": null,
+          "source": "https://www.hhs.se/en/about-us/history/year-by-year/"
+        }
+      ],
+      "storyline_hooks": [
+        "Business plan competition: enter a student contest that could launch a company."
+      ],
+      "sources": [
+        {
+          "title": "SSE: history, year by year",
+          "url": "https://www.hhs.se/en/about-us/history/year-by-year/"
+        },
+        {
+          "title": "SSE: timeline PDF",
+          "url": "https://www.hhs.se/contentassets/1500c23426e5479ca98c466498fb61ae/tidslinje.pdf"
+        }
+      ],
+      "verification": "verified",
+      "notes": "District (Vasastan) is inferred from the address; confirm with OSM. The SSE timeline says the association behind the school formed in 1906."
+    },
+    {
+      "id": "sse_business_lab",
+      "name": "SSE Business Lab",
+      "categories": [
+        "accelerator"
+      ],
+      "founded_year": 2001,
+      "founded_in": "Stockholm",
+      "founders_public": [],
+      "summary": "Startup incubator of the Stockholm School of Economics, launched in 2001 and open to SSE students, alumni and faculty. SSE says it has supported more than 350 companies, including Klarna, Voi, Legora, Budbee and Quinyx. It is housed in SSE's 'House of Innovation'.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "institution",
+        "detail": "University incubator, operating.",
+        "acquired_by": null,
+        "listing": null
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": null,
+        "note": "Not applicable."
+      },
+      "locations": [
+        {
+          "label": "SSE Business Lab (at SSE)",
+          "address": null,
+          "district": "vasastan",
+          "period": "current",
+          "precision": "district",
+          "lat": null,
+          "lon": null,
+          "source": "https://www.hhs.se/en/outreach/sse-initiatives/sse-business-lab/"
+        }
+      ],
+      "storyline_hooks": [
+        "Alumni network: use an incubator's network to land your first enterprise customer."
+      ],
+      "sources": [
+        {
+          "title": "SSE Business Lab",
+          "url": "https://www.hhs.se/en/outreach/sse-initiatives/sse-business-lab/"
+        },
+        {
+          "title": "SSE Business Lab: Incubate programme",
+          "url": "https://www.hhs.se/en/outreach/sse-initiatives/sse-business-lab/programs/incubate/"
+        },
+        {
+          "title": "SSE: timeline PDF",
+          "url": "https://www.hhs.se/contentassets/1500c23426e5479ca98c466498fb61ae/tidslinje.pdf"
+        }
+      ],
+      "verification": "partially_verified",
+      "notes": "The exact building and address of the 'House of Innovation' were not confirmed, so the location is at district precision, assumed to be near the SSE main campus. Company counts differ between pages (250+ vs 350+)."
+    },
+    {
+      "id": "sup46",
+      "name": "SUP46 (Start-Up People of Sweden)",
+      "categories": [
+        "coworking",
+        "founder_event"
+      ],
+      "founded_year": 2013,
+      "founded_in": "Stockholm",
+      "founders_public": [
+        "Jessica Stark",
+        "Sebastian Fuchs",
+        "Nathalie Nylén"
+      ],
+      "summary": "Startup hub and coworking community launched in October 2013 on Regeringsgatan in central Stockholm. Its official opening press release credits Spotify's Daniel Ek with opening it. Realtid reported in July 2026 that it hosts about 60 startups, with co-founder Jessica Stark as CEO.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "private",
+        "detail": "Operating startup hub.",
+        "acquired_by": null,
+        "listing": null
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": null,
+        "note": "Not applicable."
+      },
+      "locations": [
+        {
+          "label": "SUP46 (current listings)",
+          "address": "Regeringsgatan 65, Stockholm",
+          "district": "norrmalm",
+          "period": "current",
+          "precision": "address",
+          "lat": null,
+          "lon": null,
+          "source": "https://www.visitstockholm.com/o/sup46"
+        },
+        {
+          "label": "SUP46 (early venue)",
+          "address": "Regeringsgatan 29, Stockholm",
+          "district": "norrmalm",
+          "period": "historical",
+          "precision": "address",
+          "lat": null,
+          "lon": null,
+          "source": "https://www.mynewsdesk.com/se/sup46-ab-start-up-people-of-sweden/pressreleases/stockholm-s-new-startup-space-sup46-start-up-people-of-sweden-officially-opened-by-daniel-ek-913397"
+        }
+      ],
+      "storyline_hooks": [
+        "Community hub: build a reputation through events and peer introductions."
+      ],
+      "sources": [
+        {
+          "title": "Mynewsdesk: SUP46 officially opened",
+          "url": "https://www.mynewsdesk.com/se/sup46-ab-start-up-people-of-sweden/pressreleases/stockholm-s-new-startup-space-sup46-start-up-people-of-sweden-officially-opened-by-daniel-ek-913397"
+        },
+        {
+          "title": "Visit Stockholm: SUP46",
+          "url": "https://www.visitstockholm.com/o/sup46"
+        },
+        {
+          "title": "Realtid: SUP46 new membership (2026)",
+          "url": "https://www.realtid.se/bors-finans/sup46-lanserar-nytt-medlemskap-tar-in-yngre-startups/"
+        },
+        {
+          "title": "KTH/GIDEC: SUP46 presentation (2017)",
+          "url": "https://gidec.abe.kth.se/InnoCENS/2017_06_kth/Lana.%20SUP46%20presentation.pdf"
+        }
+      ],
+      "verification": "partially_verified",
+      "notes": "The Regeringsgatan 65 vs 29 history comes from search snippets; confirm on the Visit Stockholm page before final placement. CB Insights lists Tegelbacken 4A (likely outdated)."
+    },
+    {
+      "id": "almi_invest",
+      "name": "Almi Invest",
+      "categories": [
+        "vc_firm"
+      ],
+      "founded_year": 2009,
+      "founded_in": "Sweden",
+      "founders_public": [],
+      "summary": "State-owned early-stage venture investor (part of Almi AB, ultimately owned by the Swedish state), launched in 2009. It invests pre-seed to early Series A in Swedish companies, always alongside private co-investors, typically taking 10–15% in the first round. It runs eight regional funds plus a national GreenTech vehicle.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "institution",
+        "detail": "State-owned venture investor.",
+        "acquired_by": null,
+        "listing": null
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": null,
+        "note": "Not applicable."
+      },
+      "locations": [
+        {
+          "label": "Almi Invest Stockholm region",
+          "address": null,
+          "district": "other",
+          "period": "current",
+          "precision": "city",
+          "lat": null,
+          "lon": null,
+          "source": "https://www.almi.se/en/almi-invest/"
+        }
+      ],
+      "storyline_hooks": [
+        "Matched funding: find a private co-investor so the public fund can join your round."
+      ],
+      "sources": [
+        {
+          "title": "Almi Invest",
+          "url": "https://www.almi.se/en/almi-invest/"
+        },
+        {
+          "title": "Almi: about Almi Invest and our mission",
+          "url": "https://www.almi.se/en/venture-capital/is-almi-invest-right-for-your-company/frequently-asked-questions-about-venture-capital/about-almi-invest-and-our-mission/"
+        },
+        {
+          "title": "OECD: benchmarking government support for VC (Sweden)",
+          "url": "https://www.oecd.org/en/publications/benchmarking-government-support-for-venture-capital_82cd3fe1-en/sweden_d31bbe06-en.html"
+        }
+      ],
+      "verification": "verified",
+      "notes": "Almi's 'most active investor' claim is self-reported. No Stockholm office address was recorded."
+    },
+    {
+      "id": "industrifonden",
+      "name": "Industrifonden",
+      "categories": [
+        "vc_firm"
+      ],
+      "founded_year": 1979,
+      "founded_in": "Sweden",
+      "founders_public": [],
+      "summary": "Evergreen venture capital foundation set up by the Swedish government in 1979, headquartered in Stockholm. It has invested in small and medium-sized companies since 1996 and now focuses on Nordic deep tech, life science and transformative tech. It reinvests returns rather than distributing them.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "institution",
+        "detail": "Independent evergreen foundation.",
+        "acquired_by": null,
+        "listing": null
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": null,
+        "note": "Not applicable."
+      },
+      "locations": [
+        {
+          "label": "Industrifonden head office",
+          "address": null,
+          "district": "other",
+          "period": "current",
+          "precision": "city",
+          "lat": null,
+          "lon": null,
+          "source": "https://en.wikipedia.org/wiki/Industrifonden"
+        }
+      ],
+      "storyline_hooks": [
+        "Deep-tech round: convince a patient investor that your hardware science can scale."
+      ],
+      "sources": [
+        {
+          "title": "Industrifonden",
+          "url": "https://industrifonden.com/"
+        },
+        {
+          "title": "Wikipedia: Industrifonden",
+          "url": "https://en.wikipedia.org/wiki/Industrifonden"
+        },
+        {
+          "title": "OECD: benchmarking government support for VC (Sweden)",
+          "url": "https://www.oecd.org/en/publications/benchmarking-government-support-for-venture-capital_82cd3fe1-en/sweden_d31bbe06-en.html"
+        }
+      ],
+      "verification": "verified",
+      "notes": "Fund-size figures differ between sources (SEK 4–5B), so they are left out."
+    },
+    {
+      "id": "antler_nordics",
+      "name": "Antler (Stockholm / Nordics)",
+      "categories": [
+        "accelerator",
+        "vc_firm"
+      ],
+      "founded_year": null,
+      "founded_in": "Singapore (firm); Stockholm office",
+      "founders_public": [],
+      "summary": "Global early-stage investor and founder residency programme. Stockholm was its first office outside Singapore, where Antler started, and is the base for its Nordic residency (other Nordic offices: Oslo 2020, Copenhagen 2022, Helsinki 2024). Antler was Lovable's first investor and returned for Lovable's August 2026 Series C.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "private",
+        "detail": "Operating early-stage investor.",
+        "acquired_by": null,
+        "listing": null
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": null,
+        "note": "Not applicable."
+      },
+      "locations": [
+        {
+          "label": "Antler Stockholm",
+          "address": null,
+          "district": "other",
+          "period": "current",
+          "precision": "city",
+          "lat": null,
+          "lon": null,
+          "source": "https://www.antler.co/sweden"
+        }
+      ],
+      "storyline_hooks": [
+        "Co-founder matching: join a residency alone and leave with a team and a pre-seed cheque."
+      ],
+      "sources": [
+        {
+          "title": "Antler: Nordics",
+          "url": "https://www.antler.co/nordics"
+        },
+        {
+          "title": "Antler: Sweden",
+          "url": "https://www.antler.co/sweden"
+        },
+        {
+          "title": "Antler: Lovable Series C press release",
+          "url": "https://www.antler.co/press-releases/antler-portfolio-company-lovable-raises-400m-series-c-at-13-3b-valuation"
+        }
+      ],
+      "verification": "partially_verified",
+      "notes": "Antler's founding year was not cleanly confirmed (search summaries were ambiguous), so it is left null. Programme length differs between pages (8 or 10 weeks)."
+    },
+    {
+      "id": "nordic_tech_week",
+      "name": "Nordic Tech Week",
+      "categories": [
+        "founder_event"
+      ],
+      "founded_year": null,
+      "founded_in": "Stockholm",
+      "founders_public": [],
+      "summary": "City-wide tech festival held in Stockholm every September, modelled on decentralised 'tech week' formats, with 300+ independently hosted events (panels, hackathons, investor gatherings). The 2026 edition ran 7–11 September 2026 and included a Startup Day and the open-air Tech Open at Kungsträdgården.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "private",
+        "detail": "Recurring annual event (September).",
+        "acquired_by": null,
+        "listing": null
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": null,
+        "note": "Not applicable."
+      },
+      "locations": [
+        {
+          "label": "Startup Day / Tech Open venue (2026)",
+          "address": null,
+          "district": "norrmalm",
+          "period": "2026-2026",
+          "precision": "district",
+          "lat": null,
+          "lon": null,
+          "source": "https://luma.com/x37k41qv"
+        }
+      ],
+      "storyline_hooks": [
+        "Tech week sprint: a week of side events and chance meetings that can make or break a fundraise."
+      ],
+      "sources": [
+        {
+          "title": "Visit Stockholm: Nordic Tech Week 2026",
+          "url": "https://www.visitstockholm.com/events/nordic-tech-week-2026/next/"
+        },
+        {
+          "title": "KTH: KTH Innovation Collide at Nordic Tech Week",
+          "url": "https://www.kth.se/en/student/kalender/kth-innovation-collide-nordic-tech-week-1.1487522"
+        },
+        {
+          "title": "Luma: Startup Day (Nordic Tech Week 2026)",
+          "url": "https://luma.com/x37k41qv"
+        }
+      ],
+      "verification": "partially_verified",
+      "notes": "The organiser and first edition year were not confirmed. Kungsträdgården is placed in Norrmalm (district inferred). Attendance figures (around 25,000) come from a source not used here."
+    },
+    {
+      "id": "sthlm_tech_fest",
+      "name": "STHLM Tech Fest / SthlmTech meetup (historical)",
+      "categories": [
+        "founder_event"
+      ],
+      "founded_year": 2013,
+      "founded_in": "Stockholm",
+      "founders_public": [
+        "Tyler Crowley"
+      ],
+      "summary": "Community-run Stockholm startup festival that grew out of the SthlmTech group's monthly meetups, organised from 2013. The 2014 edition at the Stockholm Waterfront drew about 3,000 attendees, 100 startups and 50+ investor groups. In 2019 it expanded into the first STHLM Tech Week.",
+      "status": {
+        "as_of": "2026-11",
+        "label": "defunct",
+        "detail": "Current status unknown. No 2026 edition under this name was found.",
+        "acquired_by": null,
+        "listing": null
+      },
+      "unicorn": {
+        "ever": null,
+        "current_private_unicorn": null,
+        "note": "Not applicable."
+      },
+      "locations": [
+        {
+          "label": "Stockholm Waterfront (2014 venue)",
+          "address": null,
+          "district": "norrmalm",
+          "period": "historical",
+          "precision": "district",
+          "lat": null,
+          "lon": null,
+          "source": "https://www.thelocal.se/20140905/live-blog-stockholm-tech-fest"
+        }
+      ],
+      "storyline_hooks": [
+        "Meetup to festival: grow a monthly community meetup into a city-wide event."
+      ],
+      "sources": [
+        {
+          "title": "The Local: Stockholm Tech Fest live blog (2014)",
+          "url": "https://www.thelocal.se/20140905/live-blog-stockholm-tech-fest"
+        },
+        {
+          "title": "Brunswick: STHLM Tech Fest 2019",
+          "url": "https://www.brunswickgroup.com/sthlm-tech-fest-2019-i11361/"
+        },
+        {
+          "title": "Nordic Startup News: 3000 Tech Fest attendees",
+          "url": "https://nordicstartupnews.com/3000-tech-fest-attendees-celebrated-stockholm/"
+        }
+      ],
+      "verification": "partially_verified",
+      "notes": "status.label 'defunct' means 'not confirmed active'. Treat it as historical inspiration only. The link between STHLM Tech Week (2019) and Nordic Tech Week was not established."
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "kind": "districts",
+  "note": "Anchor points are district reference points used for Founder Map pins that only have district-level precision, and for streaming-cell naming. Coordinates are approximate public reference points (squares/landmarks), to be re-verified against OpenStreetMap by Tools/geodata/verify_anchors.py. build_status tracks what is actually built in-engine.",
+  "districts": [
+    {
+      "id": "gamla_stan",
+      "name": "Gamla Stan",
+      "anchor": {"lat": 59.3251, "lon": 18.0707, "ref": "Stortorget"},
+      "build_status": "milestone_a_core",
+      "description": "Medieval old town on Stadsholmen: narrow lanes, tourism, Royal Palace waterfront, Skeppsbron quay.",
+      "themes": ["history", "tourism", "atmospheric exploration", "small artisan businesses"]
+    },
+    {
+      "id": "norrmalm",
+      "name": "Norrmalm",
+      "anchor": {"lat": 59.3324, "lon": 18.0636, "ref": "Sergels torg"},
+      "build_status": "milestone_a_partial",
+      "description": "Commercial centre: Sergels torg, Drottninggatan, Kungsträdgården, Central Station. Coworking and startup offices.",
+      "themes": ["startups", "coworking", "retail", "transport hub"]
+    },
+    {
+      "id": "sodermalm",
+      "name": "Södermalm",
+      "anchor": {"lat": 59.3142, "lon": 18.0727, "ref": "Medborgarplatsen"},
+      "build_status": "milestone_a_partial",
+      "description": "Island of apartments, cafés, creative communities and nightlife. The player's first home is here. Milestone A covers the northern edge (Slussen–Mariatorget–Hornsgatan).",
+      "themes": ["home", "cafés", "creative scene", "nightlife"]
+    },
+    {
+      "id": "kungsholmen",
+      "name": "Kungsholmen",
+      "anchor": {"lat": 59.3275, "lon": 18.0543, "ref": "Stadshuset (City Hall)"},
+      "build_status": "milestone_a_partial",
+      "description": "Residential island with long waterfront walks; City Hall at its eastern tip. Milestone A covers the eastern tip only.",
+      "themes": ["residential", "waterfront", "municipal", "mid-size company offices"]
+    },
+    {
+      "id": "ostermalm",
+      "name": "Östermalm / Stureplan",
+      "anchor": {"lat": 59.3357, "lon": 18.0742, "ref": "Stureplan"},
+      "build_status": "not_built",
+      "description": "High-end business life, investor offices, networking dinners and events around Stureplan and Birger Jarlsgatan.",
+      "themes": ["investors", "networking", "events", "luxury"]
+    },
+    {
+      "id": "vasastan",
+      "name": "Vasastan",
+      "anchor": {"lat": 59.3434, "lon": 18.0496, "ref": "Odenplan"},
+      "build_status": "not_built",
+      "description": "Residential and office district north of Norrmalm, between the centre and the universities.",
+      "themes": ["residential", "offices"]
+    },
+    {
+      "id": "kth_valhallavagen",
+      "name": "KTH / Valhallavägen",
+      "anchor": {"lat": 59.3498, "lon": 18.0707, "ref": "KTH main campus"},
+      "build_status": "not_built",
+      "description": "KTH Royal Institute of Technology campus: student founders, research labs, engineering talent.",
+      "themes": ["students", "research", "engineering", "hackathons"]
+    },
+    {
+      "id": "kista",
+      "name": "Kista",
+      "anchor": {"lat": 59.4030, "lon": 17.9445, "ref": "Kista Centrum"},
+      "build_status": "not_built",
+      "description": "Northern technology and telecommunications cluster (Kista Science City).",
+      "themes": ["telecom", "deep tech", "corporates", "enterprise customers"]
+    },
+    {
+      "id": "solna",
+      "name": "Solna",
+      "anchor": {"lat": 59.3600, "lon": 18.0000, "ref": "Solna centrum (approx.)"},
+      "build_status": "not_built",
+      "description": "Neighbouring municipality with large corporate HQs and Karolinska Institutet.",
+      "themes": ["corporates", "life science"]
+    }
+  ]
+}

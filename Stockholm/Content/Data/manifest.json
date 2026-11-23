@@ -1,0 +1,12 @@
+{
+  "note": "Load order for ContentDatabase::LoadFromManifest. Paths are relative to Content/Data.",
+  "files": [
+    "World/districts.json",
+    "World/locations.json",
+    "Story/npcs.json",
+    "Story/chapters.json",
+    "Story/dialogues_ch1.json",
+    "Story/missions_ch1.json",
+    "Ecosystem/stockholm_ecosystem.json"
+  ]
+}

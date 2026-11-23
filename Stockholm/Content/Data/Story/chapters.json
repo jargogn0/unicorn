@@ -1,0 +1,19 @@
+{
+  "kind": "chapters",
+  "note": "content_status is the honest build state: implemented = playable content exists in data and is exercised by Tests/sim_tests; design_only = described in GAME_DESIGN.md, no missions yet.",
+  "chapters": [
+    {"number": 1, "id": "ch01_idea", "title": "Idea and Survival", "summary": "A sublet room, an unfinished product, rent due in five days.", "entry": null, "content_status": "implemented"},
+    {"number": 2, "id": "ch02_mvp", "title": "Building the MVP", "summary": "Turn a first customer's pain into software that works on a bad day.", "entry": {"mission": "m03_first_payment", "status": "completed"}, "content_status": "design_only"},
+    {"number": 3, "id": "ch03_customers", "title": "First Customers", "summary": "Door-to-door across Södermalm and Gamla Stan; referrals; the first churn.", "entry": {"all": [{"fact": "mission_done_m03_first_payment"}, {"stat": "customers", "op": ">=", "value": 3}]}, "content_status": "design_only"},
+    {"number": 4, "id": "ch04_launch", "title": "Launch and Early Failures", "summary": "Public launch, an outage during a lunch rush, the first bad review.", "entry": {"fact": "launched"}, "content_status": "design_only"},
+    {"number": 5, "id": "ch05_revenue", "title": "First Revenue", "summary": "Default-alive arithmetic; pricing decisions; the company bank account.", "entry": {"stat": "mrr", "op": ">=", "value": 25000}, "content_status": "design_only"},
+    {"number": 6, "id": "ch06_rejection", "title": "Investor Rejection", "summary": "The Investor Party at Stureplan and The Rejection: learning, not funding.", "entry": {"fact": "pitched_first_vc"}, "content_status": "design_only"},
+    {"number": 7, "id": "ch07_first_check", "title": "First Check or Bootstrapped Growth", "summary": "Negotiate with an angel (cash, control, dilution, timing) or choose to grow on revenue.", "entry": {"any": [{"fact": "offer_accepted_helena_safe"}, {"fact": "chose_bootstrap"}]}, "content_status": "design_only"},
+    {"number": 8, "id": "ch08_hiring", "title": "Hiring and Scaling", "summary": "First hires, the first office, culture decisions that stick.", "entry": {"stat": "team_size", "op": ">=", "value": 3}, "content_status": "design_only"},
+    {"number": 9, "id": "ch09_accelerator", "title": "The Application (optional)", "summary": "An optional US accelerator application and interview. Not required for success.", "entry": {"any": [{"fact": "applied_accelerator"}, {"fact": "skipped_accelerator"}]}, "content_status": "design_only"},
+    {"number": 10, "id": "ch10_san_francisco", "title": "San Francisco", "summary": "Unlock the trip via accelerator, international customer, investor introduction or self-funded expansion.", "entry": {"fact": "sf_unlocked"}, "content_status": "design_only"},
+    {"number": 11, "id": "ch11_pmf", "title": "Product-Market Fit", "summary": "Retention curves flatten; international growth; Demo Day.", "entry": {"all": [{"stat": "retention", "op": ">=", "value": 0.96}, {"stat": "international_reach", "op": ">=", "value": 30}]}, "content_status": "design_only"},
+    {"number": 12, "id": "ch12_scale", "title": "Scale", "summary": "Later rounds, acquisition offers, board dynamics.", "entry": {"stat": "mrr", "op": ">=", "value": 5000000}, "content_status": "design_only"},
+    {"number": 13, "id": "ch13_endings", "title": "Endings", "summary": "IPO, acquisition, or an independent, profitable company — each a legitimate win.", "entry": {"fact": "ending_chosen"}, "content_status": "design_only"}
+  ]
+}

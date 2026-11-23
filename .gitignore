@@ -1,0 +1,23 @@
+# Unreal Engine
+Stockholm/Binaries/
+Stockholm/Intermediate/
+Stockholm/Saved/
+Stockholm/DerivedDataCache/
+Stockholm/.vs/
+Stockholm/Plugins/*/Binaries/
+Stockholm/Plugins/*/Intermediate/
+*.sln
+*.suo
+*.xcworkspace
+*.VC.db
+*.opensdf
+*.sdf
+.vscode/
+.idea/
+
+# Local builds / tools
+build/
+Tests/build/
+__pycache__/
+*.pyc
+Tools/geodata/cache/

@@ -1,0 +1,234 @@
+{
+  "kind": "npcs",
+  "note": "All characters are fictional. No character portrays or is modelled on a real person. Backgrounds are written as individuals with their own motivations; avoid reducing anyone to nationality.",
+  "npcs": [
+    {
+      "id": "noor",
+      "name": "Noor Haddad",
+      "role": "Owner, Kafé Kollektivet (three cafés)",
+      "pronouns": "she/her",
+      "background": "Came to Stockholm at nineteen to study hospitality management, washed dishes through school, and twelve years later runs three cafés on Södermalm. Keeps a paper notebook of every supplier she has ever fallen out with.",
+      "motivation": "Sunday-night staff scheduling eats her weekends, and she throws out too much bread. She will pay for anything that gives her evenings back, but has been burned by software salespeople before.",
+      "traits": [
+        "direct",
+        "pragmatic",
+        "loyal once won",
+        "allergic to jargon"
+      ],
+      "home_district": "sodermalm",
+      "appearance": "40s, practical wool coat, apron under it during the day, reading glasses on a cord",
+      "voice": "warm, fast, dry humour",
+      "routine": [
+        {
+          "days": "weekdays",
+          "from": "06:30",
+          "to": "15:00",
+          "location": "cafe_kollektivet",
+          "activity": "work"
+        },
+        {
+          "days": "weekends",
+          "from": "08:00",
+          "to": "13:00",
+          "location": "cafe_kollektivet",
+          "activity": "work"
+        },
+        {
+          "days": "all",
+          "from": "15:00",
+          "to": "17:00",
+          "location": "landmark_mariatorget",
+          "activity": "walk"
+        }
+      ]
+    },
+    {
+      "id": "sami",
+      "name": "Sami Okafor",
+      "role": "ICU nurse; your oldest friend in Stockholm",
+      "pronouns": "he/him",
+      "background": "Grew up in Gothenburg, moved to Stockholm for nursing school and stayed. Rows on Riddarfjärden at dawn in summer, works rotating night shifts in winter. Owns a 2004 Volvo estate he loves more than is reasonable.",
+      "motivation": "Saving for a deposit on his own flat. Worries you are trading your health for a dream; will help, but keeps score of borrowed things.",
+      "traits": [
+        "steady",
+        "funny",
+        "protective",
+        "keeps promises and expects the same"
+      ],
+      "home_district": "sodermalm",
+      "appearance": "30s, tall, scrubs under a puffer jacket, beanie",
+      "voice": "calm, teasing",
+      "routine": [
+        {
+          "days": "all",
+          "from": "07:30",
+          "to": "10:00",
+          "location": "sami_car_spot",
+          "activity": "home_from_shift"
+        },
+        {
+          "days": "all",
+          "from": "10:00",
+          "to": "15:00",
+          "location": "",
+          "activity": "sleep"
+        },
+        {
+          "days": "all",
+          "from": "15:00",
+          "to": "20:30",
+          "location": "landmark_monteliusvagen",
+          "activity": "free_time"
+        },
+        {
+          "days": "weekdays",
+          "from": "20:30",
+          "to": "07:30",
+          "location": "",
+          "activity": "night_shift"
+        }
+      ]
+    },
+    {
+      "id": "aditi",
+      "name": "Aditi Rao",
+      "role": "Baker, Kanel & Kod; former telecom software engineer",
+      "pronouns": "she/her",
+      "background": "Spent nine years writing network software in Kista, then quit to open a bakery in Gamla Stan because she wanted to make something people could hold. Still reads code reviews for fun.",
+      "motivation": "Wants her bakery to survive tourist low season. Misses building software more than she admits; could become an advisor or more.",
+      "traits": [
+        "precise",
+        "curious",
+        "blunt about bad code",
+        "generous with time"
+      ],
+      "home_district": "gamla_stan",
+      "appearance": "late 30s, flour on sleeves, cardigan, smartwatch",
+      "voice": "measured, technical, sudden laughter",
+      "routine": [
+        {
+          "days": "all",
+          "from": "05:30",
+          "to": "16:00",
+          "location": "bakery_kanel",
+          "activity": "work"
+        },
+        {
+          "days": "all",
+          "from": "16:00",
+          "to": "18:00",
+          "location": "landmark_riddarholmen",
+          "activity": "walk"
+        }
+      ]
+    },
+    {
+      "id": "elin",
+      "name": "Elin Bergqvist",
+      "role": "Head of Operations, Mälarbröd (12 bakery cafés)",
+      "pronouns": "she/her",
+      "background": "Former management consultant who joined a family-owned bakery chain to modernise it without losing what made it loved. Has bought, and cancelled, three software tools in two years.",
+      "motivation": "Needs a win she can show the owners before the spring budget review. Values honesty over polish; remembers who wasted her time.",
+      "traits": [
+        "analytical",
+        "sceptical",
+        "fair",
+        "time-poor"
+      ],
+      "home_district": "kungsholmen",
+      "appearance": "40s, tailored dark coat, minimal jewellery, tablet always in hand",
+      "voice": "clipped, precise, occasionally wry",
+      "routine": [
+        {
+          "days": "weekdays",
+          "from": "08:00",
+          "to": "17:30",
+          "location": "office_malarbrod",
+          "activity": "work"
+        },
+        {
+          "days": "weekdays",
+          "from": "07:30",
+          "to": "08:00",
+          "location": "landmark_stadshuset",
+          "activity": "commute"
+        }
+      ]
+    },
+    {
+      "id": "landlord",
+      "name": "Gunilla Ek",
+      "role": "First-hand tenant subletting you the room",
+      "pronouns": "she/her",
+      "background": "Retired school librarian who sublets her spare room while she spends winters with her daughter in Umeå. Has had bad lodgers; hopes you are not one.",
+      "motivation": "Needs the rent on time to cover her own costs. Not unkind, but cannot afford to be patient for long.",
+      "traits": [
+        "reserved",
+        "fair",
+        "anxious about money"
+      ],
+      "home_district": "sodermalm",
+      "appearance": "70, reading glasses, phone held at arm's length",
+      "voice": "polite, formal Swedish-English",
+      "routine": []
+    },
+    {
+      "id": "mateo",
+      "name": "Mateo Ruiz",
+      "role": "Backend developer between jobs; potential co-founder",
+      "pronouns": "he/him",
+      "background": "Moved from Montevideo for a fintech job that evaporated in a reorg. Codes in cafés in Norrmalm while deciding whether to stay in Sweden.",
+      "motivation": "Wants to build something that matters and needs a residence-permit-safe path to do it. Will join a founder who is honest about risk.",
+      "traits": [
+        "fast",
+        "kind",
+        "impatient with meetings",
+        "night owl"
+      ],
+      "home_district": "norrmalm",
+      "appearance": "late 20s, headphones, oversized hoodie under a parka",
+      "voice": "energetic, rapid",
+      "routine": [
+        {
+          "days": "weekdays",
+          "from": "10:00",
+          "to": "18:00",
+          "location": "breakfast_strommen",
+          "activity": "work"
+        },
+        {
+          "days": "all",
+          "from": "19:00",
+          "to": "23:00",
+          "location": "landmark_sergels_torg",
+          "activity": "free_time"
+        }
+      ]
+    },
+    {
+      "id": "helena",
+      "name": "Helena Sjöberg",
+      "role": "Angel investor; sold her logistics software company in 2019",
+      "pronouns": "she/her",
+      "background": "Built and sold a fictional route-planning company after eleven hard years. Now writes small cheques and gives large amounts of uncomfortable advice. Appears from Chapter 3.",
+      "motivation": "Wants to back founders who listen to customers. Cares about control terms more than valuation headlines.",
+      "traits": [
+        "incisive",
+        "patient",
+        "remembers everything"
+      ],
+      "home_district": "ostermalm",
+      "appearance": "50s, silver hair, sneakers with a suit",
+      "voice": "low, deliberate",
+      "routine": [
+        {
+          "days": "weekdays",
+          "from": "07:30",
+          "to": "09:00",
+          "location": "breakfast_strommen",
+          "activity": "networking"
+        }
+      ]
+    }
+  ]
+}
