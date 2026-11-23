@@ -10,7 +10,7 @@ Last updated: 2026-11-23. Read this file before claiming anything works. It reco
 | Unreal Engine | **Not installed, and it can't be installed here.** Epic distributes UE5 behind an Epic account (binary) or a linked GitHub account (source). A source build needs ~150 GB of disk and many hours of compiling; this container has 61 GB and 4 cores. The editor also needs a GPU. |
 | Compilers | g++ 13.3, clang, CMake 3.28 (used for the engine-independent core) |
 | Network | The Overpass mirrors and Geofabrik still fail at the egress proxy (`ws_closed_mid_exchange`). The main OpenStreetMap API (`api.openstreetmap.org`) works and was used for the Kungsgatan extract. Poly Haven, ambientCG and the MakeHuman asset server also work. Fab, Quixel, Sketchfab and Mixamo need logins. |
-| GitHub | Pushing to `jargogn0/unicorn` was refused (403: the Claude GitHub App isn't connected for this repository). The work is committed locally on branch `claude/zealous-gauss-tgc83b`. |
+| GitHub | Pushed to `jargogn0/unicorn`, branch `claude/zealous-gauss-tgc83b`. The repository was empty, so this is its only branch (and default); no pull request exists because there is no base branch. Git LFS is disabled for the repository, so binaries are stored as normal objects. |
 | User machine | None attached (no Remote Control folders shared). |
 
 ## Status by component

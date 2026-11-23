@@ -134,9 +134,11 @@ def finalize(cfg, in_blend=None, out_blend=None):
     bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
     # soles on the ground plane: lift everything so the lowest vertex (shoe sole) sits at z = 0
     zmin = min(M.coords(o)[:, 2].min() for o in roles().values())
-    for o in [rig] + list(roles().values()):
-        o.location.z -= zmin
+    rig.location.z -= zmin                      # meshes are children of the rig and follow it
+    bpy.context.view_layer.update()
     bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+    zchk = min(M.coords(o)[:, 2].min() for o in roles().values())
+    assert abs(zchk) < 1e-4 and abs(rig.location.z) < 1e-6, ('grounding failed', zchk)
     print('height raw', round(height_raw, 4), 'scale', round(s, 4), 'lifted', round(-zmin, 4))
 
     # 7. bone names: strip the mixamorig: prefix

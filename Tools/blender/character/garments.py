@@ -214,7 +214,7 @@ def hoodie_pullover(cfg, R, ref, rig):
         co[side, 1] -= sign * 0.0015 * w[side]            # tiny overlap so the seam is not coplanar
         wsum = np.maximum(wsum, np.where(side, w, 0.0))
     M.set_coords(o, co)
-    M.laplacian_smooth(o, np.clip(wsum * 4, 0, 1) * (wsum < 0.97), iters=hp.get('close_smooth', 4), lam=0.5)
+    M.laplacian_smooth(o, np.clip(wsum * 6, 0, 1), iters=hp.get('close_smooth', 8), lam=0.5)
 
     # torso mask (not sleeves / hood): by transferred weights of the garment itself
     wt = M.group_weights(o, [BP + n for n in ('Hips', 'Spine', 'Spine1', 'Spine2', 'LeftUpLeg', 'RightUpLeg')])
