@@ -753,7 +753,7 @@ const InkShader = {
     float ambientOcclusion(vec2 uv, float c){
       if (aoStrength <= 0.0 || c > 110.0) return 1.0;
       vec3 p = vpos(uv, c); vec3 n = normalize(cross(dFdx(p), dFdy(p)));
-      float rad = 0.6 / (c * proj.y) * 0.5; rad = min(rad, 0.08);
+      float rad = 0.6 / (c * proj.y) * 0.5; rad = min(rad, 0.03);
       float a0 = fract(52.9829189 * fract(dot(gl_FragCoord.xy, vec2(0.06711056, 0.00583715)))) * 6.2831853;
       float occ = 0.0;
       for (int i = 0; i < 12; i++) {
@@ -796,7 +796,7 @@ composer.addPass(new OutputPass());
 // The choice is remembered; if nothing was chosen and the first seconds of play run slowly, the game drops to Low by itself.
 const gfx = { level: 'high', chosen: false, n: 0, acc: 0, last: 0 };
 try { const v = localStorage.getItem('stockholm.gfx'); if (v === 'high' || v === 'low') { gfx.level = v; gfx.chosen = true; } } catch { /* storage unavailable */ }
-function applyGfx() { inkPass.uniforms.aoStrength.value = gfx.level === 'high' ? 1 : 0; const b = document.getElementById('btn-gfx'); if (b) b.textContent = `Graphics: ${gfx.level === 'high' ? 'High' : 'Low'}`; }
+function applyGfx() { inkPass.uniforms.aoStrength.value = gfx.level === 'high' && !player.indoors ? 1 : 0; const b = document.getElementById('btn-gfx'); if (b) b.textContent = `Graphics: ${gfx.level === 'high' ? 'High' : 'Low'}`; }
 function setGfx(level, byUser) { gfx.level = level; if (byUser) { gfx.chosen = true; try { localStorage.setItem('stockholm.gfx', level); } catch { /* storage unavailable */ } } applyGfx(); }
 function renderFrame() { inkPass.uniforms.proj.value.set(Math.tan(camera.fov * Math.PI / 360) * camera.aspect, Math.tan(camera.fov * Math.PI / 360)); renderer.setRenderTarget(sceneRT); renderer.render(scene, camera); renderer.setRenderTarget(null); composer.render(); }
 // 3-band cel ramp shared by all stylized materials.
@@ -1683,7 +1683,7 @@ class RigPerson {
     const g = this.root = new THREE.Group(); const m = this.model = SkeletonUtils.clone(src.scene);
     m.rotation.y = Math.PI; m.scale.setScalar(opts.scale ?? 1);
     m.traverse((o) => {
-      if (!o.isMesh) return; o.castShadow = true; if (opts.noCull) o.frustumCulled = false; o.material.envMapIntensity = 1.5;
+      if (!o.isMesh) return; o.castShadow = true; if (opts.noCull) o.frustumCulled = false; o.material.envMapIntensity = 1.0;
       const tint = opts.tint && opts.tint[(o.material.name.match(CLOTH_RE) || [])[1]];
       if (tint) { o.material = o.material.clone(); o.material.color.multiply(new THREE.Color(tint)); }
     });
@@ -1910,7 +1910,11 @@ let ROOM_SPOTS;
 if (STUDIO_GLB) {
   // INT_Founder_Studio_Blockout (6.4 m × 5 m): desk north-east, bed north-west, kitchenette east, window north.
   const studio = zUpFix(STUDIO_GLB); studio.position.y = 0.06; room.add(studio);
-  STUDIO_GLB.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; o.material = toon({ vertexColors: true, color: 0xffffff }); } });
+  // The blockout ships positions and vertex colours only: build flat normals so physically based lighting works on it.
+  STUDIO_GLB.traverse((o) => { if (!o.isMesh) return; o.castShadow = true; o.receiveShadow = true;
+    if (!o.geometry.attributes.normal) { o.geometry = o.geometry.index ? o.geometry.toNonIndexed() : o.geometry; o.geometry.computeVertexNormals(); }
+    const wall = /wall/.test(o.name), floorM = o.name === 'floor';
+    o.material = new THREE.MeshStandardMaterial({ vertexColors: true, color: wall ? 0xf3ece2 : 0xffffff, roughness: floorM ? 0.55 : wall ? 0.93 : 0.8 }); });
   const add = (geo, mat, x, y, z, cast = true) => { const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.castShadow = cast; m.receiveShadow = true; room.add(m); return m; };
   add(new THREE.BoxGeometry(6.4, 0.1, 5), toon({ color: 0xd8d4cc }), 0, 2.78, 0); // ceiling (not in the blockout)
   // Door the blockout lacks: on the south wall where the gap should be.
@@ -1924,10 +1928,10 @@ if (STUDIO_GLB) {
   add(new THREE.PlaneGeometry(0.6, 0.42), new THREE.MeshBasicMaterial({ map: screenTex, toneMapped: false }), 1.5, 1.17, -1.77, false);
   add(new THREE.BoxGeometry(0.36, 0.022, 0.25), toon({ color: 0x9aa0a8 }), 1.15, 0.82, -1.55);
   const phoneM = new THREE.MeshBasicMaterial({ color: 0x0a0f14, toneMapped: false }); const phoneMesh = add(new THREE.BoxGeometry(0.08, 0.012, 0.16), phoneM, 1.95, 0.82, -1.55); room.userData.phone = phoneM; room.userData.phoneMesh = phoneMesh;
-  const lampL = new THREE.PointLight(0xffc27a, 22, 10, 1.3); lampL.position.set(2.2, 1.7, -1.2); room.add(lampL);
-  const winL = new THREE.PointLight(0x7f9fd6, 10, 9, 1.3); winL.position.set(0.4, 1.7, -1.8); room.add(winL);
+  const lampL = new THREE.PointLight(0xffc27a, 9, 9, 1.6); lampL.position.set(2.2, 1.7, -1.2); room.add(lampL);
+  const winL = new THREE.PointLight(0x7f9fd6, 4, 8, 1.6); winL.position.set(0.4, 1.7, -1.8); room.add(winL);
   const screenL = new THREE.PointLight(0x9fb7ff, 1.4, 2.6, 2); screenL.position.set(1.5, 1.2, -1.45); room.add(screenL);
-  const ceilL = new THREE.PointLight(0xfff0dc, 16, 10, 1.2); ceilL.position.set(-0.5, 2.3, 0.3); room.add(ceilL); const fillL = new THREE.PointLight(0xdfe6ff, 8, 10, 1.2); fillL.position.set(-1.5, 1.6, -0.8); room.add(fillL);
+  const ceilL = new THREE.PointLight(0xffe9d2, 5.5, 9, 1.5); ceilL.position.set(-0.3, 2.05, 0.4); room.add(ceilL); const fillL = new THREE.PointLight(0xffe2c8, 3.5, 8, 1.5); fillL.position.set(-1.2, 1.5, 1.6); room.add(fillL);
   const sg = new THREE.BufferGeometry(); const sp = []; for (let i = 0; i < 160; i++) sp.push(-0.32 + Math.random() * 1.44, 1.13 + Math.random() * 1.04, -2.36 + Math.random() * 0.04); sg.setAttribute('position', new THREE.Float32BufferAttribute(sp, 3));
   room.userData.snow = new THREE.Points(sg, new THREE.PointsMaterial({ size: 0.02, map: snowFlake, transparent: true, depthWrite: false, color: 0xffffff })); room.userData.snowMin = 1.13; room.userData.snowSpan = 1.04; room.add(room.userData.snow);
   // walls, bed, desk, kitchenette as colliders (local x east, y north)
@@ -2500,11 +2504,11 @@ function updateAtmosphere(dt) {
   sunLight.color.setHSL(0.08, 0.8, lerp(0.55, 0.85, smooth(0, 25, el)));
   sunLight.castShadow = el > 0 && gfx.level === 'high';
   moonLight.position.copy(focus).add(new THREE.Vector3(-150, 300, 120)); moonLight.target.position.copy(focus); moonLight.intensity = night * 0.35;
-  hemi.intensity = lerp(0.45, 1.25, day) * lerp(1, 1.15, w.cloud);
+  hemi.intensity = lerp(0.45, 1.25, day) * lerp(1, 1.15, w.cloud) * (player.indoors ? 0.5 : 1);
   hemi.color.setHSL(lerp(0.62, 0.58, day), lerp(0.45, 0.25, day), lerp(0.35, 0.72, day));
   const fogCol = new THREE.Color().setHSL(0.6, lerp(0.45, 0.16, day), lerp(0.06, 0.5, day * lerp(1, 0.92, w.cloud)));
   scene.fog.color.lerp(fogCol, 1 - Math.exp(-dt * 2)); scene.fog.density = lerp(scene.fog.density, 0.0011 + w.fog * 0.006 + w.precip * 0.0035, 1 - Math.exp(-dt));
-  renderer.toneMappingExposure = lerp(1.05, 0.8, day);
+  renderer.toneMappingExposure = player.indoors ? 0.95 : lerp(1.05, 0.8, day); bloom.strength = player.indoors ? 0.18 : 0.38; applyGfx();
   const lit = night > 0.15 || w.fog > 0.5 ? 1 : smooth(4, -2, el);
   facadeMat.emissiveIntensity = lit * 1.1; shopMat.emissiveIntensity = lerp(0.35, 1.5, lit); lmMats.lampHeads.color.setRGB(lerp(0.15, 1, lit), lerp(0.13, 0.83, lit), lerp(0.1, 0.6, lit)); lmMats.lampPools.opacity = lit * 0.55; lmMats.fairy.opacity = lerp(0.1, 1, lit);
   if (lmMats.palaceWin) lmMats.palaceWin.emissiveIntensity = lit * 0.9; if (lmMats.busWin) lmMats.busWin.emissiveIntensity = lerp(0.2, 1.4, lit); if (lmMats.obelisk) lmMats.obelisk.emissiveIntensity = lerp(0.3, 2.4, lit); if (lmMats.kulturGlass) lmMats.kulturGlass.emissiveIntensity = lerp(0.25, 1.3, lit); if (lmMats.boatWin) lmMats.boatWin.emissiveIntensity = lit * 1.2;
@@ -2642,6 +2646,8 @@ updateEnvironment();
 // Fixed-camera capture for before/after comparisons: __stockholm.shot({x,y,h,tx,ty,th,minutes}) (local metres).
 let shotCam = null;
 function shot(o) { shotCam = o; if (o && o.minutes != null) sim.minutes = o.minutes; }
+window.__dbg = { inkPass, bloom, setGfx };
+window.__cam = () => [camera.position.x.toFixed(2), camera.position.y.toFixed(2), camera.position.z.toFixed(2), camera.near, camera.far];
 window.__stockholm = { sim, state, player, volvo, traffic, viewer, openViewer, viewerPlay, teleport, interact, toggleCar, startTalk, beginPlay, skipCinematic, shot, renderer, hero, avatar, walkers, npcActors, characters: Object.keys(CHAR) };
 tick();
 </script>
