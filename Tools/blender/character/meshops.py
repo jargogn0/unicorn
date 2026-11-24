@@ -53,12 +53,16 @@ def group_weights(obj, names):
 
 
 def strip_body_helpers(body):
-    """Keep only real skin: drop MakeHuman helper geometry and joint cubes, and delete-group faces."""
+    """Keep only real skin: drop MakeHuman helper geometry and joint cubes."""
     for m in list(body.modifiers):
         if m.type == 'MASK':
             body.modifiers.remove(m)
     keep = group_mask(body, 'body')
     delete_verts(body, ~keep)
+
+
+def apply_delete_groups(body):
+    """Remove the skin that clothing assets declare hidden (MakeHuman 'delete groups')."""
     # MakeHuman delete groups (authored per clothing item): remove faces fully inside
     for vg in [g for g in body.vertex_groups if g.name.startswith('Delete.')]:
         dm = group_mask(body, vg.name)

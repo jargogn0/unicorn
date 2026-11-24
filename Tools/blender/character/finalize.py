@@ -72,10 +72,11 @@ def finalize(cfg, in_blend=None, out_blend=None):
     M.strip_body_helpers(body)
     height_raw = M.coords(body)[:, 2].max()
 
-    # full-body copy as a skin-weight source for edited / custom garments
+    # full-body copy (before any skin is removed) as surface / skin-weight source for edited and authored garments
     C.activate(body); bpy.ops.object.duplicate()
     ref = bpy.context.active_object; ref.name = 'stk_weight_ref'; del ref['stk_role']
     for m in list(ref.modifiers): ref.modifiers.remove(m)
+    M.apply_delete_groups(body)
 
     # 2. garment edits / custom geometry (hair cap, hood, pocket, logo ...)
     for hook in cfg.get('hooks', []):

@@ -6,7 +6,8 @@ from . import common as C
 
 def join_meshes(rig, name):
     meshes = [o for o in bpy.data.objects if o.type == 'MESH' and o.get('stk_role')]
-    order = ['body', 'eyes', 'hoodie', 'pocket', 'jeans', 'shoes', 'hair', 'logo', 'eyebrows', 'eyelashes']
+    order = ['body', 'eyes', 'teeth', 'hoodie', 'hood', 'pocket', 'ribs', 'strings', 'jeans', 'cuffs', 'shoes', 'boots',
+             'laces', 'watch', 'hair', 'logo', 'eyebrows', 'eyelashes']
     meshes.sort(key=lambda o: order.index(o['stk_role']) if o['stk_role'] in order else 50)
     for o in meshes:
         for uv in o.data.uv_layers:
@@ -27,6 +28,10 @@ def join_meshes(rig, name):
             m.object = rig
     # merge duplicate material slots (hoodie + pocket share one material)
     bpy.ops.object.material_slot_remove_unused()
+    from . import hero
+    morphs = hero.attrs_to_shape_keys(mesh)          # 'mt_*' delta attributes -> shape keys -> glTF morph targets
+    if morphs:
+        print('morph targets:', morphs)
     return mesh
 
 
@@ -78,7 +83,7 @@ def export_glb(rig, mesh, path):
               export_skins=True, export_animations=True, export_animation_mode='NLA_TRACKS',
               export_force_sampling=True, export_frame_step=1, export_optimize_animation_size=True,
               export_image_format='AUTO', export_materials='EXPORT', export_texcoords=True, export_normals=True,
-              export_tangents=False, export_morph=False, export_cameras=False, export_lights=False,
+              export_tangents=False, export_morph=True, export_morph_normal=False, export_morph_tangent=False, export_cameras=False, export_lights=False,
               export_extras=False, export_def_bones=False, export_all_influences=False,
               export_anim_slide_to_zero=True, export_negative_frame='SLIDE')
     props = bpy.ops.export_scene.gltf.get_rna_type().properties.keys()
@@ -94,5 +99,6 @@ def export_glb(rig, mesh, path):
                  vertices=sum(js['accessors'][p['attributes']['POSITION']]['count'] for me in js['meshes'] for p in me['primitives']),
                  joints=len(js['skins'][0]['joints']), materials=[m['name'] for m in js['materials']],
                  images=len(js.get('images', [])),
+                 morph_targets=(js['meshes'][0].get('extras') or {}).get('targetNames', []),
                  animations={a['name']: max(js['accessors'][s['input']]['count'] for s in a['samplers']) for a in js.get('animations', [])})
     return stats
