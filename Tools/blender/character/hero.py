@@ -98,7 +98,10 @@ def capture_morphs(cfg, basemesh, proxies):
             keys[unit].value = max(w, rest.get(unit, 0.0))
         d = mix() - neutral
         set_attr(basemesh, 'mt_' + name, d)
-        print('morph', name, 'body verts moved', int((np.abs(d).max(1) > 1e-5).sum()), 'max', float(np.abs(d).max()))
+        left = neutral[:, 0] > 0.002; right = neutral[:, 0] < -0.002
+        print('morph', name, 'body verts moved', int((np.abs(d).max(1) > 1e-5).sum()), 'max', round(float(np.abs(d).max()), 4),
+              '| symmetry check: sum|d| left', round(float(np.abs(d[left]).sum()), 3), 'right', round(float(np.abs(d[right]).sum()), 3),
+              'net sideways', round(float(d[:, 0].sum()), 4))
         for r, (o, _) in proxies.items():
             CS.fit_clothes_to_human(o, basemesh, mh[r], set_parent=False)
             set_attr(o, 'mt_' + name, M.coords(o) - pn[r])
@@ -251,7 +254,7 @@ def face_landmarks(R, rig):
     return L
 
 
-def face_paint(tone=None, hair_rgb=(30, 20, 17), cfg_jaw=0.0):
+def face_paint(tone=None, hair_rgb=(30, 20, 17), cfg_jaw=0.0, base_rough=0.42):
     """Skin texture post-process for the hero head: warm tone lift, then crisp facial hair (thin moustache, soul
     patch, goatee, jaw-line stubble), a faded short-hair gradient on the sides / back of the scalp and a slight
     warm flush on ears and nose - all painted by projecting 3D stencils (positioned from measured landmarks)
@@ -325,10 +328,10 @@ def face_paint(tone=None, hair_rgb=(30, 20, 17), cfg_jaw=0.0):
             zs_ = np.array(zs_); okb = ~np.isnan(zs_); zs_ = np.interp(xs_, xs_[okb], zs_[okb])
             u = np.clip((ax - bx0) / (bx1 - bx0), 0, 1)
             zb = np.interp(ax, xs_, zs_) + 0.0026 + 0.0032 * np.sin(np.pi * u ** 0.85) - 0.0015 * u ** 2
-            hb_ = 0.0034 * (0.82 + 0.35 * np.sin(np.pi * np.clip(u * 0.9, 0, 1))) * (1 - 0.72 * u ** 2.2)
+            hb_ = 0.0038 * (0.82 + 0.35 * np.sin(np.pi * np.clip(u * 0.9, 0, 1))) * (1 - 0.72 * u ** 2.2)
             ends_ = _smooth(-0.04, 0.12, (ax - bx0) / (bx1 - bx0)) * (1 - _smooth(0.93, 1.04, (ax - bx0) / (bx1 - bx0)))
             brow = band(np.abs(Z - zb), hb_, 0.0016) * ends_ * valid * (Y < L['eye_y'] + 0.04) * (Z > L['eye_z'])
-        solid = np.clip(np.maximum.reduce([mous * 0.90, soul * 0.80, goat * 0.88, brow * 0.86]), 0, 1)
+        solid = np.clip(np.maximum.reduce([mous * 0.90, soul * 0.80, goat * 0.88, brow * 0.92]), 0, 1)
         light = np.clip(jaw * cfg_jaw, 0, 1)                  # (mouth-corner lines read as creases: left out)
         alpha = np.clip(solid * (0.62 + 0.30 * streak + 0.08 * grain) + (1 - solid) * light * (0.25 + 0.75 * streak), 0, 1)[..., None]
         hair = np.array(hair_rgb, np.float32) / 255.0
@@ -347,6 +350,15 @@ def face_paint(tone=None, hair_rgb=(30, 20, 17), cfg_jaw=0.0):
         nose = valid * (1 - _smooth(0.008, 0.02, np.sqrt(X ** 2 + (Z - L['nose_z']) ** 2 + (Y - L['nose_y']) ** 2)))
         flush = np.clip(np.maximum(ear, nose * 0.35), 0, 1)[..., None]
         out = out * (1 + flush * (np.array([1.07, 0.93, 0.90], np.float32) - 1))
+        # roughness map: skin keeps a soft sheen, painted hair (brows, moustache, beard, faded scalp) is matt so
+        # it never flashes grey under a light
+        hairy = np.clip(np.maximum(alpha[..., 0], sc[..., 0] * dens[..., 0]), 0, 1)
+        rough = base_rough + (0.88 - base_rough) * hairy
+        orm = np.zeros((size, size, 3), np.float32); orm[..., 0] = 1.0; orm[..., 1] = rough
+        rs = max(256, size // 2)
+        rp = MT.save_tex(Image.fromarray((orm * 255).astype(np.uint8), 'RGB').resize((rs, rs), Image.LANCZOS),
+                         'hero_body_orm', quality=88)
+        body['stk_rough_tex'] = rp
         print('face paint:', {k: round(v, 4) for k, v in L.items() if not k.startswith('prof')})
         return Image.fromarray(np.clip(out * 255, 0, 255).astype(np.uint8), 'RGB')
     return post
@@ -369,7 +381,7 @@ def hightop_hair(cfg, R, ref, rig):
     Hh = z_top - chin
     t = np.clip((co[:, 1] - y_front) / (y_back - y_front), 0, 1)
     tp = hc.get('line_t', [0.00, 0.08, 0.18, 0.30, 0.50, 0.70, 0.85, 1.00])
-    hp = hc.get('line_h', [0.835, 0.835, 0.800, 0.745, 0.715, 0.660, 0.540, 0.430])
+    hp = hc.get('line_h', [0.835, 0.835, 0.800, 0.745, 0.715, 0.640, 0.490, 0.370])
     line = chin + Hh * np.interp(t, tp, hp)
     scalp = head & (co[:, 2] > line)
     bm = bmesh.new(); bm.from_mesh(ref.data); _strip_layers(bm); bm.verts.ensure_lookup_table()
@@ -731,7 +743,6 @@ def build_hoodie(cfg, R, ref, rig):
     info = {}
     for lp in loops:
         c = sum((v.co for v in lp), Vector()) / len(lp)
-        print('hoodie loop', len(lp), tuple(round(x, 3) for x in c), 'z_hem', round(z_hem, 3))
         if abs(c.x) > 0.25:
             s_ = 'Left' if c.x > 0 else 'Right'
             tmp = [rb.verts.new(v.co) for v in lp]
@@ -1148,6 +1159,8 @@ def smartwatch(cfg, R, ref, rig):
     bm.normal_update()
     for f in bm.faces:
         if f.normal.dot(f.calc_center_median() - P) < 0: f.normal_flip()
+    bm.faces.ensure_lookup_table()
+    mat_idx = [f.material_index for f in bm.faces]          # re-applied once the three slots exist
     o = _new_obj('stk_watch', 'watch', rig, bm); tb.free()
     vg = o.vertex_groups.new(name=BP + 'LeftForeArm'); vg.add(list(range(len(o.data.vertices))), 1.0, 'REPLACE')
     am = o.modifiers.new('Armature', 'ARMATURE'); am.object = rig
@@ -1156,5 +1169,6 @@ def smartwatch(cfg, R, ref, rig):
     glass = MT.make_material(cfg['name'] + '_watch_glass', color=(0.012, 0.012, 0.016), roughness=0.08)
     o.data.materials.clear()
     for m_ in (band, case, glass): o.data.materials.append(m_)
-    o['stk_custom_mat'] = True
+    o.data.polygons.foreach_set('material_index', mat_idx)
+    o['stk_custom_mat'] = True; o['stk_keep_flat'] = True
     print('watch faces', len(o.data.polygons))

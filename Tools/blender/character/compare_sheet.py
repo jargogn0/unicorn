@@ -74,14 +74,26 @@ def main(glb, ref_path, out_dir):
     body = []
     for lab, az in (('front', 0), ('side', 90), ('back', 180), ('threeq', 38)):
         p = os.path.join(tmp, f'b_{lab}.png'); RU.shot(p, az, target=(0, 0, height * 0.495), dist=12.6, lens=200, elev_deg=1.5); body.append(p)
-    eye_z = height * 0.925
     RU.setup_render((760, 800), 64)
     faces = {}
+    # face camera is placed relative to the (animated) head bone, so the close-up is a true front-ish view of the
+    # face whatever the Idle pose is doing with the head
+    hb = arm.pose.bones['Head']; rest = arm.data.bones['Head']
+    Rm = (arm.matrix_world.to_3x3() @ hb.matrix.to_3x3()) @ rest.matrix_local.to_3x3().inverted()
+    fwd = (Rm @ Vector((0, -1, 0))).normalized(); up = (Rm @ Vector((0, 0, 1))).normalized()
+    head_pos = arm.matrix_world @ hb.head
+    centre = head_pos + up * 0.085 + fwd * 0.03
+    from mathutils import Matrix
+    view = (Matrix.Rotation(math.radians(-14), 3, up) @ fwd).normalized()
+    cam = bpy.context.scene.camera; cam.data.lens = 100
+    cam.location = centre + view * 1.02
+    zc = view; yc = (up - zc * up.dot(zc)).normalized(); xc = yc.cross(zc)
+    cam.rotation_euler = Matrix((xc, yc, zc)).transposed().to_euler()
     for lab, mode, smile in (('studio_smile', 'studio', 1.0), ('studio_neutral', 'studio', 0.0),
                              ('interior_smile', 'interior', 1.0), ('interior_neutral', 'interior', 0.0)):
         lighting(mode); set_morph(meshes, 'Smile', smile)
         p = os.path.join(tmp, f'f_{lab}.png')
-        RU.shot(p, -16, target=(0, 0, eye_z - 0.030), dist=1.02, lens=100, elev_deg=1); faces[lab] = p
+        bpy.context.scene.render.filepath = p; bpy.ops.render.render(write_still=True); faces[lab] = p
     ref = Image.open(ref_path).convert('RGB')
     ref_body = ref.crop((0, 20, 1010, 1000)); ref_face = ref.crop((1046, 36, 1420, 432))
     # --- sheet 1: reference row above, render row below (four body views + smiling face)

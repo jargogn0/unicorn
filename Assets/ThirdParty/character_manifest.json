@@ -1,6 +1,6 @@
 {
  "generated_by": "Tools/blender/character/update_manifest.py (asset list derived from Tools/blender/character/configs.py; licences read from each .mhclo/.mhmat header; a non CC0 / CC BY header aborts the update)",
- "date": "2026-11-23 (story NPCs npc_noor, npc_sami, npc_aditi, npc_elin, npc_mateo, npc_helena appended)",
+ "date": "2026-11-24 (doudou rebuilt against ArtReference/doudou_character_sheet.webp; story NPCs appended 2026-11-23)",
  "outputs": [
   "WebPreview/assets/characters/doudou.glb",
   "WebPreview/assets/characters/pedestrian_01.glb",
@@ -197,7 +197,6 @@
    "pack": "makehuman_system_assets_cc0",
    "source_url": "https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
    "used_in": [
-    "doudou",
     "npc_aditi",
     "npc_elin",
     "npc_helena",
@@ -209,6 +208,20 @@
     "pedestrian_03",
     "pedestrian_04"
    ]
+  },
+  {
+   "name": "eyebrow009",
+   "type": "MakeHuman eyebrows",
+   "file": "makehuman_system_assets_cc0/eyebrows/eyebrow009/eyebrow009.mhclo",
+   "author": "MakeHuman team (Data Collection AB, Joel Palmius, Jonas Hauquier)",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0",
+   "pack": "makehuman_system_assets_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+   "used_in": [
+    "doudou"
+   ],
+   "where_used": "doudou: build-time guide only (locates the brow ridge for the painted eyebrows); the proxy mesh and its texture are not in the GLB"
   },
   {
    "name": "eyelashes01",
@@ -460,7 +473,7 @@
    "used_in": [
     "doudou"
    ],
-   "where_used": "doudou: skin texture"
+   "where_used": "doudou: skin texture - tone lifted, facial hair / brows / scalp fade painted on"
   },
   {
    "name": "young_asian_female",
@@ -513,6 +526,20 @@
    "used_in": [
     "npc_mateo"
    ]
+  },
+  {
+   "name": "teeth_base",
+   "type": "MakeHuman teeth",
+   "file": "makehuman_system_assets_cc0/teeth/teeth_base/teeth_base.mhclo",
+   "author": "MakeHuman team (Data Collection AB, Joel Palmius, Jonas Hauquier)",
+   "licence": "CC0 1.0",
+   "licence_as_written_in_file": "CC0",
+   "pack": "makehuman_system_assets_cc0",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+   "used_in": [
+    "doudou"
+   ],
+   "where_used": "doudou: teeth mesh + texture (brightened), polygon-reduced"
   },
   {
    "name": "cortu_cargo_pants",
@@ -593,7 +620,7 @@
     "doudou",
     "npc_mateo"
    ],
-   "where_used": "doudou: jeans mesh, recoloured texture, normal map"
+   "where_used": "doudou: jeans mesh (legs slimmed, hem cut at the boot), recoloured texture with painted wear, normal map; npc_mateo: jeans"
   },
   {
    "name": "elvs_crude_t-shirt_male",
@@ -634,7 +661,6 @@
    "pack": "shirts02_ccby",
    "source_url": "https://files.makehumancommunity.org/asset_packs/shirts02/shirts02_ccby.zip",
    "used_in": [
-    "doudou",
     "npc_mateo",
     "npc_sami"
    ],
@@ -707,10 +733,23 @@
    "pack": "shoes02_ccby",
    "source_url": "https://files.makehumancommunity.org/asset_packs/shoes02/shoes02_ccby.zip",
    "used_in": [
-    "doudou",
     "npc_helena"
    ],
    "where_used": "doudou: white sneakers mesh + textures"
+  },
+  {
+   "name": "mindfront_shoes_biker_boots_male",
+   "type": "MakeHuman clothing",
+   "file": "shoes03_ccby/clothes/mindfront_shoes_biker_boots_male/mindfront_shoes_biker_boots_male.mhclo",
+   "author": "Mindfront (Sweden)",
+   "licence": "CC BY 4.0",
+   "licence_as_written_in_file": "CC BY 4.0",
+   "pack": "shoes03_ccby",
+   "source_url": "https://files.makehumancommunity.org/asset_packs/shoes03/shoes03_ccby.zip",
+   "used_in": [
+    "doudou"
+   ],
+   "where_used": "doudou: boots - shaft cut to ankle height, widened / heightened, recoloured dark brown, polygon-reduced; laces and collar added"
   },
   {
    "name": "punkduck_winter_boots",
@@ -754,19 +793,19 @@
  ],
  "authored_in_this_repo": [
   {
-   "name": "Doudou hair cap (short tight curls)",
-   "how": "procedural shell grown from the scalp of the CC0 base mesh + generated curl normal/colour texture (garments.scalp_shell)",
-   "licence": "project-owned"
+   "name": "Doudou hero build (Tools/blender/character/hero.py)",
+   "licence": "project-owned (geometry derived from the CC0 MakeHuman base mesh)",
+   "how": "pullover hoodie (torso/sleeve shell cut from the body surface, hood, kangaroo pocket, drawstrings, separate rib cuffs and hem band, generated fleece + rib textures); high-top hair (scalp shell + ~540 low-poly curl clumps); silver smartwatch; jeans cuffs; boot laces and collar"
   },
   {
-   "name": "Hoodie conversion",
-   "how": "Elvaerwyn hooded sweat jacket (CC BY) reshaped: zip closed to collarbone, chest flattened, draped, hem lengthened; texture replaced by generated lavender #9B87B8 fleece",
-   "licence": "derivative of a CC BY asset - attribution required"
+   "name": "Doudou face work",
+   "licence": "project-owned edits of the CC0 skin texture / CC0 MakeHuman targets",
+   "how": "MakeHuman detail targets tuned against the sheet; glTF morph targets Smile and Blink composed from MakeHuman expression units (CC0); skin tone lift, painted eyebrows, moustache, goatee, scalp fade, roughness map (hero.face_paint)"
   },
   {
-   "name": "Kangaroo pocket, chest logo decal",
-   "how": "generated geometry projected on the hoodie; octopus mark drawn in code (materials.octopus_logo), not derived from any existing logo",
-   "licence": "project-owned"
+   "name": "Chest mark: octopus + \"Octopus\" wordmark",
+   "licence": "the owner's own brand mark; redrawn in code from the character sheet swatch (hero.octopus_wordmark)",
+   "how": "vector-style drawing rasterised with Pillow; the word is set in Inter Medium (SIL Open Font License 1.1, system font /usr/share/fonts/opentype/inter) - only the rendered pixels are shipped"
   },
   {
    "name": "Scarves, beanie (pedestrians)",
@@ -814,5 +853,9 @@
    "name": "callharvey3d_midtoned_female (skins01_cc0 pack)",
    "reason": "file carries GPL-style licence text - not used"
   }
- ]
+ ],
+ "reference": {
+  "file": "ArtReference/doudou_character_sheet.webp",
+  "note": "owner's original character sheet; doudou.glb is built to match it"
+ }
 }

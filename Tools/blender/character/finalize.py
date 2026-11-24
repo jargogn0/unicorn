@@ -52,6 +52,7 @@ def build_materials(cfg):
         col = rc.get('color', mh.get('diffuseColor', (0.8, 0.8, 0.8)) if not bp else (1, 1, 1))
         m = MT.make_material(f'{name}_{role}', base=bp, color=col, roughness=rc.get('rough', 0.8), normal=npth,
                              normal_strength=rc.get('normal_strength', 1.0), alpha=alpha, emissive=rc.get('emissive', 0.0),
+                             rough_tex=o.get('stk_rough_tex'),
                              double_sided=rc.get('double_sided', role not in ('body', 'eyes')))
         MT.assign(o, m)
 
@@ -138,7 +139,8 @@ def finalize(cfg, in_blend=None, out_blend=None):
     for o in roles().values():
         M.keep_only_bone_groups(o, rig)
         M.limit_normalize(o, 4)
-        for p in o.data.polygons: p.use_smooth = True
+        if not o.get('stk_keep_flat'):
+            for p in o.data.polygons: p.use_smooth = True
     bpy.data.objects.remove(ref, do_unlink=True)
 
     # 6. scale to target height (top of skull), apply transforms

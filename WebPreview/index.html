@@ -1695,7 +1695,7 @@ class RigPerson {
     if (opts.rigidHair) m.traverse((o) => { if (!o.isSkinnedMesh || !/_hair$/.test(o.material.name) || o.userData.rigid) return;
       const hi = o.skeleton.bones.findIndex((b) => b.name === 'Head'); if (hi < 0) return; const si = o.geometry.attributes.skinIndex, sw = o.geometry.attributes.skinWeight;
       for (let i = 0; i < si.count; i++) { si.setXYZW(i, hi, 0, 0, 0); sw.setXYZW(i, 1, 0, 0, 0); } si.needsUpdate = sw.needsUpdate = true; o.userData.rigid = true; });
-    this.smile = 0; this.smileWant = opts.smile ?? 0.85; this.blinkT = 2 + Math.random() * 3;
+    this.smile = 0; this.smileWant = opts.smile ?? 0.45; // a gentle smile reads more natural than the full expression this.blinkT = 2 + Math.random() * 3;
     this.mixer = new THREE.AnimationMixer(m); this.act = {};
     for (const c of src.animations) this.act[c.name] = this.mixer.clipAction(c);
     for (const n of ['Interact', 'Agree', 'HeadShake']) if (this.act[n]) { this.act[n].setLoop(THREE.LoopOnce, 1); this.act[n].clampWhenFinished = true; }
@@ -1729,7 +1729,7 @@ class RigPerson {
   }
   updateFace(dt, speed) {
     if (!this.faces.length) return;
-    const want = this.smileOverride ?? (speed > 2.4 ? 0.25 : speed > 0.15 ? 0.55 : this.smileWant);
+    const want = this.smileOverride ?? (speed > 2.4 ? 0.12 : speed > 0.15 ? 0.3 : this.smileWant);
     this.smile = lerp(this.smile, want, 1 - Math.exp(-dt * 4)); this.blinkT -= dt; if (this.blinkT < -0.14) this.blinkT = 2.5 + Math.random() * 3.5;
     const blink = this.blinkT < 0 ? Math.sin(-this.blinkT / 0.14 * Math.PI) : 0;
     for (const f of this.faces) { const d = f.morphTargetDictionary; if ('Smile' in d) f.morphTargetInfluences[d.Smile] = this.smile; if ('Blink' in d) f.morphTargetInfluences[d.Blink] = blink; }
@@ -2590,7 +2590,7 @@ function buildViewer() {
   const key = new THREE.DirectionalLight(0xfff3e8, 2.6); key.position.set(2.2, 4.2, -3.2); key.castShadow = true; key.shadow.mapSize.set(2048, 2048); key.shadow.bias = -0.0004; key.shadow.normalBias = 0.02; Object.assign(key.shadow.camera, { left: -1.5, right: 1.5, top: 2.4, bottom: -0.2, near: 0.5, far: 12 }); sc.add(key);
   const rim = new THREE.DirectionalLight(0xd6dcff, 1.7); rim.position.set(-2.6, 3.2, 3.4); sc.add(rim);
   sc.add(new THREE.HemisphereLight(0xffffff, 0x3c3a40, 0.55));
-  viewer.rig = new RigPerson('doudou', { noCull: true, parent: sc, smile: 1, rigidHair: true });
+  viewer.rig = new RigPerson('doudou', { noCull: true, parent: sc, smile: 0.45, rigidHair: true });
   viewer.cam = new THREE.PerspectiveCamera(28, innerWidth / innerHeight, 0.05, 60); viewer.scene = sc; return true;
 }
 function viewerPlay(name) {
@@ -2605,7 +2605,7 @@ function closeViewer() { $('viewer').hidden = true; $('title').hidden = false; $
 function updateViewer(dt) {
   const r = viewer.rig; if (!viewer.drag) viewer.yaw += dt * 0.12;
   if (r.once && r.act[r.once] && !r.act[r.once].isRunning()) { r.once = null; viewerPlay('Idle'); }
-  r.smileOverride = viewer.clip === 'Run' ? 0.3 : viewer.clip === 'Walk' ? 0.7 : viewer.clip === 'HeadShake' ? 0.15 : 1;
+  r.smileOverride = viewer.clip === 'Run' ? 0.12 : viewer.clip === 'Walk' ? 0.3 : viewer.clip === 'HeadShake' ? 0 : viewer.clip === 'Agree' ? 0.6 : 0.45;
   r.updateFace(dt, 0); r.mixer.update(dt);
   const d = viewer.face ? 1.0 : viewer.dist, ty = viewer.face ? 1.63 : 0.86;
   viewer.cam.aspect = innerWidth / innerHeight; viewer.cam.updateProjectionMatrix();

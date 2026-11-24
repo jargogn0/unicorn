@@ -15,7 +15,7 @@ CONFIGS['doudou'] = dict(
     macro=dict(gender=1.0, age=0.42, muscle=0.50, weight=0.43, height=0.5, proportions=0.85,
                race=dict(asian=0.0, caucasian=0.0, african=1.0)),
     # face / body detail targets tuned against the sheet's face close-up and front view
-    targets=[('head-oval', 0.30),
+    targets=[('head-oval', 0.30), ('head-scale-horiz-decr', 0.22),
              ('chin-prominent-incr', 0.20), ('chin-bones-incr', 0.25),
              ('mouth-scale-horiz-incr', 0.55), ('mouth-angles-up', 0.80), ('mouth-trans-up', 0.25),
              ('neck-scale-vert-incr', 0.45), ('neck-scale-horiz-decr', 0.25),
@@ -32,10 +32,12 @@ CONFIGS['doudou'] = dict(
     eye_mat=SYS + '/eyes/materials/brown.mhmat',
     eyebrows=SYS + '/eyebrows/eyebrow009/eyebrow009.mhclo', eyelashes=LASHES,
     teeth=SYS + '/teeth/teeth_base/teeth_base.mhclo',
-    neutral_expression=[('mouth-corner-puller', 0.22)],        # calm, pleasant resting face
+    neutral_expression=[('mouth-corner-puller', 0.22), ('eye-left-slit', 0.22), ('eye-right-slit', 0.22)],   # calm, pleasant resting face
     morphs=dict(
-        Smile=[('mouth-corner-puller', 0.45), ('mouth-upward-retraction', 0.78), ('mouth-retraction', 0.8),
-               ('mouth-elevation', 0.15), ('mouth-part-later', 0.27), ('eye-left-slit', 0.45), ('eye-right-slit', 0.45),
+        # symmetric units only: corners up and back + cheeks (corner-puller), upper lip lifted off the upper teeth
+        # (upward-retraction / elevation), a very small jaw drop; no lateral 'part' unit - it drags chin and beard
+        Smile=[('mouth-corner-puller', 0.85), ('mouth-upward-retraction', 1.0), ('mouth-elevation', 0.20),
+               ('mouth-retraction', 0.40), ('mouth-open', 0.06), ('eye-left-slit', 0.62), ('eye-right-slit', 0.62),
                ('eyebrows-left-up', 0.30), ('eyebrows-right-up', 0.30)],
         Blink=[('eye-left-closure', 1.0), ('eye-right-closure', 1.0)]),
     clothes=[('jeans', 'pants02_ccby/clothes/punkduck_male_classic_jeans/punkduck_male_classic_jeans.mhclo'),
