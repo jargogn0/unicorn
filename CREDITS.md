@@ -21,6 +21,10 @@ Third-party material used by the STOCKHOLM project. Machine-readable lists with 
 - Animation: retargeted from `Xbot.glb` in the three.js r160 examples (three.js is MIT-licensed). The motion data originates from Adobe Mixamo, which Adobe licenses royalty-free for use in projects. Only the retargeted clips baked into this project's characters are shipped, not the source file.
 - Doudou's hair shell, the hoodie pocket and the octopus chest logo were authored in this project. The logo is drawn in code and is not derived from any existing mark.
 
+## Vehicles and trees
+
+- Cars, bicycle, bike rack and winter trees were modelled procedurally in this project (`Tools/blender/build_vehicles.py`, `Tools/blender/build_winter_tree.py`). The number plate is fictional and has no emblem; the plate text was rasterised with DejaVu Sans Bold (Bitstream Vera / DejaVu licence; the font is not shipped). Tree bark is Poly Haven `bark_willow` (CC0).
+
 ## Engine and libraries
 
 - three.js r160 (MIT) for the browser preview.

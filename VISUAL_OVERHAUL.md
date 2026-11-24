@@ -55,6 +55,7 @@ The full machine-readable lists with every file URL are `Assets/ThirdParty/polyh
 | planter_box_01, utility_box_01, water_manhole_cover, street_lamp_01 | Models | Poly Haven | CC0 | Street dressing |
 | bark_willow | PBR texture set | Poly Haven | CC0 | Winter street trees |
 | Winter street trees (3 variants) | Modelled here in Blender | This project | Project-owned | Sveavägen |
+| Estate, saloon and hatchback cars; city bicycle; bike rack | Modelled here in Blender (`Tools/blender/build_vehicles.py`) | This project | Project-owned (manifest: `Assets/ThirdParty/vehicle_manifest.json`) | Player car, traffic, 30 parked cars, 42 parked bicycles |
 | Kungsgatan map extract | Geodata | OpenStreetMap | ODbL 1.0 | Footprints, storeys, road widths, bridges |
 | Human base mesh, rig, skins, eyes, hair, system clothes | Character base | MakeHuman / MPFB2 | CC0 | Doudou and the pedestrians |
 | Hooded jacket (Elvaerwyn), jeans and shoes (punkduck), cardigans and trousers (Mindfront) | Clothing | MakeHuman community packs | CC BY (attribution in CREDITS.md) | Doudou's hoodie, jeans and sneakers; pedestrian outfits. All modified. |
@@ -65,8 +66,8 @@ Downloaded but not yet used: brick_wall_006, cobblestone_floor_08, grey_roof_01,
 
 **Not acquired (blockers):**
 - **A Nordic architectural kit from Fab or Megascans:** needs an Epic account. The facade kit here was modelled from scratch instead. It is real modelled architecture, not sourced scans, and it is simpler than a commercial kit.
-- **Realistic cars:** no CC0 realistic vehicles were reachable without a login. Traffic and parked cars are still the owner's sedan blockout and box cars. This is the most visible remaining weakness on the street.
-- **Bicycles, winter trees, bus shelters:** not available on Poly Haven. Winter trees are now modelled here (see Phase 3); bus shelters are not built yet, and a bicycle is being modelled.
+- **Realistic third-party cars and bicycles:** none with a usable licence was downloadable without a login. Poly Haven has only a car under a tarp. The Khronos concept car carries trademarks, OpenGameArt's are toy or low-poly, and Sketchfab needs an account. **So the cars and bicycle were modelled here in Blender instead** (see Phase 3).
+- **Bus shelters:** not available and not built.
 
 ## Phase 3: one street, rebuilt
 
@@ -84,6 +85,11 @@ Downloaded but not yet used: brick_wall_006, cobblestone_floor_08, grey_roof_01,
 - **Street.** Scanned asphalt with slush at the edges, dashed lane lines, zebra crossings at junctions, granite kerbs, ploughed snowbanks, scanned paving slabs.
 - **Dressing.** 248 placed props, 51 lamps (suspended on wires across Kungsgatan, as in Stockholm, and post lamps on side streets), and winter garlands of 624 bulbs.
 - **Shops.** Lit interiors behind real glazing, with fourteen fictional shop signs.
+- **Vehicles.** Three car models (estate, saloon, hatchback; about 23,000 triangles each) with curved bodies, glazing, pillars, lamps, a grille, mirrors, a fictional number plate and separate wheels that roll and steer. The player's car and all traffic use them. 30 cars are parked kerbside along the OSM side streets, and 42 city bicycles stand in groups on the Kungsgatan pavements. Parked cars and bicycles are drawn as instances with per-vehicle paint colours. QA renders are in `docs/vehicle_renders/`.
+  - Honest assessment: they read as believable cars at 10–30 m, but up close they are generic traffic cars, not hero assets.
+  - All three share one front end and one wheel design.
+  - The shut lines are painted into the texture, not modelled.
+  - The interiors are block silhouettes. The bicycles have no chain or cables.
 - **Trees.** 80 bare winter limes line Sveavägen, which is a tree-lined boulevard in reality; Kungsgatan itself has none. `Tools/blender/build_winter_tree.py` grows three variants (about 9,000–11,700 triangles each) as branching tubes with UVs for the scanned bark, plus snow strips on the upper side of the limbs. They are drawn as instances. QA renders are in `docs/prop_renders/`.
 
 Current counts: 2,734 facade bays, 97,219 kit instances.
@@ -94,12 +100,14 @@ Current counts: 2,734 facade bays, 97,219 kit instances.
 
 - **Doudou.** A rigged human built in headless Blender (`Tools/blender/build_character.py`) on the MakeHuman base: 1.82 m, lavender OctOpus hoodie (#9B87B8) with chest logo and pocket, washed-blue jeans, white sneakers. 52-joint skeleton, 49,202 triangles, textures up to 1024 px, 3.5 MB.
 - **Animation.** Seven clips at 30 fps, all looping cleanly in place: Idle, Walk, Run, Talk, Interact, Agree, HeadShake. Idle, Walk, Run, Agree and HeadShake are retargeted motion capture; Talk and Interact are hand-keyed.
-- **In the game.** The character is driven by a small state machine with cross-fades: Idle below 0.15 m/s, Walk up to 2.4 m/s, Run above that, with playback speed matched to ground speed. Talk plays while Doudou speaks in dialogue, and Interact plays when the player uses something. Turning is a smoothed heading change with a lean into the turn.
+- **In the game.** The character is driven by a small state machine with cross-fades: Idle below 0.15 m/s, Walk up to 2.4 m/s, Run above that, with playback speed matched to ground speed. Talk plays while Doudou speaks in dialogue, and Interact plays when the player uses something.
+- **Turning.** Asking to go roughly the opposite way from a standstill makes Doudou pivot on the spot (a Turn state that steps the in-place walk cycle) before moving off; while moving, the character leans into turns. Story NPCs turn smoothly to face the player.
+- **Verified sequence.** In the running game, the logged states were Idle → Turn → Walk → Run, and Talk and Interact were checked directly.
 - **Camera.** Closer over-the-shoulder framing (3.9 m, offset 0.55 m), and the camera now pulls in instead of passing through walls.
 - **Pedestrians.** Four rigged variants (a man in his 50s, a woman around 30, a woman in her 60s, a man in his 20s) at about 30,000 triangles each, with clothing tints for variety. 30 walk the streets; those beyond 150 m are not drawn or animated.
 
 **Shortfalls, stated plainly:**
-- There are no turn-in-place clips; the turn is procedural.
+- There is no dedicated motion-capture turn clip; the turn reuses the walk cycle.
 - The face is a generic MakeHuman face with a neutral expression, not a likeness of the reference art, and it has no facial rig, so lips do not move in dialogue.
 - The hoodie reads slightly puffy and has no ribbed cuffs. The hair is a textured shell, not strands.
 - Talk and Interact are serviceable keys, not motion capture, and the fingers do not articulate.
@@ -137,6 +145,9 @@ Before/after pairs from the same camera, in `docs/visual_overhaul/`:
 - `C_kungsgatan_night_before_after.jpg`
 - `D_shopfront_dusk_before_after.jpg`
 - `E_doudou_dusk_before_after.jpg`, `F_doudou_day_before_after.jpg`, `G_doudou_night_before_after.jpg`: the same three street cameras with the player and pedestrians in frame, old figures against rigged characters.
+- `H_parked_cars.jpg`, `I_bicycles.jpg`, `J_sveavagen_trees.jpg`, `K_story_npc_noor.jpg`: modelled cars, bicycles, winter trees and a story NPC in the running game.
+
+The A–D pairs were re-shot with the final build.
 
 Facade kit QA renders (Blender Cycles) were inspected during the build.
 
@@ -144,28 +155,35 @@ Facade kit QA renders (Blender Cycles) were inspected during the build.
 
 | Metric | Value |
 |---|---|
-| Draw calls per frame at the hero street | 524 |
-| Triangles per frame, including the shadow pass and characters | ~3.75 million |
-| Page load | ~14 s (the five character models add about 18 MB) |
+| Draw calls per frame at the hero street | 753 (parked cars and bicycles are instanced; before instancing it was 1,038) |
+| Triangles per frame, including the shadow pass, characters and vehicles | ~5.8 million |
+| Page load | 11–14 s locally (character models add about 35 MB of wrapped data, vehicles about 2.5 MB) |
 | Frame time in software WebGL | 1.2–3.1 s depending on machine load (not representative of any GPU) |
 
-**GPU frame rate has not been measured.** 3.75 million triangles is fine for a discrete GPU and likely too heavy for integrated graphics, which is what the Low setting and its automatic fallback are for. The fallback logic has not been exercised on real hardware.
+**GPU frame rate has not been measured.** 5.8 million triangles is fine for a discrete GPU and too heavy for integrated graphics, which is what the Low setting and its automatic fallback are for. Low halves the triangle count by dropping the shadow pass. The fallback logic has not been exercised on real hardware. The next optimisation is distance LODs for cars and facade modules.
 
 ## Honest status
 
-The street now has real architecture, materials and street furniture on real geography, with a rigged, animated player and pedestrians. It is a clear step up from the prototype. It is not GTA-quality:
+Kungsgatan and its side streets now have:
+- real architecture on real OSM geography, with scanned materials and street furniture;
+- winter trees on Sveavägen;
+- modelled cars, parked cars and bicycles;
+- a rigged, animated player, story NPCs and pedestrians.
 
-- The cars are still blockouts. Modelled replacements are in progress.
-- The character has no facial animation and no turn-in-place clips.
-- The facade kit is one modeller-day of work rather than a commercial kit.
-- There are no reflections on wet asphalt, no bicycles and no bus shelters.
-- Nothing has run on a GPU.
-- Only this one area is rebuilt; the rest of the city is still the stylized blockout.
+The rendered frames in `docs/visual_overhaul/` show this. It is a large step up from the prototype, but **it is not GTA-quality**:
+
+- **Faces.** They are generic, with no facial animation; lips do not move in dialogue.
+- **Vehicles.** The cars are clean but generic up close, and share one front end.
+- **Architecture.** The facade kit is one modeller-day of work rather than a commercial kit; the shop interiors are flat backdrops.
+- **Rendering.** There are no reflections on wet asphalt and no volumetric light.
+- **Missing objects.** There are no bus shelters, and the landlord has no model.
+- **Hardware.** Nothing has run on a GPU, so the frame rate on real hardware is unknown.
+- **Scope.** Only this area is rebuilt; the rest of the city, including the venue interiors, is still the stylized blockout.
+- **Unreal Engine 5.** It has never been compiled or run, which caps the quality a browser build can reach (no Lumen, Nanite or MetaHuman).
 
 ## Next steps, in order
 
-1. Integrate the modelled cars and bicycle when their build finishes.
-2. GPU profiling on real hardware; tune the Low setting from measurements.
-3. Wet-road reflections and bus shelters; a model for the landlord.
-4. Extend the same pipeline to Stureplan, then Gamla Stan (new kit style: narrow 1700s fronts).
-5. Port the kit, characters and placement to Unreal (the FBX kit is already exported to `Stockholm/Content/Import/FacadeKit`).
+1. GPU profiling on real hardware; distance LODs for cars and facade modules; tune the Low setting from measurements.
+2. Wet-road screen-space reflections and bus shelters; a model for the landlord; distinct front ends for the car variants.
+3. Extend the same pipeline to Stureplan, then Gamla Stan (new kit style: narrow 1700s fronts).
+4. Port the kit, characters, vehicles and placement to Unreal (the FBX kit is already exported to `Stockholm/Content/Import/FacadeKit`). That needs a machine with Unreal Engine 5 and a GPU.

@@ -1,0 +1,226 @@
+{
+ "generated_by": "Tools/blender/build_vehicles.py (modelling code in Tools/blender/vehicles/)",
+ "date": "2026-11-24",
+ "licence_summary": "All geometry and textures in these files were authored procedurally in this repository; no third-party model, texture or logo is contained in any GLB. The only third-party input to the shipped files is a font used to rasterise the fictional number plate text.",
+ "authored_here": [
+  {
+   "file": "WebPreview/assets/vehicles/car_estate.glb",
+   "description": "Generic modern estate car (station wagon). Original design, no manufacturer badge or logo.",
+   "author": "STOCKHOLM project (generated in Blender by build_vehicles.py)",
+   "licence": "Project-owned original work",
+   "triangles": 23064,
+   "bytes": 621840,
+   "size_xyz_m_gltf": [
+    2.078,
+    1.469,
+    4.747
+   ],
+   "nodes": [
+    "body",
+    "wheel_fl",
+    "wheel_fr",
+    "wheel_rl",
+    "wheel_rr"
+   ],
+   "materials": [
+    "car_paint",
+    "car_headlight",
+    "car_trim",
+    "car_glass",
+    "car_taillight",
+    "car_interior",
+    "car_chrome",
+    "car_plate",
+    "car_tyre",
+    "car_rim"
+   ],
+   "embedded_images": [
+    "paint_estate",
+    "lamp_head_emis",
+    "lamp_head_base",
+    "lamp_tail_emis",
+    "lamp_tail_base",
+    "plate"
+   ]
+  },
+  {
+   "file": "WebPreview/assets/vehicles/car_sedan.glb",
+   "description": "Saloon variant of the same base: lower rear roofline, rear screen, boot lid.",
+   "author": "STOCKHOLM project (generated in Blender by build_vehicles.py)",
+   "licence": "Project-owned original work",
+   "triangles": 22770,
+   "bytes": 612128,
+   "size_xyz_m_gltf": [
+    2.078,
+    1.451,
+    4.747
+   ],
+   "nodes": [
+    "body",
+    "wheel_fl",
+    "wheel_fr",
+    "wheel_rl",
+    "wheel_rr"
+   ],
+   "materials": [
+    "car_paint",
+    "car_headlight",
+    "car_trim",
+    "car_glass",
+    "car_taillight",
+    "car_interior",
+    "car_chrome",
+    "car_plate",
+    "car_tyre",
+    "car_rim"
+   ],
+   "embedded_images": [
+    "paint_sedan",
+    "lamp_head_emis",
+    "lamp_head_base",
+    "lamp_tail_emis",
+    "lamp_tail_base",
+    "plate"
+   ]
+  },
+  {
+   "file": "WebPreview/assets/vehicles/car_hatch.glb",
+   "description": "Compact five-door hatchback variant: shorter wheelbase and tail, no quarter glass.",
+   "author": "STOCKHOLM project (generated in Blender by build_vehicles.py)",
+   "licence": "Project-owned original work",
+   "triangles": 22824,
+   "bytes": 609388,
+   "size_xyz_m_gltf": [
+    2.032,
+    1.454,
+    4.318
+   ],
+   "nodes": [
+    "body",
+    "wheel_fl",
+    "wheel_fr",
+    "wheel_rl",
+    "wheel_rr"
+   ],
+   "materials": [
+    "car_paint",
+    "car_headlight",
+    "car_trim",
+    "car_glass",
+    "car_taillight",
+    "car_interior",
+    "car_chrome",
+    "car_plate",
+    "car_tyre",
+    "car_rim"
+   ],
+   "embedded_images": [
+    "paint_hatch",
+    "lamp_head_emis",
+    "lamp_head_base",
+    "lamp_tail_emis",
+    "lamp_tail_base",
+    "plate"
+   ]
+  },
+  {
+   "file": "WebPreview/assets/vehicles/bicycle.glb",
+   "description": "City bicycle: diamond frame, 28 inch wheels, mudguards, chain guard, carrier, kickstand.",
+   "author": "STOCKHOLM project (generated in Blender by build_vehicles.py)",
+   "licence": "Project-owned original work",
+   "triangles": 4068,
+   "bytes": 99076,
+   "size_xyz_m_gltf": [
+    0.663,
+    1.119,
+    1.8
+   ],
+   "nodes": [
+    "bicycle",
+    "bike_wheel_f",
+    "bike_wheel_r"
+   ],
+   "materials": [
+    "bike_frame",
+    "bike_metal",
+    "bike_saddle",
+    "bike_tyre"
+   ],
+   "embedded_images": []
+  },
+  {
+   "file": "WebPreview/assets/vehicles/bike_rack.glb",
+   "description": "Row of five galvanised steel hoops on ground rails.",
+   "author": "STOCKHOLM project (generated in Blender by build_vehicles.py)",
+   "licence": "Project-owned original work",
+   "triangles": 1184,
+   "bytes": 31708,
+   "size_xyz_m_gltf": [
+    2.72,
+    0.824,
+    0.86
+   ],
+   "nodes": [
+    "bike_rack"
+   ],
+   "materials": [
+    "rack_steel"
+   ],
+   "embedded_images": []
+  }
+ ],
+ "embedded_textures": "paint_<variant>.png (512 px shut-line atlas), lamp_head_base/emis.png and lamp_tail_base/emis.png (256x128), plate.png (512x112): all drawn by Tools/blender/vehicles/textures.py with Pillow.",
+ "number_plate": "Fictional registration 'STH 47K' on a plain plate with a blank blue band (no national or EU emblem).",
+ "third_party": [
+  {
+   "name": "DejaVu Sans Bold (font)",
+   "author": "DejaVu fonts team, based on Bitstream Vera (Bitstream Inc.)",
+   "licence": "Bitstream Vera / DejaVu Fonts License (free, permissive)",
+   "url": "https://dejavu-fonts.github.io/License.html",
+   "used_for": "Rasterising the plate text into plate.png (the font file itself is not shipped). textures.py falls back to Liberation Sans Bold, FreeSans Bold or Pillow's built-in font if it is missing."
+  },
+  {
+   "name": "Snowy Park 01 (HDRI)",
+   "author": "Poly Haven (see Assets/ThirdParty/polyhaven_manifest.json)",
+   "licence": "CC0 1.0",
+   "url": "https://polyhaven.com/a/snowy_park_01",
+   "used_for": "Lighting of the QA renders in docs/vehicle_renders only (WebPreview/assets/hdri/snowy_park_01.jpg); not part of any vehicle file."
+  },
+  {
+   "name": "Blender (bpy) 5.3, Pillow, numpy",
+   "licence": "GPL-2.0-or-later / MIT-CMU / BSD-3-Clause (build tools only, not redistributed)",
+   "url": "https://www.blender.org/",
+   "used_for": "Mesh construction, Catmull-Clark subdivision, glTF export, Cycles QA renders, texture drawing."
+  }
+ ],
+ "sourcing_check": {
+  "performed": "2026-11-23",
+  "conclusion": "No realistic, redistributable (CC0 / CC BY) car or bicycle model was downloadable without a login, so everything was modelled here.",
+  "checked": [
+   {
+    "source": "Poly Haven model list (api.polyhaven.com/assets?t=models, 522 models)",
+    "result": "No car or bicycle. Only 'covered_car' (a car hidden under a tarpaulin), 'old_tyre' and two rusted wheel rims. Not used."
+   },
+   {
+    "source": "ambientCG 3D models (API)",
+    "result": "No car, bicycle or vehicle models. Not used."
+   },
+   {
+    "source": "Khronos glTF-Sample-Assets",
+    "result": "'CarConcept' (CC BY 4.0, futuristic concept supercar with Khronos trademarks, needs KHR material extensions) and 'ToyCar' (a toy). Neither is a realistic estate car. Not used."
+   },
+   {
+    "source": "OpenGameArt (3D art search: car, bicycle)",
+    "result": "Reachable, but results were toon / low-poly kits, a muscle car from a Wii game, a named real make, and an 820-triangle toon bicycle. Rejected as stylised or carrying a real marque. Not used."
+   },
+   {
+    "source": "Sketchfab, Fab, Quixel",
+    "result": "Downloads need a login. Not used."
+   },
+   {
+    "source": "Wikimedia Commons, free3d",
+    "result": "Requests refused (HTTP 429 / 403) from this environment. Not used."
+   }
+  ]
+ }
+}

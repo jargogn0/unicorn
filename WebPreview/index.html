@@ -679,9 +679,10 @@ const gltf = new GLTFLoader();
 const loadGlbFull = async (url) => { try { const r = await fetch(url + '.json'); if (!r.ok) return null; const { b64 } = await r.json(); const bin = atob(b64); const buf = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i); return await new Promise((res) => gltf.parse(buf.buffer, '', (g) => res(g), () => res(null))); } catch { return null; } };
 const loadGlb = async (url) => (await loadGlbFull(url))?.scene ?? null;
 // Rigged characters (MakeHuman base, built by Tools/blender/build_character.py). DATA.characters lists the ones that exist.
-const CHAR = {};
+const CHAR = {}; const VEH = {}; // vehicles: Tools/blender/build_vehicles.py (front faces -Z, wheels named wheel_fl/fr/rl/rr)
 const [STUDIO_GLB, SEDAN_GLB] = await Promise.all([loadGlb('INT_Founder_Studio_Blockout.glb'), loadGlb('VEH_Scandinavian_Sedan_Blockout.glb'),
-  ...(DATA.characters || []).map(async (n) => { const g = await loadGlbFull(`assets/characters/${n}.glb`); if (g && g.animations.length) CHAR[n] = g; })]);
+  ...(DATA.characters || []).map(async (n) => { const g = await loadGlbFull(`assets/characters/${n}.glb`); if (g && g.animations.length) CHAR[n] = g; }),
+  ...(DATA.vehicles || []).map(async (n) => { const g = await loadGlb(`assets/vehicles/${n}.glb`); if (g) VEH[n] = g; })]);
 function zUpFix(obj) { obj.rotation.x = -Math.PI / 2; const holder = new THREE.Group(); holder.add(obj); return holder; }
 const sim = new Sim(DATA);
 const LAYOUT = DATA.layout;
@@ -1538,7 +1539,7 @@ async function buildHeroStreet() {
       const side = slot % 2 ? 1 : -1; const off = w.width / 2 + (big ? 2.1 : 1.3); const x = p.x - dy * off * side, y = p.y + dx * off * side; const yaw = Math.atan2(dx, dy) + (side > 0 ? Math.PI / 2 : -Math.PI / 2);
       if (!free(x, y)) continue;
       const kind = slot % (big ? 6 : 4);
-      if (!big && kind === 0 && P.post) { place(P.post, x, y, yaw); lamps.push({ x, y, h: G0 - 2.4 }); hero.lamps.push({ x, y }); continue; }
+      if (!big && kind === 0 && P.post) { place(P.post, x, y, yaw); lamps.push({ x, y, h: G0 - 2.4, post: true }); hero.lamps.push({ x, y }); continue; }
       if (kind === 0 || kind === 3) place(P.seat, x, y, yaw + Math.PI);
       else if (kind === 1) place(P.bin, x, y, yaw, 0.95);
       else if (kind === 2) place(P.ubox, x - dy * 0.4 * side, y + dx * 0.4 * side, yaw + Math.PI);
@@ -1687,13 +1688,17 @@ class RigPerson {
   animate(dt, speed) {
     if (this.once) { this.onceT -= dt; if (this.onceT <= 0.15 || speed > 0.4) this.once = null; }
     if (this.talk > 0) this.talk -= dt;
-    const want = this.once || (speed > 2.4 ? 'Run' : speed > 0.15 ? 'Walk' : (this.talk > 0 ? 'Talk' : 'Idle'));
-    const a = this.play(want, want === 'Run' || this.state === 'Run' ? 0.2 : 0.28);
-    if (want === 'Walk') a.timeScale = clamp(speed / this.walkRef, 0.6, 1.7); else if (want === 'Run') a.timeScale = clamp(speed / this.runRef, 0.75, 1.5);
-    // Lean into turns while moving.
-    const yaw = this.root.rotation.y;
-    if (this.lastYaw !== null && dt > 0) { let d = yaw - this.lastYaw; while (d > Math.PI) d -= Math.PI * 2; while (d < -Math.PI) d += Math.PI * 2; this.lean = lerp(this.lean, clamp(-d / dt * 0.035 * Math.min(1, speed / 4), -0.2, 0.2), 1 - Math.exp(-dt * 8)); this.model.rotation.z = this.lean; }
-    this.lastYaw = yaw;
+    // Heading change this frame (rad/s), used for turning on the spot and for leaning into turns.
+    const yaw = this.root.rotation.y; let yawRate = 0;
+    if (this.lastYaw !== null && dt > 0) { let d = yaw - this.lastYaw; while (d > Math.PI) d -= Math.PI * 2; while (d < -Math.PI) d += Math.PI * 2; yawRate = d / dt; }
+    this.lastYaw = yaw; this.turnT = Math.abs(yawRate) > 1.1 ? 0.25 : Math.max(0, (this.turnT || 0) - dt);
+    // Turn in place: no dedicated mocap clip exists, so the in-place walk cycle is played slowly so the feet step round.
+    const turning = !this.once && speed <= 0.15 && this.turnT > 0;
+    const want = this.once || (speed > 2.4 ? 'Run' : speed > 0.15 || turning ? 'Walk' : (this.talk > 0 ? 'Talk' : 'Idle'));
+    const a = this.play(want, want === 'Run' || this.state === 'Run' ? 0.2 : turning ? 0.15 : 0.28);
+    this.state = turning ? 'Turn' : want;
+    if (want === 'Walk') a.timeScale = turning ? 0.8 : clamp(speed / this.walkRef, 0.6, 1.7); else if (want === 'Run') a.timeScale = clamp(speed / this.runRef, 0.75, 1.5);
+    this.lean = lerp(this.lean, clamp(-yawRate * 0.035 * Math.min(1, speed / 4), -0.2, 0.2), 1 - Math.exp(-dt * 8)); this.model.rotation.z = this.lean;
     this.mixer.update(dt);
   }
   place(x, y, yaw) { this.root.position.set(x, surfaceAt(x, y), -y); this.root.rotation.y = yaw; }
@@ -1702,6 +1707,26 @@ const PED_KINDS = Object.keys(CHAR).filter((k) => k.startsWith('pedestrian_'));
 const PED_TINTS = [null, { coat: 0x9aa4b8, suit: 0x8f97a6, sweater: 0xb9a48c, cardigan: 0xa9b6c4, scarf: 0x8fb0a0 }, { coat: 0xc9a98c, suit: 0xb7a08a, sweater: 0x8fa3bd, cardigan: 0xd0b7a6, pants: 0xa0a0a8, hat: 0x9fb6d0 }, { coat: 0x7f8894, suit: 0x6f7c8c, sweater: 0xc7b3a0, cardigan: 0xb8c7b0, scarf: 0xd9c08a, hat: 0xd08f7a }];
 let pedSeq = 0;
 function makePedestrian() { if (!PED_KINDS.length) return new Person(); const i = pedSeq++; return new RigPerson(PED_KINDS[i % PED_KINDS.length], { scale: 0.96 + Math.random() * 0.07, tint: PED_TINTS[Math.floor(i / PED_KINDS.length) % PED_TINTS.length] }); }
+// Modelled vehicles. Paint is tinted per car; head and tail lights brighten at dusk through vehMats.
+const vehMats = { head: null, tail: null };
+const CAR_KINDS = () => ['car_estate', 'car_sedan', 'car_hatch'].filter((k) => VEH[k]);
+function makeRealCar(kind, color, opts = {}) {
+  const g = new THREE.Group(); const m = VEH[kind].clone(true); g.add(m);
+  const paint = new THREE.MeshPhysicalMaterial({ color, roughness: 0.32, metalness: 0.35, clearcoat: 1, clearcoatRoughness: 0.08 });
+  const byName = {}; const wheels = [];
+  m.traverse((o) => {
+    if (/^wheel_(fl|fr|rl|rr)$/.test(o.name)) byName[o.name] = o;
+    if (!o.isMesh) return; o.castShadow = !opts.noShadow; o.receiveShadow = false;
+    const n = o.material.name;
+    if (n === 'car_paint') { const map = o.material.map; o.material = map ? paint.clone() : paint; if (map) o.material.map = map; }
+    else if (n === 'car_headlight') { if (!vehMats.head) { vehMats.head = o.material.clone(); vehMats.head.emissive = new THREE.Color(0xfff1d6); vehMats.head.toneMapped = false; } o.material = vehMats.head; }
+    else if (n === 'car_taillight') { if (!vehMats.tail) { vehMats.tail = o.material.clone(); vehMats.tail.emissive = new THREE.Color(0xff2a18); vehMats.tail.toneMapped = false; } o.material = vehMats.tail; }
+    else if (n === 'car_glass') { o.material.envMapIntensity = 1.6; o.castShadow = false; }
+  });
+  for (const k of ['wheel_fl', 'wheel_fr', 'wheel_rl', 'wheel_rr']) if (byName[k]) { byName[k].rotation.order = 'YXZ'; wheels.push(byName[k]); }
+  if (paint.map === null) paint.color.set(color);
+  if (!opts.parked) scene.add(g); return { root: g, wheels, frontSteer: true };
+}
 function makeCar(color, opts = {}) {
   const g = new THREE.Group(); const body = toon({ color });
   const lower = new THREE.Mesh(new THREE.BoxGeometry(1.85, 0.75, 4.7), body); lower.position.y = 0.65; g.add(lower);
@@ -1722,7 +1747,7 @@ const player = { x: 0, y: 0, yaw: 0, vy: 0, h: 0, speed: 0, inCar: false, indoor
 const avatar = CHAR.doudou ? new RigPerson('doudou', { noCull: true }) : new Person({ hoodie: true, backpack: true, headphones: true, coat: 0x9b87b8, skin: 0x5a3824, beanie: false, shortHair: true, hairColor: 0x120c08, legs: 0x7d9cc4, shoes: 0x3a2416, scale: 1.04 });
 // ---- Sami's Volvo
 const volvoSpot = (() => { const l = sim.L['sami_car_spot']; const rp = nearestRoadPoint(l.x, l.y, true); const nx = -Math.sin(rp.dir), ny = Math.cos(rp.dir); const side = ((l.x - rp.x) * nx + (l.y - rp.y) * ny) >= 0 ? 1 : -1; return { x: rp.x + nx * (rp.s.w / 2 - 1.3) * side, y: rp.y + ny * (rp.s.w / 2 - 1.3) * side, yaw: rp.dir }; })();
-const volvo = { ...makeCar(0x5c6a5a, { estate: true }), x: volvoSpot.x, y: volvoSpot.y, heading: volvoSpot.yaw, speed: 0, steer: 0, lat: 0 };
+const volvo = { ...(VEH.car_estate ? makeRealCar('car_estate', 0x56634f) : makeCar(0x5c6a5a, { estate: true })), x: volvoSpot.x, y: volvoSpot.y, heading: volvoSpot.yaw, speed: 0, steer: 0, lat: 0 };
 const headlight = new THREE.SpotLight(0xfff0d8, 0, 60, 0.5, 0.5, 1.2); headlight.position.set(0, 0.9, -2.2); headlight.target.position.set(0, 0, -20); volvo.root.add(headlight, headlight.target);
 function placeCar(c) { const h = surfaceAt(c.x, c.y); c.root.position.set(c.x, h, -c.y); c.root.rotation.y = c.heading - Math.PI / 2; }
 placeCar(volvo);
@@ -1781,10 +1806,59 @@ for (let i = 0; i < 18; i++) {
   const kind = i < 2 ? 'bus' : (i < 6 ? 'taxi' : 'car');
   let c;
   if (kind === 'bus') c = makeBus();
+  else if (CAR_KINDS().length) { const ks = CAR_KINDS(); c = makeRealCar(kind === 'taxi' ? (VEH.car_sedan ? 'car_sedan' : ks[0]) : ks[i % ks.length], kind === 'taxi' ? 0x15161a : TRAFFIC_COLORS[i % TRAFFIC_COLORS.length]); if (kind === 'taxi') { const sg = new THREE.Mesh(new THREE.BoxGeometry(0.75, 0.24, 0.32), taxiSign); sg.position.set(0, 1.62, 0.1); c.root.add(sg); } }
   else if (SEDAN_GLB) { c = makeSedan(kind === 'taxi' ? 0x1a1a1c : TRAFFIC_COLORS[i % TRAFFIC_COLORS.length]); if (kind === 'taxi') { const sg = new THREE.Mesh(new THREE.BoxGeometry(0.75, 0.24, 0.32), taxiSign); sg.position.set(0, 1.5, 0.2); c.root.add(sg); } }
   else { c = makeCar(kind === 'taxi' ? 0x111214 : TRAFFIC_COLORS[i % TRAFFIC_COLORS.length], { estate: Math.random() < 0.4 }); if (kind === 'taxi') { const sg = new THREE.Mesh(new THREE.BoxGeometry(0.75, 0.24, 0.32), taxiSign); sg.position.set(0, 1.86, 0.2); c.root.add(sg); } }
   traffic.push({ ...c, kind, a, b, t: Math.random(), speed: kind === 'bus' ? 7 : 8 + Math.random() * 4, x: 0, y: 0, heading: 0 });
 }
+// ---- Parked cars and bicycles on the OSM side streets around Kungsgatan
+function dressHeroVehicles() {
+  if (!hero.ready || !CAR_KINDS().length) return { cars: 0, bikes: 0 };
+  const G0 = HERO.g; const ks = CAR_KINDS(); const placed = []; const parked = {}; let cars = 0, bikes = 0;
+  const walk = (pts, step, fn) => { let acc = 0, total = 0; for (let i = 1; i < pts.length; i++) total += Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y);
+    for (let i = 1; i < pts.length; i++) { const a = pts[i - 1], b = pts[i]; const l = Math.hypot(b.x - a.x, b.y - a.y); const dx = (b.x - a.x) / l, dy = (b.y - a.y) / l;
+      for (let d = Math.ceil(acc / step) * step - acc; d < l; d += step) fn(a.x + dx * d, a.y + dy * d, dx, dy, acc + d, total); acc += l; } };
+  const onRoad = (x, y) => hero.ways.some((o) => o.z === 0 && o.pts.some((pt, i) => i + 1 < o.pts.length && segDist(x, y, pt, o.pts[i + 1]) < o.width / 2 + 1.2));
+  const clear = (x, y, r) => !placed.some((q) => Math.hypot(q.x - x, q.y - y) < r) && !collide(x, y, 0.9);
+  // Kerbside parking on one side of residential streets, as on Stockholm's inner-city side streets.
+  for (const w of hero.ways.filter((w) => w.z === 0 && (w.class === 'residential' || w.class === 'unclassified') && w.width >= 6)) {
+    const side = w.id % 2 ? 1 : -1; let k = w.id % 5;
+    walk(w.pts, 6.3, (x, y, dx, dy, at, total) => {
+      if (cars >= 30 || at < 10 || at > total - 10 || ((k++ * 7) % 10) < 3) return;
+      const off = w.width / 2 - 1.05; const px = x - dy * off * side, py = y + dx * off * side;
+      if (!(px > HERO.minx + 3 && px < HERO.maxx - 3 && py > HERO.miny + 3 && py < HERO.maxy - 3) || !clear(px, py, 5.6)) return;
+      (parked[ks[(cars * 5 + 1) % ks.length]] ||= []).push({ x: px, y: py, ry: Math.atan2(dx, dy) * -1 + (side > 0 ? 0 : Math.PI) + Math.PI, color: TRAFFIC_COLORS[(cars * 3 + 2) % TRAFFIC_COLORS.length] });
+      addCollider(px, py, 1.9, 4.7, Math.atan2(dy, dx) - Math.PI / 2); placed.push({ x: px, y: py }); cars++;
+    });
+  }
+  // Parked cars are drawn as instances: one InstancedMesh per car model and material, paint colour per instance.
+  const im4 = new THREE.Matrix4(), q = new THREE.Quaternion(), Y = new THREE.Vector3(0, 1, 0), one = new THREE.Vector3(1, 1, 1);
+  for (const kind in parked) {
+    const list = parked[kind]; const src = makeRealCar(kind, 0xffffff, { parked: true }).root; src.updateMatrixWorld(true);
+    src.traverse((o) => { if (!o.isMesh) return;
+      const g = o.geometry.clone().applyMatrix4(o.matrixWorld); const isPaint = o.material.name === 'car_paint' || o.material.type === 'MeshPhysicalMaterial';
+      const im = new THREE.InstancedMesh(g, isPaint ? o.material.clone() : o.material, list.length);
+      list.forEach((c, i) => { im.setMatrixAt(i, im4.compose(new THREE.Vector3(c.x, G0, -c.y), q.setFromAxisAngle(Y, c.ry), one)); if (isPaint) im.setColorAt(i, new THREE.Color(c.color)); });
+      im.castShadow = o.castShadow; scene.add(im); });
+  }
+  // Bicycles leaning in small groups along the Kungsgatan sidewalks.
+  const bikeList = [];
+  if (VEH.bicycle) for (const w of hero.ways.filter((w) => w.z === 0 && w.name === 'Kungsgatan' && w.class === 'tertiary')) {
+    let n = 0; walk(w.pts, 23, (x, y, dx, dy) => { const side = n++ % 2 ? 1 : -1; if (n % 3 === 0) return;
+      const count = 2 + (n % 3);
+      for (let j = 0; j < count; j++) { const off = w.width / 2 + 2.6; const px = x - dy * off * side + dx * j * 0.75, py = y + dx * off * side + dy * j * 0.75;
+        if (!clear(px, py, 0.6) || collide(px, py, 0.5) || onRoad(px, py)) continue;
+        bikeList.push({ x: px, y: py, ry: -Math.atan2(dx, dy) + (side > 0 ? -1.35 : 1.35), color: [0x1d2a3a, 0x8a1f1f, 0xe8e4da, 0x2f4a3a, 0x111111][(n + j) % 5] }); placed.push({ x: px, y: py }); bikes++; }
+    });
+  }
+  if (bikeList.length) { VEH.bicycle.updateMatrixWorld(true); VEH.bicycle.traverse((o) => { if (!o.isMesh) return;
+    const frame = o.material.name === 'bike_frame'; const g = o.geometry.clone().applyMatrix4(o.matrixWorld); const mat = frame ? o.material.clone() : o.material; if (frame) mat.color.set(0xffffff);
+    const im = new THREE.InstancedMesh(g, mat, bikeList.length);
+    bikeList.forEach((c, i) => { im.setMatrixAt(i, im4.compose(new THREE.Vector3(c.x, G0 + 0.02, -c.y), q.setFromAxisAngle(Y, c.ry), one)); if (frame) im.setColorAt(i, new THREE.Color(c.color)); });
+    im.castShadow = true; scene.add(im); }); }
+  return { cars, bikes, spots: placed };
+}
+hero.vehicles = dressHeroVehicles();
 // ---- Pedestrians
 const walkers = [];
 for (let i = 0; i < 30; i++) { const ids = Object.keys(NODES); const a = ids[Math.floor(Math.random() * ids.length)]; const es = graph[a] || []; if (!es.length) continue; const p = makePedestrian(); walkers.push({ p, a, b: es[Math.floor(Math.random() * es.length)].to, t: Math.random(), side: Math.random() < 0.5 ? 1 : -1, speed: 1.1 + Math.random() * 0.5, x: 0, y: 0 }); }
@@ -2288,7 +2362,7 @@ function updateNpcs(dt) {
     a.p.root.visible = true;
     // face the player when close
     const d = Math.hypot(player.x - a.x, player.y - a.y); const want = d < 6 ? Math.atan2(player.x - a.x, player.y - a.y) : (VENUES[locId] ? Math.atan2(VENUES[locId].door.x - a.x, VENUES[locId].door.y - a.y) : a.yaw);
-    a.yaw = want; a.p.root.position.set(a.x, heightAt(a.x, a.y), -a.y); a.p.root.rotation.y = -a.yaw; a.p.animate(dt, 0);
+    { let d = want - a.yaw; while (d > Math.PI) d -= Math.PI * 2; while (d < -Math.PI) d += Math.PI * 2; a.yaw += d * (1 - Math.exp(-dt * 4)); } a.p.root.position.set(a.x, heightAt(a.x, a.y), -a.y); a.p.root.rotation.y = -a.yaw; a.p.animate(dt, 0);
   }
 }
 function updateTriggers() {
@@ -2314,11 +2388,15 @@ function updatePlayer(dt) {
   const sprint = keys.has('ShiftLeft') || keys.has('ShiftRight') || Math.hypot(touchMove.x, touchMove.y) > 0.95;
   const snowSlow = lerp(1, 0.9, sim.w.snowCover);
   const target = blocked || mag < 0.05 ? 0 : (sprint ? 7.2 : 3.6) * mag * snowSlow * (player.indoors ? 0.5 : 1);
-  player.speed = lerp(player.speed, target, 1 - Math.exp(-dt * 8));
+  // When asked to go roughly the opposite way from a standstill, pivot on the spot first (the character plays its turn step).
+  let pivot = 1;
   if (mag > 0.05 && !blocked) {
     const ang = Math.atan2(side, fwd) + camYaw; // yaw: 0 = north (+y)
-    let dy = ang - player.yaw; while (dy > Math.PI) dy -= Math.PI * 2; while (dy < -Math.PI) dy += Math.PI * 2; player.yaw += dy * (1 - Math.exp(-dt * 12));
+    let dy = ang - player.yaw; while (dy > Math.PI) dy -= Math.PI * 2; while (dy < -Math.PI) dy += Math.PI * 2;
+    if (Math.abs(dy) > 1.9 && player.speed < 1.2) { pivot = 0.05; player.yaw += Math.sign(dy) * Math.min(Math.abs(dy), dt * 5.5); }
+    else player.yaw += dy * (1 - Math.exp(-dt * 12));
   }
+  player.speed = lerp(player.speed, target * pivot, 1 - Math.exp(-dt * 8));
   if (player.speed > 0.01) {
     let nx = player.x + Math.sin(player.yaw) * player.speed * dt, ny = player.y + Math.cos(player.yaw) * player.speed * dt;
     const c = collide(nx, ny, 0.4); if (c) { nx = c.x; ny = c.y; }
@@ -2349,7 +2427,7 @@ function updateCar(dt) {
   if (hit) { if (Math.abs(c.speed) > 6) blip(120, 0.12); c.speed *= -0.25; }
   c.x = nx; c.y = ny; placeCar(c);
   for (const w of c.wheels) w.rotation.x -= c.speed * dt / 0.34;
-  c.wheels[2].rotation.y = c.wheels[3].rotation.y = c.steer;
+  if (c.wheels.length >= 4) { const f = c.frontSteer ? 0 : 2; c.wheels[f].rotation.y = c.wheels[f + 1].rotation.y = c.steer; }
   player.x = c.x; player.y = c.y; player.yaw = Math.PI / 2 - c.heading;
   if (audio && soundOn) { audio.eng.frequency.value = 40 + Math.abs(c.speed) * 6; audio.eg.gain.value = 0.03 + Math.min(0.05, Math.abs(c.speed) * 0.003); }
 }
@@ -2405,10 +2483,11 @@ function updateAtmosphere(dt) {
   if (hero.ready) { const M = hero.mats; M.glass.emissiveIntensity = lit * 0.95; M.interiors.forEach((m) => m.color.setScalar(lerp(0.5, 1.5, lit))); M.signs.forEach((m) => (m.emissiveIntensity = lerp(0.12, 1.5, lit))); M.lens.color.setRGB(lerp(0.3, 1, lit), lerp(0.28, 0.88, lit), lerp(0.25, 0.7, lit)); M.bulbs.color.setRGB(lerp(0.35, 1, lit), lerp(0.3, 0.78, lit), lerp(0.2, 0.46, lit)); M.lamp_glow.color.setRGB(lerp(0.4, 1, lit), lerp(0.35, 0.85, lit), lerp(0.3, 0.62, lit)); M.shop_floor.emissiveIntensity = lerp(0.3, 1.2, lit); M.shop_side.emissiveIntensity = lerp(0.25, 1.0, lit); }
   venueLights.forEach((l) => { l.intensity = 40 * (player.indoors ? 0 : 1); });
   headlight.intensity = player.inCar ? lerp(0, 700, lit) : 0;
+  if (vehMats.head) vehMats.head.emissiveIntensity = lerp(0.25, 2.2, lit); if (vehMats.tail) vehMats.tail.emissiveIntensity = lerp(0.2, 1.6, lit);
   // Soft fill on the camera side of the player, standing in for bounce light off snow and shop windows, so the face reads in shade and at night.
-  if (!player.inCar && !player.indoors) { const ax = avatar.root.position; tmpV.set(camera.position.x - ax.x, 0, camera.position.z - ax.z).normalize(); charFill.position.set(ax.x + tmpV.x * 1.7, ax.y + 1.95, ax.z + tmpV.z * 1.7); charFill.intensity = lerp(2.5, 7, lit); } else charFill.intensity = 0;
+  if (!player.inCar && !player.indoors) { const ax = avatar.root.position; tmpV.set(camera.position.x - ax.x, 0, camera.position.z - ax.z).normalize(); charFill.position.set(ax.x + tmpV.x * 1.7, ax.y + 1.95, ax.z + tmpV.z * 1.7); charFill.intensity = lerp(2, 4.5, lit); } else charFill.intensity = 0;
   // pooled point lights at the nearest street lamps
-  if (!player.indoors && lit > 0.05) { const near = lamps.map((L) => [L, (L.x - player.x) ** 2 + (L.y - player.y) ** 2]).sort((a, b) => a[1] - b[1]).slice(0, lampLights.length); lampLights.forEach((p, i) => { const L = near[i]?.[0]; if (!L) { p.intensity = 0; return; } p.position.set(L.x, L.h + 6.4, -L.y); p.intensity = 260 * lit; }); }
+  if (!player.indoors && lit > 0.05) { const near = lamps.map((L) => [L, (L.x - player.x) ** 2 + (L.y - player.y) ** 2]).sort((a, b) => a[1] - b[1]).slice(0, lampLights.length); lampLights.forEach((p, i) => { const L = near[i]?.[0]; if (!L) { p.intensity = 0; return; } p.position.set(L.x, L.h + 6.4, -L.y); p.intensity = 260 * lit * (L.post ? 0.3 : 1) /* post lamps hang at 4 m, not 6+ m */; }); }
   else lampLights.forEach((p) => (p.intensity = 0));
   // precipitation
   const camP = camera.position; const fall = w.snow ? 1.4 : 9; const wind = w.wind * 0.35; const a = pGeo.attributes.position.array; const t = performance.now() / 1000;
@@ -2494,6 +2573,6 @@ updateEnvironment();
 // Fixed-camera capture for before/after comparisons: __stockholm.shot({x,y,h,tx,ty,th,minutes}) (local metres).
 let shotCam = null;
 function shot(o) { shotCam = o; if (o && o.minutes != null) sim.minutes = o.minutes; }
-window.__stockholm = { sim, state, player, volvo, teleport, interact, toggleCar, startTalk, beginPlay, skipCinematic, shot, renderer, hero, avatar, walkers, npcActors, characters: Object.keys(CHAR) };
+window.__stockholm = { sim, state, player, volvo, traffic, teleport, interact, toggleCar, startTalk, beginPlay, skipCinematic, shot, renderer, hero, avatar, walkers, npcActors, characters: Object.keys(CHAR) };
 tick();
 </script>

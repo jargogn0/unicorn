@@ -1,0 +1,1441 @@
+{
+ "car_estate": {
+  "bytes": 621840,
+  "extensionsUsed": [],
+  "nodes": {
+   "body": {
+    "translation": [
+     0,
+     0,
+     0
+    ],
+    "rotation": null,
+    "scale": null,
+    "triangles": 17880
+   },
+   "wheel_fl": {
+    "translation": [
+     -0.8,
+     0.33,
+     -1.445
+    ],
+    "rotation": null,
+    "scale": null,
+    "triangles": 1296
+   },
+   "wheel_fr": {
+    "translation": [
+     0.8,
+     0.33,
+     -1.445
+    ],
+    "rotation": null,
+    "scale": null,
+    "triangles": 1296
+   },
+   "wheel_rl": {
+    "translation": [
+     -0.8,
+     0.33,
+     1.425
+    ],
+    "rotation": null,
+    "scale": null,
+    "triangles": 1296
+   },
+   "wheel_rr": {
+    "translation": [
+     0.8,
+     0.33,
+     1.425
+    ],
+    "rotation": null,
+    "scale": null,
+    "triangles": 1296
+   }
+  },
+  "materials": [
+   "car_paint",
+   "car_headlight",
+   "car_trim",
+   "car_glass",
+   "car_taillight",
+   "car_interior",
+   "car_chrome",
+   "car_plate",
+   "car_tyre",
+   "car_rim"
+  ],
+  "images": [
+   {
+    "name": "paint_estate",
+    "mime": "image/png"
+   },
+   {
+    "name": "lamp_head_emis",
+    "mime": "image/png"
+   },
+   {
+    "name": "lamp_head_base",
+    "mime": "image/png"
+   },
+   {
+    "name": "lamp_tail_emis",
+    "mime": "image/png"
+   },
+   {
+    "name": "lamp_tail_base",
+    "mime": "image/png"
+   },
+   {
+    "name": "plate",
+    "mime": "image/png"
+   }
+  ],
+  "triangles": 23064,
+  "bbox_min": [
+   -1.039,
+   0.0,
+   -2.374
+  ],
+  "bbox_max": [
+   1.039,
+   1.469,
+   2.374
+  ],
+  "size_xyz": [
+   2.078,
+   1.469,
+   4.747
+  ],
+  "material_bounds": {
+   "car_paint": [
+    [
+     -1.039,
+     0.18,
+     -2.367
+    ],
+    [
+     1.039,
+     1.469,
+     2.374
+    ]
+   ],
+   "car_headlight": [
+    [
+     -0.872,
+     0.636,
+     -2.31
+    ],
+    [
+     0.872,
+     0.819,
+     -2.011
+    ]
+   ],
+   "car_trim": [
+    [
+     -0.907,
+     0.12,
+     -2.371
+    ],
+    [
+     0.907,
+     1.313,
+     2.372
+    ]
+   ],
+   "car_glass": [
+    [
+     -0.878,
+     0.928,
+     -0.98
+    ],
+    [
+     0.878,
+     1.39,
+     2.327
+    ]
+   ],
+   "car_taillight": [
+    [
+     -0.882,
+     0.77,
+     2.05
+    ],
+    [
+     0.882,
+     1.029,
+     2.346
+    ]
+   ],
+   "car_interior": [
+    [
+     -0.895,
+     0.334,
+     -1.035
+    ],
+    [
+     0.895,
+     1.425,
+     2.344
+    ]
+   ],
+   "car_chrome": [
+    [
+     -1.025,
+     0.517,
+     -2.374
+    ],
+    [
+     1.025,
+     1.461,
+     1.885
+    ]
+   ],
+   "car_plate": [
+    [
+     -0.26,
+     0.419,
+     -2.373
+    ],
+    [
+     0.26,
+     0.756,
+     2.374
+    ]
+   ],
+   "car_tyre": [
+    [
+     -0.913,
+     0.0,
+     -1.775
+    ],
+    [
+     0.913,
+     0.66,
+     1.755
+    ]
+   ],
+   "car_rim": [
+    [
+     -0.909,
+     0.094,
+     -1.681
+    ],
+    [
+     0.909,
+     0.566,
+     1.661
+    ]
+   ]
+  },
+  "material_details": {
+   "car_paint": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "metallic": 0.550000011920929,
+    "roughness": 0.25999999046325684,
+    "baseColorTexture": true,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "car_headlight": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "metallic": 0.20000000298023224,
+    "roughness": 0.11999999731779099,
+    "baseColorTexture": true,
+    "emissiveFactor": [
+     1,
+     1,
+     1
+    ],
+    "extensions": []
+   },
+   "car_trim": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     0.02199999988079071,
+     0.023000000044703484,
+     0.02500000037252903,
+     1
+    ],
+    "metallic": 0,
+    "roughness": 0.550000011920929,
+    "baseColorTexture": false,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "car_glass": {
+    "alphaMode": "BLEND",
+    "doubleSided": false,
+    "baseColorFactor": [
+     0.029999999329447746,
+     0.03999999910593033,
+     0.04500000178813934,
+     0.6399999856948853
+    ],
+    "metallic": 0,
+    "roughness": 0.05999999865889549,
+    "baseColorTexture": false,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "car_taillight": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "metallic": 0,
+    "roughness": 0.2199999988079071,
+    "baseColorTexture": true,
+    "emissiveFactor": [
+     1,
+     1,
+     1
+    ],
+    "extensions": []
+   },
+   "car_interior": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     0.04500000178813934,
+     0.04500000178813934,
+     0.05000000074505806,
+     1
+    ],
+    "metallic": 0,
+    "roughness": 0.800000011920929,
+    "baseColorTexture": false,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "car_chrome": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     0.800000011920929,
+     0.8100000023841858,
+     0.8299999833106995,
+     1
+    ],
+    "metallic": 1.0,
+    "roughness": 0.14000000059604645,
+    "baseColorTexture": false,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "car_plate": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "metallic": 0,
+    "roughness": 0.5,
+    "baseColorTexture": true,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "car_tyre": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     0.02800000086426735,
+     0.02800000086426735,
+     0.029999999329447746,
+     1
+    ],
+    "metallic": 0,
+    "roughness": 0.8500000238418579,
+    "baseColorTexture": false,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "car_rim": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     0.6399999856948853,
+     0.6499999761581421,
+     0.6700000166893005,
+     1
+    ],
+    "metallic": 0.699999988079071,
+    "roughness": 0.3400000035762787,
+    "baseColorTexture": false,
+    "emissiveFactor": null,
+    "extensions": []
+   }
+  },
+  "degenerate_faces": 0,
+  "zero_normals": 0,
+  "max_image_px": 512,
+  "closed_parts": 33,
+  "inside_out_closed_parts": 0
+ },
+ "car_sedan": {
+  "bytes": 612128,
+  "extensionsUsed": [],
+  "nodes": {
+   "body": {
+    "translation": [
+     0,
+     0,
+     0
+    ],
+    "rotation": null,
+    "scale": null,
+    "triangles": 17586
+   },
+   "wheel_fl": {
+    "translation": [
+     -0.8,
+     0.33,
+     -1.445
+    ],
+    "rotation": null,
+    "scale": null,
+    "triangles": 1296
+   },
+   "wheel_fr": {
+    "translation": [
+     0.8,
+     0.33,
+     -1.445
+    ],
+    "rotation": null,
+    "scale": null,
+    "triangles": 1296
+   },
+   "wheel_rl": {
+    "translation": [
+     -0.8,
+     0.33,
+     1.425
+    ],
+    "rotation": null,
+    "scale": null,
+    "triangles": 1296
+   },
+   "wheel_rr": {
+    "translation": [
+     0.8,
+     0.33,
+     1.425
+    ],
+    "rotation": null,
+    "scale": null,
+    "triangles": 1296
+   }
+  },
+  "materials": [
+   "car_paint",
+   "car_headlight",
+   "car_trim",
+   "car_glass",
+   "car_taillight",
+   "car_interior",
+   "car_chrome",
+   "car_plate",
+   "car_tyre",
+   "car_rim"
+  ],
+  "images": [
+   {
+    "name": "paint_sedan",
+    "mime": "image/png"
+   },
+   {
+    "name": "lamp_head_emis",
+    "mime": "image/png"
+   },
+   {
+    "name": "lamp_head_base",
+    "mime": "image/png"
+   },
+   {
+    "name": "lamp_tail_emis",
+    "mime": "image/png"
+   },
+   {
+    "name": "lamp_tail_base",
+    "mime": "image/png"
+   },
+   {
+    "name": "plate",
+    "mime": "image/png"
+   }
+  ],
+  "triangles": 22770,
+  "bbox_min": [
+   -1.039,
+   0.0,
+   -2.374
+  ],
+  "bbox_max": [
+   1.039,
+   1.451,
+   2.374
+  ],
+  "size_xyz": [
+   2.078,
+   1.451,
+   4.747
+  ],
+  "material_bounds": {
+   "car_paint": [
+    [
+     -1.039,
+     0.18,
+     -2.367
+    ],
+    [
+     1.039,
+     1.451,
+     2.374
+    ]
+   ],
+   "car_headlight": [
+    [
+     -0.872,
+     0.636,
+     -2.31
+    ],
+    [
+     0.872,
+     0.819,
+     -2.011
+    ]
+   ],
+   "car_trim": [
+    [
+     -0.907,
+     0.12,
+     -2.371
+    ],
+    [
+     0.907,
+     1.312,
+     2.371
+    ]
+   ],
+   "car_glass": [
+    [
+     -0.878,
+     0.928,
+     -0.98
+    ],
+    [
+     0.878,
+     1.39,
+     1.891
+    ]
+   ],
+   "car_taillight": [
+    [
+     -0.876,
+     0.855,
+     2.056
+    ],
+    [
+     0.876,
+     1.001,
+     2.367
+    ]
+   ],
+   "car_interior": [
+    [
+     -0.895,
+     0.334,
+     -1.035
+    ],
+    [
+     0.895,
+     1.421,
+     2.344
+    ]
+   ],
+   "car_chrome": [
+    [
+     -1.025,
+     0.517,
+     -2.374
+    ],
+    [
+     1.025,
+     1.32,
+     1.837
+    ]
+   ],
+   "car_plate": [
+    [
+     -0.26,
+     0.419,
+     -2.373
+    ],
+    [
+     0.26,
+     0.756,
+     2.373
+    ]
+   ],
+   "car_tyre": [
+    [
+     -0.913,
+     0.0,
+     -1.775
+    ],
+    [
+     0.913,
+     0.66,
+     1.755
+    ]
+   ],
+   "car_rim": [
+    [
+     -0.909,
+     0.094,
+     -1.681
+    ],
+    [
+     0.909,
+     0.566,
+     1.661
+    ]
+   ]
+  },
+  "material_details": {
+   "car_paint": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "metallic": 0.550000011920929,
+    "roughness": 0.25999999046325684,
+    "baseColorTexture": true,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "car_headlight": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "metallic": 0.20000000298023224,
+    "roughness": 0.11999999731779099,
+    "baseColorTexture": true,
+    "emissiveFactor": [
+     1,
+     1,
+     1
+    ],
+    "extensions": []
+   },
+   "car_trim": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     0.02199999988079071,
+     0.023000000044703484,
+     0.02500000037252903,
+     1
+    ],
+    "metallic": 0,
+    "roughness": 0.550000011920929,
+    "baseColorTexture": false,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "car_glass": {
+    "alphaMode": "BLEND",
+    "doubleSided": false,
+    "baseColorFactor": [
+     0.029999999329447746,
+     0.03999999910593033,
+     0.04500000178813934,
+     0.6399999856948853
+    ],
+    "metallic": 0,
+    "roughness": 0.05999999865889549,
+    "baseColorTexture": false,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "car_taillight": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "metallic": 0,
+    "roughness": 0.2199999988079071,
+    "baseColorTexture": true,
+    "emissiveFactor": [
+     1,
+     1,
+     1
+    ],
+    "extensions": []
+   },
+   "car_interior": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     0.04500000178813934,
+     0.04500000178813934,
+     0.05000000074505806,
+     1
+    ],
+    "metallic": 0,
+    "roughness": 0.800000011920929,
+    "baseColorTexture": false,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "car_chrome": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     0.800000011920929,
+     0.8100000023841858,
+     0.8299999833106995,
+     1
+    ],
+    "metallic": 1.0,
+    "roughness": 0.14000000059604645,
+    "baseColorTexture": false,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "car_plate": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "metallic": 0,
+    "roughness": 0.5,
+    "baseColorTexture": true,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "car_tyre": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     0.02800000086426735,
+     0.02800000086426735,
+     0.029999999329447746,
+     1
+    ],
+    "metallic": 0,
+    "roughness": 0.8500000238418579,
+    "baseColorTexture": false,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "car_rim": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     0.6399999856948853,
+     0.6499999761581421,
+     0.6700000166893005,
+     1
+    ],
+    "metallic": 0.699999988079071,
+    "roughness": 0.3400000035762787,
+    "baseColorTexture": false,
+    "emissiveFactor": null,
+    "extensions": []
+   }
+  },
+  "degenerate_faces": 0,
+  "zero_normals": 0,
+  "max_image_px": 512,
+  "closed_parts": 31,
+  "inside_out_closed_parts": 0
+ },
+ "car_hatch": {
+  "bytes": 609388,
+  "extensionsUsed": [],
+  "nodes": {
+   "body": {
+    "translation": [
+     0,
+     0,
+     0
+    ],
+    "rotation": null,
+    "scale": null,
+    "triangles": 17640
+   },
+   "wheel_fl": {
+    "translation": [
+     -0.7784,
+     0.33,
+     -1.28
+    ],
+    "rotation": null,
+    "scale": null,
+    "triangles": 1296
+   },
+   "wheel_fr": {
+    "translation": [
+     0.7784,
+     0.33,
+     -1.28
+    ],
+    "rotation": null,
+    "scale": null,
+    "triangles": 1296
+   },
+   "wheel_rl": {
+    "translation": [
+     -0.7784,
+     0.33,
+     1.36
+    ],
+    "rotation": null,
+    "scale": null,
+    "triangles": 1296
+   },
+   "wheel_rr": {
+    "translation": [
+     0.7784,
+     0.33,
+     1.36
+    ],
+    "rotation": null,
+    "scale": null,
+    "triangles": 1296
+   }
+  },
+  "materials": [
+   "car_paint",
+   "car_headlight",
+   "car_trim",
+   "car_glass",
+   "car_taillight",
+   "car_interior",
+   "car_chrome",
+   "car_plate",
+   "car_tyre",
+   "car_rim"
+  ],
+  "images": [
+   {
+    "name": "paint_hatch",
+    "mime": "image/png"
+   },
+   {
+    "name": "lamp_head_emis",
+    "mime": "image/png"
+   },
+   {
+    "name": "lamp_head_base",
+    "mime": "image/png"
+   },
+   {
+    "name": "lamp_tail_emis",
+    "mime": "image/png"
+   },
+   {
+    "name": "lamp_tail_base",
+    "mime": "image/png"
+   },
+   {
+    "name": "plate",
+    "mime": "image/png"
+   }
+  ],
+  "triangles": 22824,
+  "bbox_min": [
+   -1.016,
+   0.0,
+   -2.159
+  ],
+  "bbox_max": [
+   1.016,
+   1.454,
+   2.159
+  ],
+  "size_xyz": [
+   2.032,
+   1.454,
+   4.318
+  ],
+  "material_bounds": {
+   "car_paint": [
+    [
+     -1.016,
+     0.18,
+     -2.153
+    ],
+    [
+     1.016,
+     1.454,
+     2.159
+    ]
+   ],
+   "car_headlight": [
+    [
+     -0.848,
+     0.636,
+     -2.1
+    ],
+    [
+     0.848,
+     0.819,
+     -1.831
+    ]
+   ],
+   "car_trim": [
+    [
+     -0.884,
+     0.12,
+     -2.157
+    ],
+    [
+     0.884,
+     1.312,
+     2.157
+    ]
+   ],
+   "car_glass": [
+    [
+     -0.854,
+     0.928,
+     -0.821
+    ],
+    [
+     0.854,
+     1.39,
+     2.117
+    ]
+   ],
+   "car_taillight": [
+    [
+     -0.857,
+     0.77,
+     1.905
+    ],
+    [
+     0.857,
+     1.036,
+     2.136
+    ]
+   ],
+   "car_interior": [
+    [
+     -0.87,
+     0.334,
+     -0.878
+    ],
+    [
+     0.87,
+     1.424,
+     2.129
+    ]
+   ],
+   "car_chrome": [
+    [
+     -1.002,
+     0.517,
+     -2.159
+    ],
+    [
+     1.002,
+     1.321,
+     1.547
+    ]
+   ],
+   "car_plate": [
+    [
+     -0.26,
+     0.419,
+     -2.159
+    ],
+    [
+     0.26,
+     0.756,
+     2.159
+    ]
+   ],
+   "car_tyre": [
+    [
+     -0.891,
+     0.0,
+     -1.61
+    ],
+    [
+     0.891,
+     0.66,
+     1.69
+    ]
+   ],
+   "car_rim": [
+    [
+     -0.887,
+     0.094,
+     -1.516
+    ],
+    [
+     0.887,
+     0.566,
+     1.596
+    ]
+   ]
+  },
+  "material_details": {
+   "car_paint": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "metallic": 0.550000011920929,
+    "roughness": 0.25999999046325684,
+    "baseColorTexture": true,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "car_headlight": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "metallic": 0.20000000298023224,
+    "roughness": 0.11999999731779099,
+    "baseColorTexture": true,
+    "emissiveFactor": [
+     1,
+     1,
+     1
+    ],
+    "extensions": []
+   },
+   "car_trim": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     0.02199999988079071,
+     0.023000000044703484,
+     0.02500000037252903,
+     1
+    ],
+    "metallic": 0,
+    "roughness": 0.550000011920929,
+    "baseColorTexture": false,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "car_glass": {
+    "alphaMode": "BLEND",
+    "doubleSided": false,
+    "baseColorFactor": [
+     0.029999999329447746,
+     0.03999999910593033,
+     0.04500000178813934,
+     0.6399999856948853
+    ],
+    "metallic": 0,
+    "roughness": 0.05999999865889549,
+    "baseColorTexture": false,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "car_taillight": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "metallic": 0,
+    "roughness": 0.2199999988079071,
+    "baseColorTexture": true,
+    "emissiveFactor": [
+     1,
+     1,
+     1
+    ],
+    "extensions": []
+   },
+   "car_interior": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     0.04500000178813934,
+     0.04500000178813934,
+     0.05000000074505806,
+     1
+    ],
+    "metallic": 0,
+    "roughness": 0.800000011920929,
+    "baseColorTexture": false,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "car_chrome": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     0.800000011920929,
+     0.8100000023841858,
+     0.8299999833106995,
+     1
+    ],
+    "metallic": 1.0,
+    "roughness": 0.14000000059604645,
+    "baseColorTexture": false,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "car_plate": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "metallic": 0,
+    "roughness": 0.5,
+    "baseColorTexture": true,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "car_tyre": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     0.02800000086426735,
+     0.02800000086426735,
+     0.029999999329447746,
+     1
+    ],
+    "metallic": 0,
+    "roughness": 0.8500000238418579,
+    "baseColorTexture": false,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "car_rim": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     0.6399999856948853,
+     0.6499999761581421,
+     0.6700000166893005,
+     1
+    ],
+    "metallic": 0.699999988079071,
+    "roughness": 0.3400000035762787,
+    "baseColorTexture": false,
+    "emissiveFactor": null,
+    "extensions": []
+   }
+  },
+  "degenerate_faces": 0,
+  "zero_normals": 0,
+  "max_image_px": 512,
+  "closed_parts": 31,
+  "inside_out_closed_parts": 0
+ },
+ "bicycle": {
+  "bytes": 99076,
+  "extensionsUsed": [],
+  "nodes": {
+   "bicycle": {
+    "translation": [
+     0,
+     0,
+     0
+    ],
+    "rotation": null,
+    "scale": null,
+    "triangles": 1660
+   },
+   "bike_wheel_f": {
+    "translation": [
+     0,
+     0.35,
+     -0.55
+    ],
+    "rotation": null,
+    "scale": null,
+    "triangles": 1204
+   },
+   "bike_wheel_r": {
+    "translation": [
+     0,
+     0.35,
+     0.55
+    ],
+    "rotation": null,
+    "scale": null,
+    "triangles": 1204
+   }
+  },
+  "materials": [
+   "bike_frame",
+   "bike_metal",
+   "bike_saddle",
+   "bike_tyre"
+  ],
+  "images": [],
+  "triangles": 4068,
+  "bbox_min": [
+   -0.332,
+   0.0,
+   -0.9
+  ],
+  "bbox_max": [
+   0.331,
+   1.119,
+   0.9
+  ],
+  "size_xyz": [
+   0.663,
+   1.119,
+   1.8
+  ],
+  "material_bounds": {
+   "bike_frame": [
+    [
+     -0.071,
+     0.167,
+     -0.878
+    ],
+    [
+     0.071,
+     0.95,
+     0.779
+    ]
+   ],
+   "bike_metal": [
+    [
+     -0.295,
+     0.0,
+     -0.866
+    ],
+    [
+     0.295,
+     1.111,
+     0.866
+    ]
+   ],
+   "bike_saddle": [
+    [
+     -0.332,
+     0.958,
+     -0.2
+    ],
+    [
+     0.331,
+     1.119,
+     0.471
+    ]
+   ],
+   "bike_tyre": [
+    [
+     -0.175,
+     0.0,
+     -0.9
+    ],
+    [
+     0.175,
+     0.7,
+     0.9
+    ]
+   ]
+  },
+  "material_details": {
+   "bike_frame": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "metallic": 0.30000001192092896,
+    "roughness": 0.3499999940395355,
+    "baseColorTexture": false,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "bike_metal": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     0.7400000095367432,
+     0.75,
+     0.7699999809265137,
+     1
+    ],
+    "metallic": 0.75,
+    "roughness": 0.3199999928474426,
+    "baseColorTexture": false,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "bike_saddle": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     0.05000000074505806,
+     0.03999999910593033,
+     0.03500000014901161,
+     1
+    ],
+    "metallic": 0,
+    "roughness": 0.699999988079071,
+    "baseColorTexture": false,
+    "emissiveFactor": null,
+    "extensions": []
+   },
+   "bike_tyre": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     0.029999999329447746,
+     0.029999999329447746,
+     0.03200000151991844,
+     1
+    ],
+    "metallic": 0,
+    "roughness": 0.8500000238418579,
+    "baseColorTexture": false,
+    "emissiveFactor": null,
+    "extensions": []
+   }
+  },
+  "degenerate_faces": 0,
+  "zero_normals": 0,
+  "max_image_px": 0,
+  "closed_parts": 47,
+  "inside_out_closed_parts": 0
+ },
+ "bike_rack": {
+  "bytes": 31708,
+  "extensionsUsed": [],
+  "nodes": {
+   "bike_rack": {
+    "translation": [
+     0,
+     0,
+     0
+    ],
+    "rotation": null,
+    "scale": null,
+    "triangles": 1184
+   }
+  },
+  "materials": [
+   "rack_steel"
+  ],
+  "images": [],
+  "triangles": 1184,
+  "bbox_min": [
+   -1.36,
+   0,
+   -0.43
+  ],
+  "bbox_max": [
+   1.36,
+   0.824,
+   0.43
+  ],
+  "size_xyz": [
+   2.72,
+   0.824,
+   0.86
+  ],
+  "material_bounds": {
+   "rack_steel": [
+    [
+     -1.36,
+     0,
+     -0.43
+    ],
+    [
+     1.36,
+     0.824,
+     0.43
+    ]
+   ]
+  },
+  "material_details": {
+   "rack_steel": {
+    "alphaMode": "OPAQUE",
+    "doubleSided": false,
+    "baseColorFactor": [
+     0.6000000238418579,
+     0.6100000143051147,
+     0.6299999952316284,
+     1
+    ],
+    "metallic": 0.699999988079071,
+    "roughness": 0.44999998807907104,
+    "baseColorTexture": false,
+    "emissiveFactor": null,
+    "extensions": []
+   }
+  },
+  "degenerate_faces": 0,
+  "zero_normals": 0,
+  "max_image_px": 0,
+  "closed_parts": 7,
+  "inside_out_closed_parts": 0
+ }
+}

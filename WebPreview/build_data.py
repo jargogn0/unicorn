@@ -8,6 +8,7 @@ DATA = ROOT / "Stockholm" / "Content" / "Data"
 def load(rel):
     return json.loads((DATA / rel).read_text(encoding="utf-8"))
 
+VEHICLES_APPROVED = ["car_estate", "car_sedan", "car_hatch", "bicycle", "bike_rack"]
 eco = load("Ecosystem/stockholm_ecosystem.json")
 out = {
     "missions": load("Story/missions_ch1.json")["missions"],
@@ -21,6 +22,8 @@ out = {
     # Rigged characters the page loads: only those whose re-import check (Tools/blender/character/verify.py) has been written.
     "characters": sorted(p.stem for p in (ROOT / "WebPreview" / "assets" / "characters").glob("*.glb")
                          if (ROOT / "docs" / "character_renders" / f"{p.stem}_verify.json").exists()),
+    # Vehicles reviewed and approved for the game (see docs/vehicle_renders); edit this list after review.
+    "vehicles": [n for n in VEHICLES_APPROVED if (ROOT / "WebPreview" / "assets" / "vehicles" / f"{n}.glb").exists()],
 }
 dst = ROOT / "WebPreview" / "data.json"
 dst.write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
