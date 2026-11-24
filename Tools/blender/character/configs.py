@@ -17,30 +17,32 @@ CONFIGS['doudou'] = dict(
     # face / body detail targets tuned against the sheet's face close-up and front view
     targets=[('head-oval', 0.30),
              ('chin-prominent-incr', 0.20), ('chin-bones-incr', 0.25),
-             ('mouth-scale-horiz-incr', 0.55), ('mouth-angles-up', 0.55), ('mouth-trans-up', 0.25),
+             ('mouth-scale-horiz-incr', 0.55), ('mouth-angles-up', 0.80), ('mouth-trans-up', 0.25),
              ('neck-scale-vert-incr', 0.45), ('neck-scale-horiz-decr', 0.25),
-             ('nose-scale-vert-decr', 0.45), ('nose-width1-incr', 0.20), ('nose-width2-incr', 0.30), ('nose-width3-incr', 0.30),
-             ('nose-point-width-incr', 0.20), ('nose-volume-incr', 0.10),
+             ('nose-scale-vert-decr', 0.60), ('nose-width1-incr', 0.15), ('nose-width2-incr', 0.25), ('nose-width3-incr', 0.25),
+             ('nose-point-width-incr', 0.15), ('nose-volume-decr', 0.15),
              ('eyebrows-trans-up', 0.45),
              ('measure-shoulder-dist-decr', 0.30), ('measure-waist-circ-decr', 0.6), ('torso-scale-depth-decr', 0.4),
              ('measure-hips-circ-decr', 0.4)]
             + _LR('cheek-bones-incr', 0.60) + _LR('cheek-volume-incr', 0.18)
             + _LR('ear-wing-incr', 0.30) + _LR('ear-scale-incr', 0.10) + _LR('eye-corner2-up', 0.30)
-            + _LR('eye-scale-incr', 0.70) + _LR('eye-bag-decr', 0.60) + _LR('eye-height2-incr', 0.45)
+            + _LR('eye-scale-incr', 0.38) + _LR('eye-bag-decr', 0.60)
             + _LR('upperleg-fat-decr', 0.5) + _LR('lowerleg-fat-decr', 0.4) + _LR('upperarm-fat-decr', 0.4),
     skin=SYS + '/skins/young_african_male/young_african_male.mhmat',
     eye_mat=SYS + '/eyes/materials/brown.mhmat',
     eyebrows=SYS + '/eyebrows/eyebrow009/eyebrow009.mhclo', eyelashes=LASHES,
     teeth=SYS + '/teeth/teeth_base/teeth_base.mhclo',
+    neutral_expression=[('mouth-corner-puller', 0.22)],        # calm, pleasant resting face
     morphs=dict(
-        Smile=[('mouth-corner-puller', 0.60), ('mouth-upward-retraction', 0.95), ('mouth-retraction', 1.0),
-               ('mouth-elevation', 0.30), ('mouth-part-later', 0.08), ('eye-left-slit', 0.55), ('eye-right-slit', 0.55)],
+        Smile=[('mouth-corner-puller', 0.45), ('mouth-upward-retraction', 0.78), ('mouth-retraction', 0.8),
+               ('mouth-elevation', 0.15), ('mouth-part-later', 0.27), ('eye-left-slit', 0.45), ('eye-right-slit', 0.45),
+               ('eyebrows-left-up', 0.30), ('eyebrows-right-up', 0.30)],
         Blink=[('eye-left-closure', 1.0), ('eye-right-closure', 1.0)]),
     clothes=[('jeans', 'pants02_ccby/clothes/punkduck_male_classic_jeans/punkduck_male_classic_jeans.mhclo'),
              ('boots', 'shoes03_ccby/clothes/mindfront_shoes_biker_boots_male/mindfront_shoes_biker_boots_male.mhclo')],
     layers=['hoodie', 'ribs', 'hood', 'jeans', 'cuffs', 'boots'],
     no_cull=('ribs', 'hood', 'pocket', 'jeans', 'cuffs', 'boots'),
-    tuck=[('jeans', 'hoodie', 0.035)],
+    tuck=[('jeans', 'hoodie', 0.012)], drop_roles=('eyebrows',),
     hooks=[H.boots_fit, H.jeans_fit, H.build_hoodie, H.chest_logo, H.smartwatch, H.hightop_hair],
     decimate=dict(boots=0.55, teeth=0.45),
     mat=dict(
@@ -48,9 +50,9 @@ CONFIGS['doudou'] = dict(
         eyes=dict(drop_alpha=True, post=H.lively_eyes, rough=0.12, size=512, emissive=0.18),
         teeth=dict(rough=0.25, size=512, double_sided=False, post=H.bright_teeth, emissive=0.35, bg=(0, 0, 0)),
         eyebrows=dict(mul=(0.26, 0.20, 0.18), size=512), eyelashes=dict(size=256),
-        jeans=dict(post=H.faded_denim(G.washed_denim(dark=(56, 68, 96), light=(116, 130, 160))), rough=0.85,
+        jeans=dict(post=H.faded_denim(G.washed_denim(dark=(40, 52, 80), light=(98, 114, 146))), rough=0.85,
                    normal_strength=0.8),
-        boots=dict(post=G.tint((30, 21, 18), (120, 86, 66)), rough=0.62, normal_strength=1.0),
+        boots=dict(post=G.tint((50, 31, 23), (150, 100, 70)), rough=0.55, normal_strength=1.0),
     ),
 )
 

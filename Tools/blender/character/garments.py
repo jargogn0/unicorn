@@ -54,7 +54,10 @@ def scalp_shell(cfg, R, ref, rig, hc, role):
     scalp = head & (co[:, 2] > line)
     # ears stick out sideways: never grow hair from them
     half_w = np.abs(co[upper & (np.abs(t - 0.5) < 0.2), 0]).max()
-    bm = bmesh.new(); bm.from_mesh(ref.data); bm.verts.ensure_lookup_table()
+    bm = bmesh.new(); bm.from_mesh(ref.data)
+    for lay in list(bm.verts.layers.deform):          # do not inherit the body's (index-based) skin weights
+        bm.verts.layers.deform.remove(lay)
+    bm.verts.ensure_lookup_table()
     keepf = [f for f in bm.faces if all(scalp[v.index] for v in f.verts)]
     bmesh.ops.delete(bm, geom=[f for f in bm.faces if f not in set(keepf)], context='FACES')
     bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces], context='VERTS')

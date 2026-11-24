@@ -130,6 +130,10 @@ def finalize(cfg, in_blend=None, out_blend=None):
     # 4. materials
     build_materials(cfg)
 
+    for r in cfg.get('drop_roles', ()):          # helper proxies only needed while painting textures
+        if r in roles():
+            bpy.data.objects.remove(roles()[r], do_unlink=True)
+
     # 5. clean vertex groups, weights
     for o in roles().values():
         M.keep_only_bone_groups(o, rig)

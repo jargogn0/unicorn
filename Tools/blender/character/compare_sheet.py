@@ -73,7 +73,7 @@ def main(glb, ref_path, out_dir):
     lighting('studio')
     body = []
     for lab, az in (('front', 0), ('side', 90), ('back', 180), ('threeq', 38)):
-        p = os.path.join(tmp, f'b_{lab}.png'); RU.shot(p, az, target=(0, 0, height * 0.495), dist=11.6, lens=200, elev_deg=1.5); body.append(p)
+        p = os.path.join(tmp, f'b_{lab}.png'); RU.shot(p, az, target=(0, 0, height * 0.495), dist=12.6, lens=200, elev_deg=1.5); body.append(p)
     eye_z = height * 0.925
     RU.setup_render((760, 800), 64)
     faces = {}
@@ -87,10 +87,11 @@ def main(glb, ref_path, out_dir):
     # --- sheet 1: reference row above, render row below (four body views + smiling face)
     Wb, Hrow = 1010, 980
     row2 = Image.new('RGB', (Wb, Hrow), (90, 84, 90))
-    for i, p in enumerate(body):
+    cells = [(0, 262), (262, 222), (484, 262), (746, 264)]          # same column layout as the sheet
+    for (x_, cw), p in zip(cells, body):
         im = Image.open(p).convert('RGB'); im = im.resize((int(im.width * Hrow / im.height), Hrow), Image.LANCZOS)
-        cw = Wb // 4; x0 = (im.width - cw) // 2
-        row2.paste(im.crop((x0, 0, x0 + cw, Hrow)), (i * cw, 0))
+        x0 = (im.width - cw) // 2
+        row2.paste(im.crop((x0, 0, x0 + cw, Hrow)), (x_, 0))
     fw = 420
     def face_tile(im, h=Hrow // 2):
         im = im.resize((fw, int(im.height * fw / im.width)), Image.LANCZOS)

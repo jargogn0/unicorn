@@ -25,6 +25,17 @@ def _smooth(a, b, x):
     return t * t * (3 - 2 * t)
 
 
+def _strip_layers(bm):
+    """Geometry cut out of the body must not inherit its skin weights or morph-delta attributes (stale weight
+    indices would bind it to arbitrary bones once meshes are joined)."""
+    for lay in list(bm.verts.layers.deform):
+        bm.verts.layers.deform.remove(lay)
+    for lay in list(bm.verts.layers.float_vector):
+        bm.verts.layers.float_vector.remove(lay)
+    for lay in list(bm.verts.layers.shape):
+        bm.verts.layers.shape.remove(lay)
+
+
 def _new_obj(name, role, rig, bm=None):
     me = bpy.data.meshes.new(name); o = bpy.data.objects.new(name, me)
     bpy.context.scene.collection.objects.link(o)
@@ -69,29 +80,35 @@ def capture_morphs(cfg, basemesh, proxies):
     mh = {}
     for role, (obj, path) in proxies.items():
         m = Mhclo(); m.load(path); m.clothes = obj; mh[role] = m
+    keys = {}
+    rest = dict(cfg.get('neutral_expression', []))        # expression units baked into the resting face
+    for unit, w in rest.items():
+        keys[unit] = TS.load_target(basemesh, os.path.join(udir, unit + '.target.gz'), weight=w, name='ex_' + unit)
+    for r, (o, _) in proxies.items():
+        CS.fit_clothes_to_human(o, basemesh, mh[r], set_parent=False)
     neutral = mix()
     pn = {r: M.coords(o).copy() for r, (o, _) in proxies.items()}
-    keys = {}
     for name, units in cfg['morphs'].items():
         for unit, w in units:
             if unit not in keys:
                 keys[unit] = TS.load_target(basemesh, os.path.join(udir, unit + '.target.gz'), weight=0.0, name='ex_' + unit)
-        for k in keys.values():
-            k.value = 0.0
+        for u_, k in keys.items():
+            k.value = rest.get(u_, 0.0)
         for unit, w in units:
-            keys[unit].value = w
+            keys[unit].value = max(w, rest.get(unit, 0.0))
         d = mix() - neutral
         set_attr(basemesh, 'mt_' + name, d)
         print('morph', name, 'body verts moved', int((np.abs(d).max(1) > 1e-5).sum()), 'max', float(np.abs(d).max()))
         for r, (o, _) in proxies.items():
             CS.fit_clothes_to_human(o, basemesh, mh[r], set_parent=False)
             set_attr(o, 'mt_' + name, M.coords(o) - pn[r])
-    for k in keys.values():
-        k.value = 0.0
+    for u_, k in keys.items():
+        k.value = rest.get(u_, 0.0)
     for r, (o, _) in proxies.items():
         CS.fit_clothes_to_human(o, basemesh, mh[r], set_parent=False)
-    for k in list(keys.values()):
-        basemesh.shape_key_remove(k)
+    for u_, k in list(keys.items()):
+        if u_ not in rest:                                 # rest-expression keys stay and are baked with the body
+            basemesh.shape_key_remove(k)
 
 
 def attrs_to_shape_keys(mesh_obj):
@@ -111,7 +128,7 @@ def attrs_to_shape_keys(mesh_obj):
 
 
 # ----------------------------------------------------------------------------- skin
-def skin_tone(gain=(1.74, 1.60, 1.54), keep_dark=0.10, full=0.24, sat=1.16):
+def skin_tone(gain=(1.72, 1.60, 1.55), keep_dark=0.10, full=0.24, sat=1.14):
     """Lift the very dark MakeHuman 'young_african_male' skin to a warm medium-dark brown while leaving the
     painted scalp hair / lash lines dark."""
     def post(im, obj=None):
@@ -276,8 +293,8 @@ def face_paint(tone=None, hair_rgb=(30, 20, 17), cfg_jaw=0.0):
         chin = valid & (Y < pg_y + 0.030)                                       # chin, not the neck behind it
         # thin moustache hugging the upper lip, running out to (and just past) the mouth corners
         t = np.clip(ax / (cx * 1.08), 0, 1)
-        z_top = st + (sn - st) * 0.70
-        zc = z_top + (cz + 0.0045 - z_top) * t ** 1.8 - 0.0010 * np.exp(-(ax / 0.004) ** 2)   # slight cupid's-bow dip
+        z_top = st + (sn - st) * 0.80
+        zc = z_top + (cz + 0.0100 - z_top) * t ** 2.2 - 0.0010 * np.exp(-(ax / 0.004) ** 2)   # slight cupid's-bow dip
         half = 0.0023 * (1 - 0.40 * t ** 3)
         mous = band(np.abs(Z - zc), half, 0.0011) * (1 - _smooth(cx * 0.92, cx * 1.10, ax)) * front
         # soul patch under the lower lip, short goatee on the chin
@@ -293,7 +310,23 @@ def face_paint(tone=None, hair_rgb=(30, 20, 17), cfg_jaw=0.0):
         nz = nrm[..., 2]
         edge = _smooth(-0.24, -0.40, nz) * (1 - _smooth(-0.66, -0.86, nz))
         jaw = edge * valid * (Z < st - 0.016) * (Z > me - 0.02) * (Y < L['eye_y'] + 0.100) * (Y > pg_y + 0.004) * 0.34
-        solid = np.clip(np.maximum.reduce([mous * 0.95, soul * 0.80, goat * 0.88]), 0, 1)
+        # eyebrows: soft, arched, relaxed - painted so they move with the skin in every expression.  The fitted
+        # eyebrow proxy (dropped afterwards) only supplies where the brow ridge is.
+        brow = np.zeros_like(Z)
+        if 'eyebrows' in R:
+            bc = M.coords(R['eyebrows'])
+            bx0, bx1 = np.percentile(np.abs(bc[:, 0]), 2), np.percentile(np.abs(bc[:, 0]), 98)
+            xs_ = np.linspace(bx0, bx1, 9); zs_ = []
+            for x_ in xs_:
+                m_ = np.abs(np.abs(bc[:, 0]) - x_) < (bx1 - bx0) / 8
+                zs_.append(bc[m_, 2].mean() if m_.any() else np.nan)
+            zs_ = np.array(zs_); okb = ~np.isnan(zs_); zs_ = np.interp(xs_, xs_[okb], zs_[okb])
+            u = np.clip((ax - bx0) / (bx1 - bx0), 0, 1)
+            zb = np.interp(ax, xs_, zs_) + 0.0026 + 0.0032 * np.sin(np.pi * u ** 0.85) - 0.0015 * u ** 2
+            hb_ = 0.0034 * (0.82 + 0.35 * np.sin(np.pi * np.clip(u * 0.9, 0, 1))) * (1 - 0.72 * u ** 2.2)
+            ends_ = _smooth(-0.04, 0.12, (ax - bx0) / (bx1 - bx0)) * (1 - _smooth(0.93, 1.04, (ax - bx0) / (bx1 - bx0)))
+            brow = band(np.abs(Z - zb), hb_, 0.0016) * ends_ * valid * (Y < L['eye_y'] + 0.04) * (Z > L['eye_z'])
+        solid = np.clip(np.maximum.reduce([mous * 0.90, soul * 0.80, goat * 0.88, brow * 0.86]), 0, 1)
         light = np.clip(jaw * cfg_jaw, 0, 1)                  # (mouth-corner lines read as creases: left out)
         alpha = np.clip(solid * (0.62 + 0.30 * streak + 0.08 * grain) + (1 - solid) * light * (0.25 + 0.75 * streak), 0, 1)[..., None]
         hair = np.array(hair_rgb, np.float32) / 255.0
@@ -322,7 +355,7 @@ def hightop_hair(cfg, R, ref, rig):
     """Short curly high-top: a tapered shell over the top / crown of the scalp carrying a few hundred small
     low-poly curl clumps, so the silhouette is knobbly like the sheet; sides and nape stay as the faded
     short hair painted into the skin texture."""
-    hc = dict(top=0.027, edge=0.003, clump=0.0084, spacing=0.0098, seed=11, color=(40, 27, 22))
+    hc = dict(top=0.027, edge=0.003, clump=0.0084, spacing=0.0098, seed=11, color=(34, 23, 19))
     hc.update(cfg.get('hightop', {}))
     co = M.coords(ref)
     wH = M.group_weights(ref, [BP + 'Head'])
@@ -334,10 +367,10 @@ def hightop_hair(cfg, R, ref, rig):
     Hh = z_top - chin
     t = np.clip((co[:, 1] - y_front) / (y_back - y_front), 0, 1)
     tp = hc.get('line_t', [0.00, 0.08, 0.18, 0.30, 0.50, 0.70, 0.85, 1.00])
-    hp = hc.get('line_h', [0.790, 0.790, 0.775, 0.735, 0.715, 0.660, 0.540, 0.430])
+    hp = hc.get('line_h', [0.835, 0.835, 0.800, 0.745, 0.715, 0.660, 0.540, 0.430])
     line = chin + Hh * np.interp(t, tp, hp)
     scalp = head & (co[:, 2] > line)
-    bm = bmesh.new(); bm.from_mesh(ref.data); bm.verts.ensure_lookup_table()
+    bm = bmesh.new(); bm.from_mesh(ref.data); _strip_layers(bm); bm.verts.ensure_lookup_table()
     keep = set(f for f in bm.faces if all(scalp[v.index] for v in f.verts))
     bmesh.ops.delete(bm, geom=[f for f in bm.faces if f not in keep], context='FACES')
     bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces], context='VERTS')
@@ -450,9 +483,9 @@ def hightop_hair(cfg, R, ref, rig):
     print('hightop: clumps', len(pts), 'tris', sum(len(p.vertices) - 2 for p in o.data.polygons))
     h = MT.curls_height(512, seed=7, cell=hc.get('cell', 14))
     npth = MT.save_tex(MT.height_to_normal(h, 5.0), cfg['name'] + '_hair_n', quality=90)
-    base = np.array(hc['color'], np.float32)[None, None] * (0.50 + 0.80 * h[..., None])
+    base = np.array(hc['color'], np.float32)[None, None] * (0.70 + 0.45 * h[..., None])
     bp = MT.save_tex(Image.fromarray(np.clip(base, 0, 255).astype(np.uint8), 'RGB'), cfg['name'] + '_hair', quality=88)
-    m = MT.make_material(cfg['name'] + '_hair', base=bp, roughness=0.78, normal=npth, normal_strength=1.6, double_sided=False)
+    m = MT.make_material(cfg['name'] + '_hair', base=bp, roughness=0.70, normal=npth, normal_strength=1.6, double_sided=False)
     MT.assign(o, m); o['stk_custom_mat'] = True
     return o
 
@@ -498,8 +531,8 @@ def _band(bm, uvl, loop, direction, length, shrink, ribs_per_m, rows=3, centre=N
         ring = []
         for i, p in enumerate(pts):
             rad = p - c; rad -= direction * rad.dot(direction)
-            k = shrink * (1.0 if 0 < r < rows else (0.55 if r == 0 else 1.25)) - bulge * math.sin(math.pi * t)
-            q = p - rad.normalized() * k + direction * (length * t - (0.004 if r == 0 else 0.0))
+            k = shrink * (1.0 + 0.15 * t) - bulge * math.sin(math.pi * t)
+            q = p - rad.normalized() * k + direction * (length * t)
             ring.append(bm.verts.new(q))
         rings.append(ring)
     faces = []
@@ -518,16 +551,14 @@ def build_hoodie(cfg, R, ref, rig):
     """Classic pullover hoodie authored from the CC0 body surface: relaxed torso / sleeve shell with bunching
     above the cuffs, separate rib-knit cuffs and hem band, hood resting behind the neck with crossed front
     edges, two drawstrings, kangaroo pocket, chest logo decal."""
-    hp = dict(color=(160, 128, 168), clear=0.013, hem_drop=0.105, sleeve_short=0.105, cuff=0.055, hem_band=0.060)
+    hp = dict(color=(160, 126, 162), clear=0.013, hem_drop=0.105, sleeve_short=0.105, cuff=0.055, hem_band=0.060)
     hp.update(cfg.get('hoodie', {}))
     B = lambda n: _bone(rig, n)
     co = M.coords(ref)
     z_neck = B('Neck').head_local.z; y_neck = B('Neck').head_local.y
     z_hem = B('LeftUpLeg').head_local.z - hp['hem_drop'] + hp['hem_band']
     # --- 1. torso + sleeves cut out of the body surface
-    bm = bmesh.new(); bm.from_mesh(ref.data)
-    for layer in list(bm.verts.layers.float_vector):
-        bm.verts.layers.float_vector.remove(layer)
+    bm = bmesh.new(); bm.from_mesh(ref.data); _strip_layers(bm)
     def cut(co_, no_, pred):
         geom = [g for g in list(bm.verts) + list(bm.edges) + list(bm.faces)
                 if all(pred(v.co) for v in (g.verts if hasattr(g, 'verts') else [g]))]
@@ -605,7 +636,7 @@ def build_hoodie(cfg, R, ref, rig):
                 if (p - (q0 + d * t_)).length < 0.075 and abs(p.x) > abs(a0.x) + 0.035:
                     return True
         return False
-    z_box = B('Spine2').head_local.z - 0.02
+    z_box = B('Spine2').head_local.z - 0.075
     ctr = Vector((0, B('Spine1').head_local.y, 0))
     nbin = 48; prof = np.zeros(nbin)
     torso_v = [v for v in bm.verts if v.co.z < z_box + 0.03 and not is_arm(v.co)]
@@ -619,7 +650,7 @@ def build_hoodie(cfg, R, ref, rig):
     for v in torso_v:
         if v.is_boundary and v.co.z > z_box: continue
         a_ = math.atan2(v.co.y - ctr.y, v.co.x); k = (a_ + math.pi) / (2 * math.pi) * nbin
-        r_t = float(np.interp(k % nbin, np.arange(nbin + 1), np.append(prof, prof[0]))) * hp.get('box', 0.97)
+        r_t = float(np.interp(k % nbin, np.arange(nbin + 1), np.append(prof, prof[0]))) * hp.get('box', 0.91)
         r = math.hypot(v.co.x, v.co.y - ctr.y)
         w = float(_smooth(z_box + 0.03, z_box - 0.06, v.co.z))
         if r < r_t:
@@ -647,6 +678,23 @@ def build_hoodie(cfg, R, ref, rig):
                 d += 0.008 * math.sin(math.pi * min(1.0, hz / 0.10)) ** 0.7
             d += 0.0035 * math.sin(p.z * 23 + p.x * 9 + ph[1]) * math.sin(p.x * 17 + ph[2]) * float(_smooth(z_a + 0.05, z_a - 0.1, p.z))
         v.co += v.normal * d
+    # gather the cloth into the rib bands: pull the last few centimetres in towards the band's (snugger) radius
+    hem_c = Vector((0, B('Hips').head_local.y, z_hem))
+    for v in bm.verts:
+        p = v.co
+        if abs(p.x) > 0.25 and p.z < z_neck - 0.15:
+            pt, ax = ends['Left' if p.x > 0 else 'Right']
+            sdist = (pt - p).dot(ax)
+            if 0 <= sdist < 0.035:
+                axis_pt = pt - ax * sdist
+                core = B(('Left' if p.x > 0 else 'Right') + 'Hand').head_local
+                cpt = core + ax * (axis_pt - core).dot(ax)
+                rad = p - cpt
+                p += -rad.normalized() * 0.010 * (1 - sdist / 0.035) ** 1.5
+        elif p.z < z_hem + 0.04 and abs(p.x) < 0.3:
+            k = (1 - (p.z - z_hem) / 0.04) ** 1.5
+            rad = Vector((p.x - hem_c.x, p.y - hem_c.y, 0))
+            p -= rad.normalized() * 0.012 * k
     # put the open edges back exactly on their cutting planes (clean hem / sleeve ends / neckline)
     for v in bm.verts:
         if not v.is_boundary: continue
@@ -672,12 +720,12 @@ def build_hoodie(cfg, R, ref, rig):
         if abs(c.x) > 0.25:
             s_ = 'Left' if c.x > 0 else 'Right'
             tmp = [rb.verts.new(v.co) for v in lp]
-            _band(rb, ruv, tmp, ends[s_][1], hp['cuff'], 0.010, 260, rows=3)
+            _band(rb, ruv, tmp, ends[s_][1], hp['cuff'], 0.002, 260, rows=3, bulge=0.0015)
             bmesh.ops.delete(rb, geom=tmp, context='VERTS')
             info['cuff_' + s_] = c
         elif c.z < z_hem + 0.05:
             tmp = [rb.verts.new(v.co) for v in lp]
-            _band(rb, ruv, tmp, Vector((0, 0, -1)), hp['hem_band'], 0.013, 230, rows=3)
+            _band(rb, ruv, tmp, Vector((0, 0, -1)), hp['hem_band'], 0.002, 230, rows=3, bulge=0.002)
             bmesh.ops.delete(rb, geom=tmp, context='VERTS')
             info['hem'] = c
         else:
@@ -935,7 +983,7 @@ def boots_fit(cfg, R, ref, rig):
             n = hit[1] if hit[1].y < 0 else -hit[1]
             return hit[0] + n * 0.0035
 
-        def cord(a, b, r=0.0022):
+        def cord(a, b, r=0.0030):
             if a is None or b is None: return
             t = (b - a).normalized(); a1 = t.cross(Vector((0, -1, 0))).normalized(); a2 = t.cross(a1).normalized()
             mid = (a + b) / 2 + Vector((0, -0.0015, 0))
@@ -954,7 +1002,7 @@ def boots_fit(cfg, R, ref, rig):
     lo = _new_obj('stk_laces', 'laces', rig, lace)
     M.transfer_weights(ref, o, rig)
     M.transfer_weights(o, lo, rig)
-    col = bp_.get('lace_color', (112, 82, 58))
+    col = bp_.get('lace_color', (150, 116, 84))
     m = MT.make_material(cfg['name'] + '_laces', color=tuple((c_ / 255.0) ** 2.2 for c_ in col), roughness=0.8)
     MT.assign(lo, m); lo['stk_custom_mat'] = True
     o['stk_top'] = float(z_top + 0.01)
@@ -969,8 +1017,18 @@ def jeans_fit(cfg, R, ref, rig):
     geom = list(bm.verts) + list(bm.edges) + list(bm.faces)
     bmesh.ops.bisect_plane(bm, geom=geom, dist=1e-5, plane_co=Vector((0, 0, z_cut)), plane_no=Vector((0, 0, -1)), clear_outer=True)
     bm.to_mesh(o.data); bm.free(); o.data.update()
-    co = M.coords(o)                                   # legs must clear the boot shaft near the hem
-    M.push_outside(o, boots, margin=0.006, reach=0.04, vmask=co[:, 2] < z_cut + 0.10)
+    co = M.coords(o)
+    slim = cfg.get('jeans_slim', 0.85)                 # slim / straight leg: narrow each leg around its bone axis
+    for s_ in ('Left', 'Right'):
+        hip = _bone(rig, s_ + 'UpLeg').head_local; knee = _bone(rig, s_ + 'Leg').head_local; ank = _bone(rig, s_ + 'Foot').head_local
+        sgn = 1 if s_ == 'Left' else -1
+        m = (co[:, 0] * sgn > 0) & (co[:, 2] < hip.z - 0.10)
+        zz = co[m, 2]
+        axx = np.interp(zz, [ank.z, knee.z, hip.z], [ank.x, knee.x, hip.x]); axy = np.interp(zz, [ank.z, knee.z, hip.z], [ank.y, knee.y, hip.y])
+        w = (1 - (1 - slim) * _smooth(hip.z - 0.10, hip.z - 0.22, zz))
+        co[m, 0] = axx + (co[m, 0] - axx) * w; co[m, 1] = axy + (co[m, 1] - axy) * w
+    M.set_coords(o, co)
+    M.push_outside(o, boots, margin=0.006, reach=0.04, vmask=co[:, 2] < z_cut + 0.10)   # legs clear the boot shaft
     cb = bmesh.new(); cuv = cb.loops.layers.uv.new('UVMap')
     co = M.coords(o)
     for sgn in (-1, 1):                 # the jeans mesh has open seams, so build each hem ring by angle instead
@@ -1010,10 +1068,10 @@ def faded_denim(base_post):
         front = _smooth(-0.15, -0.75, nrm[..., 1])
         thigh = np.exp(-((t - 0.70) / 0.14) ** 2); knee = np.exp(-((t - 0.44) / 0.07) ** 2)
         seat = _smooth(0.2, 0.8, nrm[..., 1]) * np.exp(-((t - 0.86) / 0.07) ** 2) * 0.5
-        wear = np.clip((0.55 * thigh + 0.50 * knee) * front + seat, 0, 1) * valid
+        wear = np.clip((0.75 * thigh + 0.65 * knee) * front + seat, 0, 1) * valid
         wear = np.asarray(Image.fromarray((wear * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(size / 160)), np.float32)[..., None] / 255
-        light = np.array([172, 184, 206], np.float32) / 255
-        out = a + (light - a) * wear * 0.55
+        light = np.array([158, 170, 194], np.float32) / 255
+        out = a + (light - a) * wear * 0.60
         return Image.fromarray(np.clip(out * 255, 0, 255).astype(np.uint8), 'RGB')
     return post
 
@@ -1035,8 +1093,8 @@ def smartwatch(cfg, R, ref, rig):
     tree, tb = M.bvh_of(ref)
 
     def surf(d, along=0.0):
-        o_ = P + ax * along
-        hit = tree.ray_cast(o_ + d * 0.2, -d, 0.4)
+        o_ = P + ax * along                              # P lies on the bone axis inside the forearm
+        hit = tree.ray_cast(o_, d, 0.08)
         return hit[0] if hit[0] is not None else o_ + d * 0.03
     bm = bmesh.new(); uvl = bm.loops.layers.uv.new('UVMap')
 
