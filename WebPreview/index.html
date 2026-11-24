@@ -141,6 +141,13 @@ button:focus-visible { outline: 2px solid var(--warm); outline-offset: 2px; }
 #logo { font-family: var(--font-sign); font-weight: 700; font-size: clamp(56px, 13vw, 168px); letter-spacing: .12em; line-height: .85; margin: 0; text-shadow: 0 8px 40px rgba(0,0,0,.5); }
 #tagline { font-size: clamp(16px, 2.2vw, 21px); max-width: 52ch; line-height: 1.45; color: #d3dde6; margin: 0; }
 #title-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+#viewer { inset: 0; pointer-events: none; z-index: 30; }
+#viewer-head { position: absolute; left: max(20px, env(safe-area-inset-left, 0px)); top: calc(18px + env(safe-area-inset-top, 0px)); max-width: 360px; }
+#viewer-head h2 { margin: 2px 0 4px; font-family: var(--font-sign); letter-spacing: .08em; font-size: clamp(28px, 5vw, 44px); }
+#viewer-head p { margin: 0; color: #d3dde6; font-size: 15px; }
+#viewer-bar { position: absolute; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; width: min(980px, calc(100vw - 32px)); pointer-events: auto; }
+#viewer-bar button { padding: 9px 13px; border-radius: 9px; border: 1px solid rgba(255,255,255,.18); background: rgba(10,12,16,.6); color: var(--ink); font-family: var(--font-sign); letter-spacing: .05em; text-transform: uppercase; font-size: 13px; cursor: pointer; }
+#viewer-bar button.on { background: var(--warm); color: #1b1203; border-color: transparent; }
 #title-notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
 #title-notes .panel { padding: 12px 14px; font-size: 14px; line-height: 1.45; color: #c9d4de; }
 #title-notes h4 { margin: 0 0 4px; font-family: var(--font-sign); letter-spacing: .1em; text-transform: uppercase; font-size: 13px; color: var(--warm); }
@@ -251,6 +258,7 @@ button:focus-visible { outline: 2px solid var(--warm); outline-offset: 2px; }
       <button class="bigbtn" id="btn-new" type="button" disabled>Loading Stockholm…</button>
       <button class="bigbtn ghost" id="btn-continue" type="button" hidden>Continue</button>
       <button class="bigbtn ghost" id="btn-street" type="button" disabled>Walk Kungsgatan</button>
+      <button class="bigbtn ghost" id="btn-viewer" type="button" disabled>Meet Doudou</button>
     </div>
     <div id="title-notes">
       <div class="panel"><h4>Controls</h4>WASD move · Mouse look (click to lock) · Shift sprint · E interact · F enter or leave car · Tab phone · M Founder Map · 1-4 choose · Q decisions · F5 save</div>
@@ -262,6 +270,14 @@ button:focus-visible { outline: 2px solid var(--warm); outline-offset: 2px; }
   </div>
 </div>
 <div class="hud" id="letterbox" hidden></div>
+<div class="hud" id="viewer" hidden>
+  <div id="viewer-head"><div class="label">Character</div><h2>Doudou BA</h2><p>Founder of OctOpus. Drag to turn him, scroll to zoom.</p></div>
+  <div id="viewer-bar">
+    <button type="button" data-clip="Idle">Idle</button><button type="button" data-clip="Walk">Walk</button><button type="button" data-clip="Run">Run</button>
+    <button type="button" data-clip="Talk">Talk</button><button type="button" data-clip="Interact">Interact</button><button type="button" data-clip="Agree">Agree</button><button type="button" data-clip="HeadShake">Head shake</button>
+    <button type="button" id="viewer-face">Face close-up</button><button type="button" id="viewer-back">Back</button>
+  </div>
+</div>
 <div class="hud" id="caption" hidden></div>
 <div class="hud" id="notif" hidden><div class="from"></div><div class="txt"></div></div>
 <button class="hud" id="skip" type="button" hidden style="pointer-events:auto;background:none;border:none">Skip · Space</button>
@@ -288,6 +304,7 @@ import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
 const $ = (id) => document.getElementById(id);
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
@@ -1670,7 +1687,10 @@ class RigPerson {
       const tint = opts.tint && opts.tint[(o.material.name.match(CLOTH_RE) || [])[1]];
       if (tint) { o.material = o.material.clone(); o.material.color.multiply(new THREE.Color(tint)); }
     });
-    g.add(m); scene.add(g);
+    g.add(m); (opts.parent || scene).add(g);
+    // Facial morph targets (Smile, Blink) when the model has them.
+    this.faces = []; m.traverse((o) => { if (o.isMesh && o.morphTargetDictionary && ('Smile' in o.morphTargetDictionary || 'Blink' in o.morphTargetDictionary)) this.faces.push(o); });
+    this.smile = 0; this.smileWant = opts.smile ?? 0.85; this.blinkT = 2 + Math.random() * 3;
     this.mixer = new THREE.AnimationMixer(m); this.act = {};
     for (const c of src.animations) this.act[c.name] = this.mixer.clipAction(c);
     for (const n of ['Interact', 'Agree', 'HeadShake']) if (this.act[n]) { this.act[n].setLoop(THREE.LoopOnce, 1); this.act[n].clampWhenFinished = true; }
@@ -1699,7 +1719,15 @@ class RigPerson {
     this.state = turning ? 'Turn' : want;
     if (want === 'Walk') a.timeScale = turning ? 0.8 : clamp(speed / this.walkRef, 0.6, 1.7); else if (want === 'Run') a.timeScale = clamp(speed / this.runRef, 0.75, 1.5);
     this.lean = lerp(this.lean, clamp(-yawRate * 0.035 * Math.min(1, speed / 4), -0.2, 0.2), 1 - Math.exp(-dt * 8)); this.model.rotation.z = this.lean;
+    this.updateFace(dt, speed);
     this.mixer.update(dt);
+  }
+  updateFace(dt, speed) {
+    if (!this.faces.length) return;
+    const want = this.smileOverride ?? (speed > 2.4 ? 0.25 : speed > 0.15 ? 0.55 : this.smileWant);
+    this.smile = lerp(this.smile, want, 1 - Math.exp(-dt * 4)); this.blinkT -= dt; if (this.blinkT < -0.14) this.blinkT = 2.5 + Math.random() * 3.5;
+    const blink = this.blinkT < 0 ? Math.sin(-this.blinkT / 0.14 * Math.PI) : 0;
+    for (const f of this.faces) { const d = f.morphTargetDictionary; if ('Smile' in d) f.morphTargetInfluences[d.Smile] = this.smile; if ('Blink' in d) f.morphTargetInfluences[d.Blink] = blink; }
   }
   place(x, y, yaw) { this.root.position.set(x, surfaceAt(x, y), -y); this.root.rotation.y = yaw; }
 }
@@ -2342,7 +2370,7 @@ function beginPlay(cont) {
   if (cont && loadGame()) { setHud(true); toast('Welcome back', `${sim.dateLabel()} ${sim.timeLabel()}`); }
   else { sim.begin(); teleport(ROOM_SPOTS.start.x, ROOM_SPOTS.start.y, Math.PI * 0.9); startCinematic(); }
 }
-$('btn-street').disabled = !hero.ready;
+$('btn-street').disabled = !hero.ready; $('btn-viewer').disabled = !CHAR.doudou;
 $('btn-street').onclick = () => { initAudio(); $('title').hidden = true; $('hero-art').hidden = true; state.mode = 'play'; sim.begin(); sim.minutes = 15 * 60 + 20; sim.applyWeather('light_snow', 1); teleport(-228, 895, 1.42); setHud(true); toast('Kungsgatan', 'Norrmalm, looking east to the Kungstornen towers. Street geometry from OpenStreetMap.'); };
 $('btn-new').onclick = () => beginPlay(false);
 $('btn-continue').onclick = () => beginPlay(true);
@@ -2543,9 +2571,50 @@ function updateHud() {
   const unread = sim.msgs.filter((m) => !m.read).length; $('btn-phone').textContent = `Phone${unread ? ` · ${unread} new` : ''} · Tab`;
 }
 
+// ---- Character viewer: Doudou on a studio backdrop, for inspecting the model and its animations.
+const viewer = { scene: null, cam: null, rig: null, yaw: 0.45, dist: 5.0, face: false, drag: null, clip: 'Idle', idleT: 0 };
+function buildViewer() {
+  if (viewer.scene) return true; if (!CHAR.doudou) return false;
+  const sc = new THREE.Scene(); sc.background = new THREE.Color(0x4f4a52);
+  sc.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+  const floor = new THREE.Mesh(new THREE.CircleGeometry(7, 64), new THREE.MeshStandardMaterial({ color: 0x48444c, roughness: 0.95 })); floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; sc.add(floor);
+  const key = new THREE.DirectionalLight(0xfff3e8, 2.6); key.position.set(2.2, 4.2, -3.2); key.castShadow = true; key.shadow.mapSize.set(2048, 2048); key.shadow.bias = -0.0004; key.shadow.normalBias = 0.02; Object.assign(key.shadow.camera, { left: -1.5, right: 1.5, top: 2.4, bottom: -0.2, near: 0.5, far: 12 }); sc.add(key);
+  const rim = new THREE.DirectionalLight(0xd6dcff, 1.7); rim.position.set(-2.6, 3.2, 3.4); sc.add(rim);
+  sc.add(new THREE.HemisphereLight(0xffffff, 0x3c3a40, 0.55));
+  viewer.rig = new RigPerson('doudou', { noCull: true, parent: sc, smile: 1 });
+  viewer.cam = new THREE.PerspectiveCamera(28, innerWidth / innerHeight, 0.05, 60); viewer.scene = sc; return true;
+}
+function viewerPlay(name) {
+  const r = viewer.rig; viewer.clip = name; r.once = null; r.cur = null;
+  if (['Interact', 'Agree', 'HeadShake'].includes(name)) r.gesture(name); else r.play(name, 0.25);
+  document.querySelectorAll('#viewer-bar [data-clip]').forEach((b) => b.classList.toggle('on', b.dataset.clip === name));
+}
+function openViewer() {
+  if (!buildViewer()) return; initAudio(); $('title').hidden = true; $('hero-art').hidden = true; $('viewer').hidden = false; state.mode = 'viewer'; viewerPlay('Idle');
+}
+function closeViewer() { $('viewer').hidden = true; $('title').hidden = false; $('hero-art').hidden = false; state.mode = 'title'; }
+function updateViewer(dt) {
+  const r = viewer.rig; if (!viewer.drag) viewer.yaw += dt * 0.12;
+  if (r.once && r.act[r.once] && !r.act[r.once].isRunning()) { r.once = null; viewerPlay('Idle'); }
+  r.smileOverride = viewer.clip === 'Run' ? 0.3 : viewer.clip === 'Walk' ? 0.7 : viewer.clip === 'HeadShake' ? 0.15 : 1;
+  r.updateFace(dt, 0); r.mixer.update(dt);
+  const d = viewer.face ? 1.0 : viewer.dist, ty = viewer.face ? 1.63 : 0.86;
+  viewer.cam.aspect = innerWidth / innerHeight; viewer.cam.updateProjectionMatrix();
+  viewer.cam.position.set(-Math.sin(viewer.yaw) * d, ty + (viewer.face ? 0.02 : 0.1), -Math.cos(viewer.yaw) * d); viewer.cam.lookAt(0, ty, 0); viewer.cam.setViewOffset(innerWidth, innerHeight, 0, viewer.face ? 0 : innerHeight * 0.05, innerWidth, innerHeight);
+  renderer.toneMappingExposure = 1.0; renderer.render(viewer.scene, viewer.cam);
+}
+$('btn-viewer').onclick = openViewer; $('viewer-back').onclick = closeViewer;
+$('viewer-face').onclick = () => { viewer.face = !viewer.face; $('viewer-face').classList.toggle('on', viewer.face); };
+document.querySelectorAll('#viewer-bar [data-clip]').forEach((b) => { b.onclick = () => viewerPlay(b.dataset.clip); });
+renderer.domElement.addEventListener('pointerdown', (e) => { if (state.mode === 'viewer') viewer.drag = { x: e.clientX, yaw: viewer.yaw }; });
+addEventListener('pointerup', () => { viewer.drag = null; });
+addEventListener('pointermove', (e) => { if (state.mode === 'viewer' && viewer.drag) viewer.yaw = viewer.drag.yaw - (e.clientX - viewer.drag.x) * 0.008; });
+renderer.domElement.addEventListener('wheel', (e) => { if (state.mode !== 'viewer') return; e.preventDefault(); viewer.dist = clamp(viewer.dist * (e.deltaY > 0 ? 1.1 : 0.9), 1.6, 7); }, { passive: false });
+addEventListener('keydown', (e) => { if (state.mode === 'viewer' && e.code === 'Escape') closeViewer(); });
 function tick() {
   requestAnimationFrame(tick);
   const dt = Math.min(0.05, clock.getDelta());
+  if (state.mode === 'viewer') { updateViewer(dt); return; }
   if (state.mode === 'title') { updateTitleCamera(dt); simAcc += dt; updateAtmosphere(dt); updateTraffic(dt); updateWalkers(dt); renderFrame(); return; }
   if (state.cine) { updateCinematic(dt); updateAtmosphere(dt); renderFrame(); return; }
   // Measure real frame time over the first seconds of play; drop to Low once if it is slow and the player has not chosen.
@@ -2573,6 +2642,6 @@ updateEnvironment();
 // Fixed-camera capture for before/after comparisons: __stockholm.shot({x,y,h,tx,ty,th,minutes}) (local metres).
 let shotCam = null;
 function shot(o) { shotCam = o; if (o && o.minutes != null) sim.minutes = o.minutes; }
-window.__stockholm = { sim, state, player, volvo, traffic, teleport, interact, toggleCar, startTalk, beginPlay, skipCinematic, shot, renderer, hero, avatar, walkers, npcActors, characters: Object.keys(CHAR) };
+window.__stockholm = { sim, state, player, volvo, traffic, viewer, openViewer, viewerPlay, teleport, interact, toggleCar, startTalk, beginPlay, skipCinematic, shot, renderer, hero, avatar, walkers, npcActors, characters: Object.keys(CHAR) };
 tick();
 </script>
