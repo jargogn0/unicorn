@@ -1,5 +1,5 @@
 """Character definitions. Asset paths are relative to Assets/ThirdParty/makehuman/ (see fetch_assets.py)."""
-from . import garments as G
+from . import garments as G, hero as H
 
 SYS = 'makehuman_system_assets_cc0'
 BROWS = SYS + '/eyebrows/eyebrow001/eyebrow001.mhclo'
@@ -7,29 +7,38 @@ LASHES = SYS + '/eyelashes/eyelashes01/eyelashes01.mhclo'
 
 CONFIGS = {}
 
-# ----------------------------------------------------------------------------- Doudou BA (player)
+# ----------------------------------------------------------------------------- Doudou BA (player, hero budget)
+# Built against ArtReference/doudou_character_sheet.webp.  hero.py holds the authored parts.
+_LR = lambda n, w: [(f'l-{n}', w), (f'r-{n}', w)]
 CONFIGS['doudou'] = dict(
     name='doudou', height=1.82,
-    macro=dict(gender=1.0, age=0.5, muscle=0.5, weight=0.40, height=0.5, proportions=0.6,
+    macro=dict(gender=1.0, age=0.42, muscle=0.50, weight=0.46, height=0.5, proportions=0.78,
                race=dict(asian=0.0, caucasian=0.0, african=1.0)),
+    # face / body detail targets tuned against the sheet's face close-up and front view
+    targets=[('head-invertedtriangular', 0.25), ('head-square', 0.20),
+             ('chin-width-decr', 0.15), ('chin-prominent-incr', 0.20), ('chin-bones-incr', 0.30),
+             ('mouth-scale-horiz-incr', 0.45), ('mouth-angles-up', 0.55), ('mouth-trans-up', 0.30),
+             ('neck-scale-vert-incr', 0.40), ('neck-scale-horiz-decr', 0.25),
+             ('nose-scale-vert-decr', 0.35), ('nose-width2-incr', 0.30), ('nose-width3-incr', 0.30),
+             ('eyebrows-trans-up', 0.10),
+             ('measure-shoulder-dist-decr', 0.30), ('measure-waist-circ-decr', 0.5), ('torso-scale-depth-decr', 0.3)]
+            + _LR('cheek-bones-incr', 0.60) + _LR('cheek-volume-incr', 0.25)
+            + _LR('ear-wing-incr', 0.40) + _LR('ear-scale-incr', 0.15) + _LR('eye-corner2-up', 0.30)
+            + _LR('eye-scale-incr', 0.20) + _LR('eye-bag-decr', 0.60),
     skin=SYS + '/skins/young_african_male/young_african_male.mhmat',
     eye_mat=SYS + '/eyes/materials/brown.mhmat',
-    eyebrows=BROWS, eyelashes=LASHES,
-    clothes=[
-        ('hoodie', 'shirts02_ccby/clothes/elvs_hooded_sweat_jacket1/elvs_hooded_sweat_jacket1.mhclo'),
-        ('jeans', 'pants02_ccby/clothes/punkduck_male_classic_jeans/punkduck_male_classic_jeans.mhclo'),
-        ('shoes', 'shoes02_ccby/clothes/punkduck_tennis_shoes/punkduck_tennis_shoes.mhclo'),
-    ],
-    layers=['hoodie', 'jeans', 'shoes'],
-    tuck=[('jeans', 'hoodie', 0.035)],
-    hooks=[G.hoodie_pullover, G.kangaroo_pocket, G.chest_logo, G.fleece_material, G.hair_cap],
-    hoodie=dict(color=(155, 135, 184)),            # #9B87B8
+    eyebrows=SYS + '/eyebrows/eyebrow009/eyebrow009.mhclo', eyelashes=LASHES,
+    teeth=SYS + '/teeth/teeth_base/teeth_base.mhclo',
+    morphs=dict(
+        Smile=[('mouth-corner-puller', 0.6), ('mouth-upward-retraction', 1.0), ('mouth-part-later', 0.35),
+               ('mouth-retraction', 0.7), ('eye-left-slit', 0.5), ('eye-right-slit', 0.5)],
+        Blink=[('eye-left-closure', 1.0), ('eye-right-closure', 1.0)]),
+    clothes=[], layers=[], hooks=[H.hightop_hair],
     mat=dict(
-        body=dict(rough=0.55),
-        eyes=dict(drop_alpha=True, post=G.dark_brown_eyes, rough=0.25, size=512),
-        jeans=dict(post=G.washed_denim(), rough=0.85, normal_strength=0.8),
-        shoes=dict(rough=0.6, normal_strength=0.8),
-        eyebrows=dict(mul=(0.35, 0.3, 0.3), size=256), eyelashes=dict(size=256),
+        body=dict(rough=0.42, size=2048, post=H.face_paint(), quality=88, emissive=0.05),
+        eyes=dict(drop_alpha=True, post=H.lively_eyes, rough=0.12, size=512, emissive=0.18),
+        teeth=dict(rough=0.25, size=512, double_sided=False, post=H.bright_teeth, emissive=0.35, bg=(0, 0, 0)),
+        eyebrows=dict(mul=(0.22, 0.18, 0.17), size=512), eyelashes=dict(size=256),
     ),
 )
 

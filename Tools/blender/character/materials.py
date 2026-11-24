@@ -132,7 +132,7 @@ def octopus_logo(size=256, color=(110, 78, 168), eye=(245, 240, 255)):
 
 
 def make_material(name, base=None, color=(0.8, 0.8, 0.8), roughness=0.8, normal=None, normal_strength=1.0,
-                  alpha=None, double_sided=False, metallic=0.0):
+                  alpha=None, double_sided=False, metallic=0.0, emissive=0.0):
     """alpha: None | 'BLEND' | 'MASK'.  base/normal are image file paths."""
     m = bpy.data.materials.new(name); m.use_nodes = True
     nt = m.node_tree
@@ -147,6 +147,9 @@ def make_material(name, base=None, color=(0.8, 0.8, 0.8), roughness=0.8, normal=
         nt.links.new(tex.outputs['Color'], bsdf.inputs['Base Color'])
         if alpha:
             nt.links.new(tex.outputs['Alpha'], bsdf.inputs['Alpha'])
+        if emissive > 0:          # self-lit floor (core glTF emissiveTexture + factor <= 1, no extension needed)
+            nt.links.new(tex.outputs['Color'], bsdf.inputs['Emission Color'])
+            bsdf.inputs['Emission Strength'].default_value = min(1.0, emissive)
     if normal:
         ntex = nt.nodes.new('ShaderNodeTexImage'); ntex.image = bpy.data.images.load(normal, check_existing=True)
         ntex.image.colorspace_settings.name = 'Non-Color'; ntex.location = (-700, -200)

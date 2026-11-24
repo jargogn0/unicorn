@@ -51,7 +51,7 @@ def build_materials(cfg):
             npth = MT.save_tex(ni, f'{name}_{role}_n', quality=88)
         col = rc.get('color', mh.get('diffuseColor', (0.8, 0.8, 0.8)) if not bp else (1, 1, 1))
         m = MT.make_material(f'{name}_{role}', base=bp, color=col, roughness=rc.get('rough', 0.8), normal=npth,
-                             normal_strength=rc.get('normal_strength', 1.0), alpha=alpha,
+                             normal_strength=rc.get('normal_strength', 1.0), alpha=alpha, emissive=rc.get('emissive', 0.0),
                              double_sided=rc.get('double_sided', role not in ('body', 'eyes')))
         MT.assign(o, m)
 
@@ -145,6 +145,11 @@ def finalize(cfg, in_blend=None, out_blend=None):
         o.select_set(True)
     bpy.context.view_layer.objects.active = rig
     bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+    for o in roles().values():                   # morph-target deltas are plain attributes: scale them too
+        for at in o.data.attributes:
+            if at.name.startswith('mt_'):
+                a = np.empty(len(o.data.vertices) * 3, np.float32); at.data.foreach_get('vector', a)
+                at.data.foreach_set('vector', a * s)
     # soles on the ground plane: lift everything so the lowest vertex (shoe sole) sits at z = 0
     zmin = min(M.coords(o)[:, 2].min() for o in roles().values())
     rig.location.z -= zmin                      # meshes are children of the rig and follow it

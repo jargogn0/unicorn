@@ -47,6 +47,13 @@ def assemble(cfg, save_path=None):
         add('eyelashes', cfg['eyelashes'], 'Eyelashes')
     if cfg.get('hair'):
         add('hair', cfg['hair'], 'Hair')
+    proxies = {r: (o, C.asset(o['stk_src'])) for r, o in
+               ((x['stk_role'], x) for x in bpy.data.objects if x.get('stk_role') in ('eyebrows', 'eyelashes'))}
+    if cfg.get('teeth'):
+        t = add('teeth', cfg['teeth'], 'Teeth'); proxies['teeth'] = (t, C.asset(cfg['teeth']))
+    if cfg.get('morphs'):
+        from . import hero
+        hero.capture_morphs(cfg, bm, proxies)
     for role, rel in cfg.get('clothes', []):
         add(role, rel, 'Clothes')
     if save_path:
