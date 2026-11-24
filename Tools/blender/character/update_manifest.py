@@ -21,7 +21,7 @@ MH_TEAM = 'MakeHuman team (Data Collection AB, Joel Palmius, Jonas Hauquier)'
 NORM = {'cc0': 'CC0 1.0', 'cc_by': 'CC BY (header says "CC_by"; version not stated in the file)',
         'cc by 3.0': 'CC BY 3.0', 'cc  by 3.0': 'CC BY 3.0', 'cc-by 4.0': 'CC BY 4.0', 'cc by 4.0': 'CC BY 4.0'}
 KIND = {'clothes': 'clothing', 'skins': 'skin texture', 'hair': 'hair', 'eyes': 'eyes', 'eyebrows': 'eyebrows',
-        'eyelashes': 'eyelashes'}
+        'eyelashes': 'eyelashes', 'teeth': 'teeth'}
 
 
 def header(path):
@@ -46,7 +46,7 @@ def header(path):
 def assets_of(cfg):
     out = [cfg['skin'], cfg.get('eyes', 'makehuman_system_assets_cc0/eyes/low-poly/low-poly.mhclo'),
            cfg.get('eye_mat', 'makehuman_system_assets_cc0/eyes/materials/brown.mhmat')]
-    out += [cfg[k] for k in ('eyebrows', 'eyelashes', 'hair') if cfg.get(k)]
+    out += [cfg[k] for k in ('eyebrows', 'eyelashes', 'hair', 'teeth') if cfg.get(k)]
     out += [rel for _, rel in cfg.get('clothes', [])]
     return out
 

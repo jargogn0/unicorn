@@ -135,8 +135,9 @@ def skin_tone(gain=(1.72, 1.60, 1.55), keep_dark=0.10, full=0.24, sat=1.14):
         a = np.asarray(im.convert('RGB'), np.float32) / 255.0
         lum = a @ np.array([0.299, 0.587, 0.114], np.float32)
         w = _smooth(keep_dark, full, lum)[..., None].astype(np.float32)
-        g = 1.0 + (np.array(gain, np.float32) - 1.0) * w
-        out = a * g
+        pale = _smooth(0.42, 0.72, lum)[..., None].astype(np.float32)        # palms / soles are already light:
+        g = 1.0 + (np.array(gain, np.float32) - 1.0) * w * (1 - pale)        # no lift there, and keep them a warm
+        out = a * g * (1 + pale * (np.array([0.80, 0.66, 0.58], np.float32) - 1))   # pink-brown, not chalky
         m = out.mean(-1, keepdims=True)
         out = m + (out - m) * (1.0 + (sat - 1.0) * w)
         return Image.fromarray(np.clip(out * 255, 0, 255).astype(np.uint8), 'RGB')
@@ -236,8 +237,9 @@ def face_landmarks(R, rig):
         zone = head & (np.abs(co[:, 2] - (L['nose_z'] - 0.028)) < 0.026) & (np.abs(co[:, 0]) > 0.012) & (co[:, 1] < L['eye_y'] + 0.03)
         mag = np.linalg.norm(sm, axis=1) * zone * (co[:, 0] > 0)
         i = int(np.argmax(mag)); L['corner_x'] = float(abs(co[i, 0])); L['corner_z'] = float(co[i, 2]); L['corner_y'] = float(co[i, 1])
-    cz0 = L.get('corner_z', L['nose_z'] - 0.03)
-    L['stomion_z'], L['stomion_y'] = ext(cz0 - 0.006, cz0 + 0.010, 'back')
+    # lip line: the recess between the lips, a fixed band below the nose tip (the mouth corners are no guide -
+    # a resting smile lifts them above the centre of the lips)
+    L['stomion_z'], L['stomion_y'] = ext(L['nose_z'] - 0.040, L['nose_z'] - 0.024, 'back')
     st = L['stomion_z']
     L['subnasale_z'], L['subnasale_y'] = ext(st + 0.010, L['nose_z'] - 0.003, 'back')
     L['pogonion_z'], L['pogonion_y'] = ext(st - 0.055, st - 0.020, 'fwd')
@@ -293,12 +295,12 @@ def face_paint(tone=None, hair_rgb=(30, 20, 17), cfg_jaw=0.0):
         chin = valid & (Y < pg_y + 0.030)                                       # chin, not the neck behind it
         # thin moustache hugging the upper lip, running out to (and just past) the mouth corners
         t = np.clip(ax / (cx * 1.08), 0, 1)
-        z_top = st + (sn - st) * 0.80
-        zc = z_top + (cz + 0.0100 - z_top) * t ** 2.2 - 0.0010 * np.exp(-(ax / 0.004) ** 2)   # slight cupid's-bow dip
+        z_top = st + (sn - st) * 0.66
+        zc = z_top + (max(cz, st) + 0.0062 - z_top) * t ** 2.2 - 0.0010 * np.exp(-(ax / 0.004) ** 2)   # slight cupid's-bow dip
         half = 0.0023 * (1 - 0.40 * t ** 3)
         mous = band(np.abs(Z - zc), half, 0.0011) * (1 - _smooth(cx * 0.92, cx * 1.10, ax)) * front
         # soul patch under the lower lip, short goatee on the chin
-        soul = ell(0.0, st - 0.0195, 0.0058, 0.0050) * front
+        soul = ell(0.0, st - 0.0225, 0.0052, 0.0085, 0.30) * front        # narrow strip joining lip and goatee
         goat = ell(0.0, me + 0.013, 0.0215, 0.0150, 0.30) * chin * (Y < L['eye_y'] + 0.06)
         goat = np.maximum(goat, (nrm[..., 2] < -0.35) * chin * (ax < 0.020) * (Z < me + 0.012) * (Z > me - 0.012) * 0.9)
         # light line from each mouth corner down to the goatee
@@ -710,6 +712,19 @@ def build_hoodie(cfg, R, ref, rig):
     uvl = bm.loops.layers.uv.verify()
     for f in bm.faces: f.smooth = True
     _box_uv(bm, uvl, hp.get('uv_scale', 6.5))
+    # the hem must clear the jeans it hangs over (before the band is built from this edge)
+    if 'jeans' in R:
+        jt, jb = M.bvh_of(R['jeans'])
+        for v in bm.verts:
+            if v.co.z < z_hem + 0.07 and abs(v.co.x) < 0.3:
+                loc, nor, _, d = jt.find_nearest(v.co, 0.05)
+                if loc is None: continue
+                sd = (v.co - loc).dot(nor); need = 0.010 * float(_smooth(z_hem + 0.07, z_hem + 0.02, v.co.z))
+                if sd < need: v.co += nor * (need - sd)
+        jb.free()
+        for v in bm.verts:
+            if v.is_boundary and v.co.z < z_hem + 0.06 and abs(v.co.x) < 0.3: v.co.z = z_hem
+        bm.normal_update()
     # --- 3. rib bands (own object / material)
     rb = bmesh.new(); ruv = rb.loops.layers.uv.new('UVMap')
     loops = _loops(bm)
@@ -835,9 +850,6 @@ def build_hoodie(cfg, R, ref, rig):
     str_o = _new_obj('stk_strings', 'strings', rig, ds)
     shell = _new_obj('stk_hoodie', 'hoodie', rig, bm)
     tb.free()
-    if 'jeans' in R:                                   # the hem band sits over the jeans' waistband
-        rc = M.coords(rib_o)
-        M.push_outside(rib_o, R['jeans'], margin=0.005, reach=0.04, vmask=np.abs(rc[:, 0]) < 0.25)
     for o in (shell, hood_o, pock_o, rib_o, str_o):
         M.transfer_weights(ref, o, rig)
     M.smooth_weights(shell, 2, 0.5)
